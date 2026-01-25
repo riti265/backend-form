@@ -1,5 +1,5 @@
 const express = require("express");
-const fs = require("fs");
+const nodemailer = require("nodemailer");
 const path = require("path");
 
 const app = express();
@@ -14,24 +14,39 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "form.html"));
 });
 
-// submit form
-app.post("/submit", (req, res) => {
+// handle submit
+app.post("/submit", async (req, res) => {
   const { name, email, phone } = req.body;
 
-  const filePath = path.join(__dirname, "data.csv");
+  // EMAIL SETUP
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
 
-  // create header if file not exists
-  if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, "Name,Email,Phone\n");
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER,
+    subject: "New Form Submission",
+    text: `
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.send("Form submitted successfully & email sent!");
+  } catch (error) {
+    console.error(error);
+    res.send("Form submitted but email failed.");
   }
-
-  // add row
-  fs.appendFileSync(filePath, `${name},${email},${phone}\n`);
-
-  res.send("✅ Form submitted successfully!");
 });
 
-// start server
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
