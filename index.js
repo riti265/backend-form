@@ -3,33 +3,35 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// open form page
+// open form
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "form.html"));
 });
 
-// handle form submit
+// submit form
 app.post("/submit", (req, res) => {
   const { name, email, phone } = req.body;
 
-  const row = `${name},${email},${phone}\n`;
+  const filePath = path.join(__dirname, "data.csv");
 
-  // create csv with header if not exists
-  if (!fs.existsSync("form-data.csv")) {
-    fs.writeFileSync("form-data.csv", "Name,Email,Phone\n");
+  // create header if file not exists
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, "Name,Email,Phone\n");
   }
 
-  fs.appendFileSync("form-data.csv", row);
+  // add row
+  fs.appendFileSync(filePath, `${name},${email},${phone}\n`);
 
-  res.send("<h2>Form submitted successfully ✅</h2>");
+  res.send("✅ Form submitted successfully!");
 });
 
 // start server
-app.listen(3000, () => {
-  console.log("Server running at http://localhost:3000");
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
