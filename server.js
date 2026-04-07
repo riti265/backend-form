@@ -138,18 +138,13 @@ app.get('/login', (req, res) => {
 app.post('/login', loginLimiter, async (req, res) => {
     const { username, password } = req.body;
 
-    if (username === process.env.ADMIN_USERNAME) {
-        const match = await bcrypt.compare(password, process.env.ADMIN_PASSWORD_HASH);
-
-        if (match) {
-            req.session.admin = true;
-            return res.redirect('/admin');
-        }
+    if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+        req.session.admin = true;
+        return res.redirect('/admin');
     }
 
     res.send("Invalid Credentials");
 });
-
 ////////////////////////////////////////////////////
 // AUTH
 ////////////////////////////////////////////////////
