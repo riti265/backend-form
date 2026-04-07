@@ -1,0 +1,4560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Treatment Details | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Menu CSS -->
+<link rel="stylesheet" href="menu.css">
+
+<style>
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f6f8fb;
+    color:rgba(33,37,41,0.75);
+    transition: background-color 0.3s ease;
+}
+
+.nav-space{ height:90px; }
+
+/* ============================= */
+/* GLOBAL TYPOGRAPHY */
+/* ============================= */
+
+.info-card p{
+    margin-bottom:8px !important;
+    line-height:26px !important;
+    font-weight:400 !important;
+    font-size:16px !important;
+     color:rgba(33,37,41,0.75);
+    font-family:'Poppins', sans-serif !important;
+}
+.info-card li{
+    margin-bottom:8px !important;
+    line-height:26px !important;
+    font-weight:400 !important;
+    font-size:16px !important;
+     color:rgba(33,37,41,0.75);
+    font-family:'Poppins', sans-serif !important;
+}
+.info-card li strong{
+    margin-bottom:8px;
+    line-height:26px;
+    font-size:16px;
+     font-weight:600 !important;
+   color:rgba(33,37,41,0.75);
+    font-family:'Poppins', sans-serif;
+}
+
+.sub-heading{
+    font-weight:600;
+    font-size:16px;
+    line-height:26px;
+     color:rgba(33,37,41,0.75);
+    margin-top:15px;
+    margin-bottom:5px;
+    transition: color 0.3s ease;
+}
+.sub-heading:hover{
+    color:#0d6efd;
+}
+
+.section-heading{
+    font-weight:600;
+    font-size:25px;
+     color:rgba(33,37,41,0.75);;
+    margin-bottom:12px;
+    transition: color 0.3s ease;
+}
+.section-heading:hover{
+    color:#0d6efd;
+}
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+.page-header{
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+    padding:25px 15px;
+    text-align:center;
+    transition: background 0.3s ease;
+}
+.page-header:hover{
+    background:linear-gradient(135deg,#6610f2,#0d6efd);
+}
+.page-header h1{ 
+    font-weight:700; 
+}
+
+/* ============================= */
+/* CARD BASE STYLES */
+/* ============================= */
+
+.detail-box,
+.info-card,
+.cta-box{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+    transition: all 0.3s ease;
+}
+
+.detail-box{
+    padding:40px;
+}
+.detail-box:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    background:linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+.info-card{
+    padding:22px 28px;
+    max-width:900px;
+    margin:auto;
+}
+.info-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    background:linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+.cta-box{
+    padding:30px;
+    text-align:center;
+    margin-top:0;
+}
+.cta-box:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    background:linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+/* ============================= */
+/* COST + BADGES */
+/* ============================= */
+
+.cost-box{
+    background:#eaf2ff;
+    padding:15px;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:700;
+    color:#0d6efd;
+    transition: background 0.3s ease;
+}
+.cost-box:hover{
+    background:#d1e7ff;
+}
+
+.feature-badge{
+    background:#eaf2ff;
+    padding:8px 14px;
+    border-radius:20px;
+    font-weight:600;
+    color:#0d6efd;
+    font-size:10px;
+    transition: background 0.3s ease;
+}
+.feature-badge:hover{
+    background:#d1e7ff;
+}
+
+.cost-highlight{
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+    padding:40px;
+    border-radius:18px;
+    text-align:center;
+    transition: background 0.3s ease;
+}
+.cost-highlight:hover{
+    background:linear-gradient(135deg,#6610f2,#0d6efd);
+}
+.cost-value{
+    font-size:32px;
+    font-weight:700;
+    margin:10px 0;
+}
+
+/* ============================= */
+/* DOCTOR CARD */
+/* ============================= */
+
+.doctor-card2{
+    background:linear-gradient(135deg,#ffffff,#f8f9fa);
+    border-radius:20px;
+    padding:30px;
+    text-align:left;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    transition:all 0.4s ease;
+    border:1px solid #e9ecef;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.doctor-card2::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:5px;
+    background:linear-gradient(90deg,#0d6efd,#6610f2);
+}
+
+.doctor-card2:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    border-color:#0d6efd;
+}
+
+.doctor-card2 img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:15px;
+    border:3px solid #0d6efd;
+}
+
+.doctor-card2 h5{
+    font-size:20px;
+    font-weight:700;
+     color:rgba(33,37,41,0.75);
+    margin-bottom:10px;
+}
+
+.doctor-card2 p{
+    font-size:14px;
+    color:rgba(33,37,41,0.75);
+    margin-bottom:8px;
+    line-height:1.5;
+}
+
+.doctor-card2 .btn{
+    background:linear-gradient(135deg,#0d6efd,#6610f2);
+    border:none;
+    border-radius:25px;
+    padding:10px 20px;
+    font-weight:600;
+    text-transform:uppercase;
+    margin-top:15px;
+}
+
+/* ============================= */
+/* HOSPITAL CARD */
+/* ============================= */
+
+.hospital-card2{
+    background:linear-gradient(135deg,#ffffff,#f8f9fa);
+    border-radius:20px;
+    padding:30px;
+    text-align:left;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    transition:all 0.4s ease;
+    border:1px solid #e9ecef;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:0;
+}
+
+.hospital-card2::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:5px;
+    background:linear-gradient(90deg,#28a745,#20c997);
+}
+
+.hospital-card2:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    border-color:#28a745;
+}
+
+.hospital-card2 img{
+    width:90px;
+    height:90px;
+    border-radius:15px;
+    object-fit:contain;
+    margin-bottom:15px;
+    border:3px solid #28a745;
+}
+
+/* ============================= */
+/* TABLE */
+/* ============================= */
+
+.med-table{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.med-table thead{
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+}
+
+.med-table th{
+    padding:14px;
+    border:none;
+    font-weight:600;
+}
+
+.med-table td{
+    padding:14px;
+    border:none;
+}
+
+.med-table tbody tr:nth-child(odd){
+    background:#f4f7fb;
+}
+.med-table tbody tr:nth-child(even){
+    background:#e9eef5;
+}
+
+.table-footer{
+    background:#1b9a96;
+    color:#fff;
+    padding:14px;
+    font-weight:600;
+}
+
+/* ============================= */
+/* CTA BUTTON */
+/* ============================= */
+
+.cta-review{
+    display:inline-block;
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+    padding:12px 24px;
+    border-radius:30px;
+    font-weight:600;
+    text-decoration:none;
+    transition:all 0.3s ease;
+}
+.cta-review:hover{
+    background:linear-gradient(135deg,#0a58ca,#084298);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.cta-center{
+    text-align:center;
+    margin:10px 0 25px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<!-- HEADER -->
+<section class="page-header">
+    <div class="container">
+        <h1><span class="treatmentTitle">Treatment</span></h1>
+
+
+    </div>
+</section>
+
+<!-- DETAILS -->
+<!-- FULL TREATMENT LAYOUT -->
+<!-- MAIN CONTENT -->
+<section class="pt-3 pb-5">
+
+<div class="container" style="max-width:1200px;">
+
+<!-- HERO INTRO -->
+<!-- DETAILED OVERVIEW -->
+<!-- DETAILED OVERVIEW -->
+<div class="info-card mb-4">
+    <h3 class="section-heading">
+    What is <span class="treatmentTitle">Treatment</span>?
+</h3>
+
+
+ <p id="treatmentDesc"></p>
+<p id="treatmentDesc2"></p>
+
+</div>
+
+
+<!-- TYPES (DETAILED) -->
+<div class="info-card mb-4">
+   <h3 class="section-heading">
+Types of <span class="treatmentTitle">Treatment</span>
+</h3>
+
+
+    <ul id="typesList">
+        <li><strong>Total Knee Replacement (TKR):</strong> Entire knee joint is replaced.</li>
+        <li><strong>Partial Knee Replacement (PKR):</strong> Only damaged part is replaced.</li>
+        <li><strong>Bilateral Knee Replacement:</strong> Both knees replaced together.</li>
+        <li><strong>Revision Knee Replacement:</strong> Replacement of worn implant.</li>
+    </ul>
+</div>
+
+
+<div class="cta-center">
+    <a href="contact.html" class="cta-review">
+        Get Free Review
+    </a>
+</div>
+
+ 
+
+<!-- WHO SHOULD GET SURGERY -->
+<div class="info-card mb-4" id="whoShouldGet">
+    <h3 class="section-heading">
+Who Should Get <span class="treatmentTitle">Treatment</span>?
+</h3>
+
+
+    <div class="sub-heading">1. Severe Pain and Limited Mobility</div>
+    <ul>
+        <li>Pain while walking, climbing stairs, or standing</li>
+        <li>Pain even during rest</li>
+    </ul>
+
+    <div class="sub-heading">2. Arthritis</div>
+    <ul>
+        <li>Osteoarthritis</li>
+        <li>Rheumatoid arthritis</li>
+        <li>Post-traumatic arthritis</li>
+    </ul>
+
+    <div class="sub-heading">3. Chronic Swelling</div>
+    <ul>
+        <li>Inflammation not improving with rest or medicines</li>
+    </ul>
+
+    <div class="sub-heading">4. Knee Deformity</div>
+    <ul>
+        <li>Bowed legs or knock knees</li>
+    </ul>
+
+    <div class="sub-heading">5. Failure of Non-Surgical Treatments</div>
+    <ul>
+        <li>Physiotherapy</li>
+        <li>Medications</li>
+        <li>Injections</li>
+    </ul>
+</div>
+
+<!-- COST BY TYPE -->
+<div class="info-card mb-4">
+   <h3 class="section-heading">
+    <span class="treatmentTitle">Treatment</span> Cost by Surgery Type
+</h3>
+
+
+    <div class="table-responsive med-table" id="costTable">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Surgery Type</th>
+                    <th>Cost (INR)</th>
+                    <th>Cost (USD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Unilateral (Single Knee)</td>
+                    <td>₹1,50,000 – ₹5,00,000</td>
+                    <td>$1,752 – $5,840</td>
+                </tr>
+                <tr>
+                    <td>Bilateral (Both Knees)</td>
+                    <td>₹3,00,000 – ₹10,00,000</td>
+                    <td>$3,504 – $11,680</td>
+                </tr>
+                <tr>
+                    <td>Partial Knee Replacement</td>
+                    <td>₹1,50,000 – ₹4,50,000</td>
+                    <td>$1,752 – $5,256</td>
+                </tr>
+                <tr>
+                    <td>Total Knee Replacement</td>
+                    <td>₹2,50,000 – ₹6,00,000</td>
+                    <td>$2,920 – $7,008</td>
+                </tr>
+                <tr>
+                    <td>Robotic-Assisted Surgery</td>
+                    <td>₹4,50,000 – ₹10,00,000</td>
+                    <td>$5,256 – $11,680</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="table-footer">
+            Table: Knee Replacement Costs by Procedure
+        </div>
+    </div>
+</div>
+
+<div class="cta-center">
+    <a href="contact.html" class="cta-review">
+        Get Free Review
+    </a>
+</div>
+
+<!-- COST FACTORS -->
+<div class="info-card mb-4">
+    <h3 class="section-heading">Factors Affecting Cost</h3>
+
+    <ul>
+        <li><strong>Implant Type:</strong> Standard vs premium implants.</li>
+        <li><strong>Surgeon’s Expertise:</strong> Experienced surgeons may charge more.</li>
+        <li><strong>Hospital Facilities:</strong> Advanced hospitals cost more.</li>
+        <li><strong>City Location:</strong> Metro cities are usually more expensive.</li>
+    </ul>
+</div>
+
+<!-- PRE & POST COST -->
+<div class="info-card mb-4">
+    <h3 class="section-heading" style="font-family: 'Poppins', sans-serif;">Additional Pre- and Post-Surgery Costs</h3>
+
+    <div class="sub-heading" style="font-family: 'Poppins', sans-serif;">Pre-Treatment</div>
+    <ul style="font-family: 'Poppins', sans-serif;">
+        <li>Consultation: ₹1,000 – ₹2,500</li>
+        <li>Blood tests: ₹1,500 – ₹4,000</li>
+        <li>X-ray: ₹800 – ₹2,000</li>
+        <li>MRI: ₹5,000 – ₹12,000</li>
+    </ul>
+
+    <div class="sub-heading" style="font-family: 'Poppins', sans-serif;">Post-Treatment</div>
+    <ul style="font-family: 'Poppins', sans-serif;">
+        <li>Medicines: ₹2,000 – ₹5,000/month</li>
+        <li>Follow-ups: ₹1,000 – ₹3,000/visit</li>
+        <li>Physiotherapy: ₹10,000 – ₹50,000</li>
+    </ul>
+</div>
+
+<!-- COST SAVING TIPS -->
+<div class="info-card mb-5">
+    <h3 class="section-heading" style="font-family: 'Poppins', sans-serif;">Tips to Reduce Surgery Expenses</h3>
+
+    <ul id="tipsSection" style="font-family: 'Poppins', sans-serif;">
+        <li>Choose all-inclusive hospital packages</li>
+        <li>Consider treatment in Tier-2 cities</li>
+        <li>Select cost-effective implants</li>
+    </ul>
+</div>
+
+<!-- DOCTORS -->
+<!-- DOCTORS -->
+<!-- DOCTORS -->
+<div class="mb-5">
+    <h3 class="section-heading mb-4">
+        Top <span class="treatmentTitle">Treatment</span> Doctors
+    </h3>
+
+    <div class="row g-4" id="doctorList">
+
+        <div class="col-md-4">
+            <div class="doctor-card2">
+                <img src="image/doc1.jpeg" alt="Dr. Rajiv Sharma">
+                <h5>Dr. Rajiv Sharma</h5>
+                <p>20+ Years Experience<br>Specialist in Orthopedic Surgery, Knee Arthroplasty</p>
+                <p>Qualifications: MBBS, MS (Ortho), Fellowship in Joint Replacement</p>
+                <p>Hospital: Fortis Hospital, Delhi</p>
+                <a href="doctors.html?specialty=orthopedics&doctor=rajiv-sharma" class="btn btn-primary btn-sm">
+                    View Profile
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="doctor-card2">
+                <img src="image/doc1.jpeg" alt="Dr. Amit Verma">
+                <h5>Dr. Amit Verma</h5>
+                <p>18+ Years Experience<br>Expert in Robotic Knee Surgery</p>
+                <p>Qualifications: MBBS, DNB (Ortho), Training in Advanced Arthroplasty</p>
+                <p>Hospital: Apollo Hospital, Chennai</p>
+                <a href="doctors.html?specialty=orthopedics&doctor=amit-verma" class="btn btn-primary btn-sm">
+                    View Profile
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="doctor-card2">
+                <img src="image/doc1.jpeg" alt="Dr. Neha Kapoor">
+                <h5>Dr. Neha Kapoor</h5>
+                <p>15+ Years Experience<br>Focus on Minimally Invasive Knee Procedures</p>
+                <p>Qualifications: MBBS, MS (Ortho), Fellowship in Sports Medicine</p>
+                <p>Hospital: Max Hospital, Delhi</p>
+                <a href="doctors.html?specialty=orthopedics&doctor=neha-kapoor" class="btn btn-primary btn-sm">
+                    View Profile
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- HOSPITAL GRID -->
+<div class="mb-1">
+    <h3 class="section-heading mb-4">Top Hospitals for <span class="treatmentTitle">Treatment</span>
+</h3>
+
+    <div class="row g-4" id="hospitalList">
+
+        <div class="col-md-4">
+            <div class="hospital-card2">
+                <img src="image/hos.jpeg" alt="Fortis Hospital">
+                <h5>Fortis Hospital</h5>
+                <p>Delhi, India<br>Advanced Orthopedic Department with Robotic Surgery Facilities</p>
+                <p>Accreditation: NABH Certified<br>Success Rate: 98% for Knee Replacements</p>
+                <a href="hospital-details.html?hospital=fortis" class="btn btn-outline-primary btn-sm">
+                    View Hospital
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="hospital-card2">
+                <img src="image/hos.jpeg" alt="Apollo Hospital">
+                <h5>Apollo Hospital</h5>
+                <p>Chennai, India<br>Specialized in Joint Replacement with International Standards</p>
+                <p>Accreditation: JCI Certified<br>Success Rate: 97% for Knee Replacements</p>
+                <a href="hospital-details.html?hospital=apollo" class="btn btn-outline-primary btn-sm">
+                    View Hospital
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="hospital-card2">
+                <img src="image/hos.jpeg" alt="Max Hospital">
+                <h5>Max Hospital</h5>
+                <p>Delhi, India<br>Comprehensive Care for Orthopedic Surgeries</p>
+                <p>Accreditation: NABH Certified<br>Success Rate: 96% for Knee Replacements</p>
+                <a href="hospital-details.html?hospital=max" class="btn btn-outline-primary btn-sm">
+                    View Hospital
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="pt-0 pb-5">
+    <div class="container" style="max-width:900px;">
+        <div class="cta-box">
+            <h3>Need Expert Guidance?</h3>
+            <p>Talk to our specialists and get a personalized treatment plan.</p>
+            <a href="contact.html" class="btn btn-primary mt-3 px-4">
+                Book Free Consultation
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- MENU LOAD -->
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(data => document.getElementById("menu").innerHTML = data);
+</script>
+
+<!-- TREATMENT DATA -->
+<script>
+const params = new URLSearchParams(window.location.search);
+const treatment = params.get("treatment");
+
+const data = {
+knee:{
+title:"Knee Replacement",
+desc:"Knee replacement is a surgical procedure where a damaged knee joint is replaced with an artificial implant to relieve pain and restore mobility.",
+  desc2:"It is commonly recommended for patients with severe arthritis, chronic knee pain, or joint damage that affects daily movement.",
+who:"Patients with severe arthritis, joint damage, or chronic knee pain.",
+recovery:"Walking with support in 2–3 days. Full recovery in 6–8 weeks.",
+cost:"USD 4,000 – 7,000",
+symptoms:[
+"Severe knee pain",
+"Difficulty walking or climbing stairs",
+"Joint stiffness",
+"Swelling in the knee"
+],
+procedure:[
+"Pre-surgery evaluation",
+"Removal of damaged cartilage",
+"Placement of artificial implant",
+"Physiotherapy after surgery"
+],
+benefits:[
+"Pain relief",
+"Improved mobility",
+"Better quality of life",
+"Long-lasting results"
+]
+},
+
+
+  hip: {
+    title: "Hip Replacement",
+    desc:"Hip replacement is a surgical procedure in which a damaged or worn-out hip joint is replaced with an artificial implant.",
+  desc2:"It is recommended for patients with severe hip arthritis, fractures, or long-term pain that limits walking and daily activities.",
+    types: [
+      {name: "Total Hip Replacement (THR)", desc: "Entire hip joint replaced."},
+      {name: "Partial Hip Replacement", desc: "Only damaged part replaced."},
+      {name: "Hip Resurfacing", desc: "Alternative that preserves bone."},
+      {name: "Revision Hip Replacement", desc: "Replacement of worn implant."}
+    ],
+    who: [
+      {heading: "1. Severe Hip Pain and Limited Mobility", points: ["Pain while walking, standing, or moving", "Pain even at rest"]},
+      {heading: "2. Arthritis", points: ["Osteoarthritis", "Rheumatoid arthritis", "Post-traumatic arthritis"]},
+      {heading: "3. Hip Deformity or Damage", points: ["Hip deformities", "Fractures"]},
+      {heading: "4. Failure of Non-Surgical Treatments", points: ["Physiotherapy", "Medications", "Injections"]}
+    ],
+    cost: [
+      {type: "Total Hip Replacement", inr: "₹2,50,000 – ₹6,00,000", usd: "$2,920 – $7,008"},
+      {type: "Partial Hip Replacement", inr: "₹1,50,000 – ₹4,50,000", usd: "$1,752 – $5,256"},
+      {type: "Revision Hip Replacement", inr: "₹3,00,000 – ₹8,00,000", usd: "$3,504 – $9,344"},
+      {type: "Hip Resurfacing", inr: "₹2,00,000 – ₹5,50,000", usd: "$2,336 – $6,424"}
+    ],
+    doctors: [
+      {
+        name: "Dr. Sameer Gupta",
+        experience: "22+ Years Experience",
+        specialty: "Specialist in Orthopedic Surgery, Hip Arthroplasty",
+        qualifications: "MBBS, MS (Ortho), Fellowship in Joint Replacement",
+        hospital: "Fortis Hospital, Delhi"
+      },
+      {
+        name: "Dr. Kavita Singh",
+        experience: "16+ Years Experience",
+        specialty: "Expert in Minimally Invasive Hip Surgery",
+        qualifications: "MBBS, DNB (Ortho), Advanced Arthroplasty Training",
+        hospital: "Apollo Hospital, Chennai"
+      },
+      {
+    name: "Dr. Anil Nair",
+    experience: "20+ Years Experience",
+    specialty: "Senior Consultant in Hip Replacement Surgery",
+    qualifications: "MBBS, MS (Ortho), MCh Orthopedics",
+    hospital: "Aster Medcity, Kochi"
+      },
+      // Add more doctors here
+    ],
+    hospitals: [
+      {
+        name: "Fortis Hospital",
+        location: "Delhi, India",
+        details: "Advanced Orthopedic Department with Hip Replacement Facilities",
+        accreditation: "NABH Certified",
+        successRate: "97% for Hip Replacements"
+      },
+      {
+        name: "Apollo Hospital",
+        location: "Chennai, India",
+        details: "Specialized in Hip Replacement with International Standards",
+        accreditation: "JCI Certified",
+        successRate: "96% for Hip Replacements"
+      },
+      {
+    name: "Manipal Hospital",
+    location: "Bangalore, India",
+    details: "Modern orthopedic center with advanced hip surgery techniques",
+    accreditation: "NABH Certified",
+    successRate: "95% for Hip Replacements"
+},
+      // Add more hospitals here
+    ],
+    tips: [
+      "Choose all-inclusive hospital packages",
+      "Consider treatment in Tier-2 cities",
+      "Select cost-effective implants"
+    ]
+  },
+  // other treatments code...
+
+
+spine: {
+  title: "Spine Surgery",
+   desc:"Spine surgery is performed to treat conditions affecting the spinal cord, discs, or vertebrae.",
+  desc2:"Doctors recommend it for slipped discs, nerve compression, spinal stenosis, or chronic back pain.",
+  
+  types: [
+    {name: "Discectomy", desc: "Removal of herniated disc material."},
+    {name: "Laminectomy", desc: "Removal of part of the vertebra to relieve pressure."},
+    {name: "Spinal Fusion", desc: "Joining two or more vertebrae for stability."},
+    {name: "Artificial Disc Replacement", desc: "Replacing damaged disc with an artificial one."}
+  ],
+
+  who: [
+    {heading: "1. Severe Back or Neck Pain", points: ["Chronic pain not relieved by medicines", "Pain affecting daily activities"]},
+    {heading: "2. Herniated or Slipped Disc", points: ["Nerve compression", "Radiating leg or arm pain"]},
+    {heading: "3. Spinal Stenosis", points: ["Narrowing of spinal canal", "Difficulty walking or standing"]},
+    {heading: "4. Spinal Deformities", points: ["Scoliosis", "Kyphosis"]},
+    {heading: "5. Failure of Non-Surgical Treatments", points: ["Physiotherapy", "Medications", "Injections"]}
+  ],
+
+  cost: [
+    {type: "Discectomy", inr: "₹1,50,000 – ₹3,50,000", usd: "$1,752 – $4,088"},
+    {type: "Laminectomy", inr: "₹2,00,000 – ₹4,50,000", usd: "$2,336 – $5,256"},
+    {type: "Spinal Fusion", inr: "₹3,50,000 – ₹8,00,000", usd: "$4,088 – $9,344"},
+    {type: "Artificial Disc Replacement", inr: "₹5,00,000 – ₹10,00,000", usd: "$5,840 – $11,680"}
+  ],
+
+  doctors: [
+    {
+      name: "Dr. Rajiv Sharma",
+      experience: "20+ Years Experience",
+      specialty: "Spine Surgery Specialist",
+      qualifications: "MBBS, MS (Ortho), Fellowship in Spine Surgery",
+      hospital: "Fortis Hospital, Delhi"
+    },
+    {
+      name: "Dr. Amit Verma",
+      experience: "18+ Years Experience",
+      specialty: "Minimally Invasive Spine Surgery",
+      qualifications: "MBBS, DNB (Ortho), Spine Fellowship",
+      hospital: "Apollo Hospital, Chennai"
+    },
+    {
+      name: "Dr. Neha Kapoor",
+      experience: "15+ Years Experience",
+      specialty: "Spinal Deformity and Disc Surgery",
+      qualifications: "MBBS, MS (Ortho), Fellowship in Spine",
+      hospital: "Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals: [
+    {
+      name: "Fortis Hospital",
+      location: "Delhi, India",
+      details: "Advanced Spine Surgery Department",
+      accreditation: "NABH Certified",
+      successRate: "96% for Spine Surgeries"
+    },
+    {
+      name: "Apollo Hospital",
+      location: "Chennai, India",
+      details: "Specialized Spine Center with modern technology",
+      accreditation: "JCI Certified",
+      successRate: "97% for Spine Surgeries"
+    },
+    {
+      name: "Max Hospital",
+      location: "Delhi, India",
+      details: "Comprehensive spine care unit",
+      accreditation: "NABH Certified",
+      successRate: "95% for Spine Surgeries"
+    }
+  ],
+
+  tips: [
+    "Choose hospitals with dedicated spine units",
+    "Compare package prices across cities",
+    "Check surgeon’s spine surgery experience"
+  ]
+},
+
+sports:{
+  title: "Sports Injury Treatment",
+ desc:"Sports injury treatment focuses on repairing damaged ligaments, tendons, and joints.",
+  desc2:"It is commonly required for athletes or active individuals with ligament tears, cartilage damage, or shoulder injuries.",
+
+  types: [
+    {name: "ACL Reconstruction", desc: "Surgical repair of a torn anterior cruciate ligament."},
+    {name: "Meniscus Repair", desc: "Repair or removal of damaged knee cartilage."},
+    {name: "Rotator Cuff Repair", desc: "Surgery to fix torn shoulder tendons."},
+    {name: "Shoulder Stabilization", desc: "Procedure to correct shoulder dislocations."}
+  ],
+
+  who: [
+    {
+      heading: "1. Ligament Tears",
+      points: ["ACL or PCL injuries", "Knee instability during movement"]
+    },
+    {
+      heading: "2. Cartilage or Meniscus Damage",
+      points: ["Knee locking or clicking", "Persistent knee pain"]
+    },
+    {
+      heading: "3. Shoulder Injuries",
+      points: ["Rotator cuff tears", "Frequent shoulder dislocation"]
+    },
+    {
+      heading: "4. Tendon Injuries",
+      points: ["Achilles tendon rupture", "Tendon inflammation or tear"]
+    },
+    {
+      heading: "5. Failure of Non-Surgical Treatment",
+      points: ["Physiotherapy not effective", "Chronic pain during sports"]
+    }
+  ],
+
+  cost: [
+    {type: "ACL Reconstruction", inr: "₹1,50,000 – ₹3,50,000", usd: "$1,752 – $4,088"},
+    {type: "Meniscus Surgery", inr: "₹1,20,000 – ₹3,00,000", usd: "$1,402 – $3,504"},
+    {type: "Rotator Cuff Repair", inr: "₹2,00,000 – ₹4,50,000", usd: "$2,336 – $5,256"},
+    {type: "Shoulder Stabilization", inr: "₹2,50,000 – ₹5,00,000", usd: "$2,920 – $5,840"}
+  ],
+
+  doctors: [
+    {
+      name: "Dr. Rajiv Sharma",
+      experience: "20+ Years Experience",
+      specialty: "Sports Injury and Knee Arthroscopy Specialist",
+      qualifications: "MBBS, MS (Ortho), Fellowship in Sports Medicine",
+      hospital: "Fortis Hospital, Delhi"
+    },
+    {
+      name: "Dr. Amit Verma",
+      experience: "18+ Years Experience",
+      specialty: "Arthroscopic Ligament Reconstruction",
+      qualifications: "MBBS, DNB (Ortho), Sports Surgery Training",
+      hospital: "Apollo Hospital, Chennai"
+    },
+    {
+      name: "Dr. Neha Kapoor",
+      experience: "15+ Years Experience",
+      specialty: "Shoulder and Knee Sports Injuries",
+      qualifications: "MBBS, MS (Ortho), Fellowship in Sports Medicine",
+      hospital: "Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals: [
+    {
+      name: "Fortis Hospital",
+      location: "Delhi, India",
+      details: "Advanced sports injury and arthroscopy center",
+      accreditation: "NABH Certified",
+      successRate: "97% for sports injury surgeries"
+    },
+    {
+      name: "Apollo Hospital",
+      location: "Chennai, India",
+      details: "Specialized sports medicine and rehabilitation unit",
+      accreditation: "JCI Certified",
+      successRate: "96% for sports injury surgeries"
+    },
+    {
+      name: "Max Hospital",
+      location: "Delhi, India",
+      details: "Comprehensive orthopedic and sports injury care",
+      accreditation: "NABH Certified",
+      successRate: "95% for sports injury surgeries"
+    }
+  ],
+
+  tips: [
+    "Start physiotherapy early after injury",
+    "Choose surgeons specialized in sports injuries",
+    "Compare rehabilitation packages"
+  ]
+},
+
+fracture:{
+  title: "Fracture Treatment",
+   desc:"Fracture treatment includes medical or surgical procedures to realign and stabilize broken bones.",
+  desc2:"It is required for patients with bone fractures caused by accidents, falls, sports injuries, or weakened bones.",
+
+  types: [
+    {name: "Closed Reduction", desc: "Realignment of the bone without surgery."},
+    {name: "Open Reduction and Internal Fixation (ORIF)", desc: "Surgical fixation using plates, screws, or rods."},
+    {name: "External Fixation", desc: "Stabilizing bones using an external frame."},
+    {name: "Intramedullary Nailing", desc: "Insertion of a rod inside the bone for stability."}
+  ],
+
+  who: [
+    {
+      heading: "1. Broken Bones from Accidents",
+      points: ["Road accidents", "Falls or sports injuries"]
+    },
+    {
+      heading: "2. Severe or Displaced Fractures",
+      points: ["Bones out of alignment", "Multiple bone fragments"]
+    },
+    {
+      heading: "3. Open Fractures",
+      points: ["Bone piercing the skin", "High risk of infection"]
+    },
+    {
+      heading: "4. Non-Healing Fractures",
+      points: ["Delayed bone healing", "Non-union fractures"]
+    },
+    {
+      heading: "5. Joint or Complex Fractures",
+      points: ["Hip fractures", "Spine or pelvic fractures"]
+    }
+  ],
+
+  cost: [
+    {type: "Closed Reduction with Cast", inr: "₹20,000 – ₹60,000", usd: "$234 – $700"},
+    {type: "ORIF Surgery", inr: "₹1,00,000 – ₹3,50,000", usd: "$1,168 – $4,088"},
+    {type: "External Fixation", inr: "₹1,50,000 – ₹4,00,000", usd: "$1,752 – $4,672"},
+    {type: "Intramedullary Nailing", inr: "₹1,80,000 – ₹4,50,000", usd: "$2,102 – $5,256"}
+  ],
+
+  doctors: [
+    {
+      name: "Dr. Rajiv Sharma",
+      experience: "20+ Years Experience",
+      specialty: "Orthopedic Trauma and Fracture Specialist",
+      qualifications: "MBBS, MS (Ortho), Fellowship in Trauma Surgery",
+      hospital: "Fortis Hospital, Delhi"
+    },
+    {
+      name: "Dr. Amit Verma",
+      experience: "18+ Years Experience",
+      specialty: "Complex Fracture and Trauma Surgery",
+      qualifications: "MBBS, DNB (Ortho), Trauma Fellowship",
+      hospital: "Apollo Hospital, Chennai"
+    },
+    {
+      name: "Dr. Neha Kapoor",
+      experience: "15+ Years Experience",
+      specialty: "Minimally Invasive Fracture Fixation",
+      qualifications: "MBBS, MS (Ortho), Trauma Surgery Training",
+      hospital: "Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals: [
+    {
+      name: "Fortis Hospital",
+      location: "Delhi, India",
+      details: "Advanced trauma and fracture care unit",
+      accreditation: "NABH Certified",
+      successRate: "97% for fracture surgeries"
+    },
+    {
+      name: "Apollo Hospital",
+      location: "Chennai, India",
+      details: "24/7 trauma center with modern orthopedic facilities",
+      accreditation: "JCI Certified",
+      successRate: "96% for fracture surgeries"
+    },
+    {
+      name: "Max Hospital",
+      location: "Delhi, India",
+      details: "Comprehensive orthopedic trauma care",
+      accreditation: "NABH Certified",
+      successRate: "95% for fracture surgeries"
+    }
+  ],
+
+  tips: [
+    "Seek treatment immediately after injury",
+    "Choose hospitals with trauma care units",
+    "Follow rehabilitation and physiotherapy strictly"
+  ]
+},
+
+arthroscopy:{
+  title:"Arthroscopy",
+  desc:"Arthroscopy is a minimally invasive surgical procedure used to diagnose and treat joint problems using a small camera called an arthroscope.",
+  desc2:"It is commonly performed for knee, shoulder, ankle, elbow, or wrist issues and allows faster recovery with smaller incisions compared to open surgery.",
+
+  types:[
+    {name:"Knee Arthroscopy", desc:"Used to repair meniscus tears, ligament injuries, and cartilage damage."},
+    {name:"Shoulder Arthroscopy", desc:"Treats rotator cuff tears, shoulder instability, and impingement."},
+    {name:"Ankle Arthroscopy", desc:"Used for ligament injuries, cartilage damage, and ankle impingement."},
+    {name:"Wrist Arthroscopy", desc:"Treats ligament tears and chronic wrist pain."}
+  ],
+
+  who:[
+    {heading:"1. Joint Pain or Swelling", points:["Persistent joint pain","Swelling or stiffness"]},
+    {heading:"2. Sports Injuries", points:["Meniscus tears","Ligament injuries","Cartilage damage"]},
+    {heading:"3. Limited Joint Movement", points:["Difficulty bending or rotating joints"]},
+    {heading:"4. Failure of Non-Surgical Treatments", points:["Physiotherapy","Medications","Injections"]}
+  ],
+
+  cost:[
+    {type:"Knee Arthroscopy", inr:"₹80,000 – ₹2,50,000", usd:"$935 – $2,920"},
+    {type:"Shoulder Arthroscopy", inr:"₹1,00,000 – ₹3,00,000", usd:"$1,168 – $3,504"},
+    {type:"Ankle Arthroscopy", inr:"₹90,000 – ₹2,50,000", usd:"$1,051 – $2,920"},
+    {type:"Wrist Arthroscopy", inr:"₹80,000 – ₹2,00,000", usd:"$935 – $2,336"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rohit Mehra",
+      experience:"18+ Years Experience",
+      specialty:"Specialist in Arthroscopic and Sports Injury Surgery",
+      qualifications:"MBBS, MS (Ortho), Fellowship in Sports Medicine",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Vivek Kumar",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Minimally Invasive Joint Procedures",
+      qualifications:"MBBS, DNB (Ortho), Arthroscopy Fellowship",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Anuj Bansal",
+      experience:"12+ Years Experience",
+      specialty:"Sports Injury and Arthroscopy Specialist",
+      qualifications:"MBBS, MS (Ortho), Fellowship in Arthroscopy",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced orthopedic department with arthroscopy facilities",
+      accreditation:"NABH Certified",
+      successRate:"97% for Arthroscopic Procedures"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"Specialized center for sports injury and joint surgeries",
+      accreditation:"JCI Certified",
+      successRate:"96% for Arthroscopic Procedures"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive orthopedic care with minimally invasive techniques",
+      accreditation:"NABH Certified",
+      successRate:"95% for Arthroscopic Procedures"
+    }
+  ],
+
+  tips:[
+    "Choose hospitals with advanced arthroscopy equipment",
+    "Follow physiotherapy strictly after surgery",
+    "Select experienced sports injury specialists"
+  ]
+},
+
+
+/* CARDIAC */
+bypass:{
+  title:"Bypass Surgery",
+  desc:"Bypass surgery, also known as coronary artery bypass grafting (CABG), is a procedure that improves blood flow to the heart by creating a new pathway around blocked or narrowed arteries.",
+  desc2:"It is commonly recommended for patients with severe coronary artery disease, multiple blocked arteries, or when other treatments like angioplasty are not effective.",
+
+  types:[
+    {name:"Traditional Open-Heart Bypass", desc:"Chest is opened to perform the bypass using a heart-lung machine."},
+    {name:"Off-Pump Bypass Surgery", desc:"Performed on a beating heart without using a heart-lung machine."},
+    {name:"Minimally Invasive Bypass", desc:"Performed through small incisions with faster recovery."},
+    {name:"Double/Triple/Quadruple Bypass", desc:"Based on the number of blocked arteries being bypassed."}
+  ],
+
+  who:[
+    {heading:"1. Severe Coronary Artery Disease", points:["Multiple blocked heart arteries","Reduced blood flow to heart"]},
+    {heading:"2. Chest Pain (Angina)", points:["Frequent chest discomfort","Pain not controlled by medicines"]},
+    {heading:"3. Failed Angioplasty", points:["Blocked stent","Unsuccessful angioplasty"]},
+    {heading:"4. High Risk of Heart Attack", points:["Critical artery blockage","Weak heart function"]}
+  ],
+
+  cost:[
+    {type:"Single Bypass Surgery", inr:"₹2,50,000 – ₹4,50,000", usd:"$2,920 – $5,256"},
+    {type:"Double Bypass Surgery", inr:"₹3,00,000 – ₹5,50,000", usd:"$3,504 – $6,424"},
+    {type:"Triple Bypass Surgery", inr:"₹3,50,000 – ₹6,50,000", usd:"$4,088 – $7,592"},
+    {type:"Quadruple Bypass Surgery", inr:"₹4,00,000 – ₹8,00,000", usd:"$4,672 – $9,344"},
+    {type:"Minimally Invasive Bypass", inr:"₹5,00,000 – ₹9,00,000", usd:"$5,840 – $10,512"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Arvind Menon",
+      experience:"25+ Years Experience",
+      specialty:"Senior Cardiac Surgeon, CABG Specialist",
+      qualifications:"MBBS, MS, MCh (Cardiothoracic Surgery)",
+      hospital:"Fortis Escorts Heart Institute, Delhi"
+    },
+    {
+      name:"Dr. Rakesh Kumar",
+      experience:"20+ Years Experience",
+      specialty:"Expert in Minimally Invasive Cardiac Surgery",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Sandeep Sharma",
+      experience:"18+ Years Experience",
+      specialty:"Cardiac Bypass and Valve Surgery Specialist",
+      qualifications:"MBBS, MS, MCh (Cardiac Surgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Escorts Heart Institute",
+      location:"Delhi, India",
+      details:"Leading cardiac center with advanced bypass surgery facilities",
+      accreditation:"NABH Certified",
+      successRate:"98% for Bypass Surgeries"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cardiac care and advanced surgical units",
+      accreditation:"JCI Certified",
+      successRate:"97% for Bypass Surgeries"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive heart care with experienced cardiac surgeons",
+      accreditation:"NABH Certified",
+      successRate:"96% for Bypass Surgeries"
+    }
+  ],
+
+  tips:[
+    "Choose hospitals with dedicated cardiac ICUs",
+    "Follow a heart-healthy diet after surgery",
+    "Attend regular follow-up appointments",
+    "Maintain a healthy lifestyle to prevent future blockages"
+  ]
+},
+
+valve:{
+  title:"Heart Valve Replacement",
+  desc:"Heart valve replacement is a surgical procedure in which a damaged or diseased heart valve is replaced with an artificial or biological valve to restore normal blood flow.",
+  desc2:"It is recommended for patients with severe valve stenosis or regurgitation when medications or repair procedures are not effective.",
+
+  types:[
+    {name:"Mechanical Valve Replacement", desc:"Uses a durable artificial valve that can last a lifetime."},
+    {name:"Biological (Tissue) Valve Replacement", desc:"Uses valves made from animal or human tissue."},
+    {name:"Transcatheter Valve Replacement (TAVR/TAVI)", desc:"Minimally invasive valve replacement without open-heart surgery."},
+    {name:"Valve Repair Surgery", desc:"Damaged valve is repaired instead of replaced."}
+  ],
+
+  who:[
+    {heading:"1. Severe Valve Disease", points:["Narrowed valve (stenosis)","Leaky valve (regurgitation)"]},
+    {heading:"2. Shortness of Breath", points:["Difficulty breathing during activity","Fatigue and weakness"]},
+    {heading:"3. Chest Pain or Palpitations", points:["Irregular heartbeat","Chest discomfort"]},
+    {heading:"4. Heart Failure Risk", points:["Enlarged heart","Reduced heart function"]}
+  ],
+
+  cost:[
+    {type:"Mechanical Valve Replacement", inr:"₹3,00,000 – ₹6,50,000", usd:"$3,504 – $7,592"},
+    {type:"Biological Valve Replacement", inr:"₹3,50,000 – ₹7,50,000", usd:"$4,088 – $8,760"},
+    {type:"TAVR/TAVI Procedure", inr:"₹15,00,000 – ₹25,00,000", usd:"$17,520 – $29,200"},
+    {type:"Valve Repair Surgery", inr:"₹2,50,000 – ₹5,50,000", usd:"$2,920 – $6,424"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rajesh Khanna",
+      experience:"22+ Years Experience",
+      specialty:"Senior Cardiac Surgeon, Valve Replacement Specialist",
+      qualifications:"MBBS, MS, MCh (Cardiothoracic Surgery)",
+      hospital:"Fortis Escorts Heart Institute, Delhi"
+    },
+    {
+      name:"Dr. Mehul Shah",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Minimally Invasive Valve Surgery",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Ankit Bansal",
+      experience:"15+ Years Experience",
+      specialty:"Cardiac Valve and Bypass Surgeon",
+      qualifications:"MBBS, MS, MCh (Cardiac Surgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Escorts Heart Institute",
+      location:"Delhi, India",
+      details:"Advanced cardiac center with specialized valve surgery units",
+      accreditation:"NABH Certified",
+      successRate:"97% for Valve Surgeries"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cardiac care with TAVR facilities",
+      accreditation:"JCI Certified",
+      successRate:"96% for Valve Surgeries"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive heart care with experienced cardiac surgeons",
+      accreditation:"NABH Certified",
+      successRate:"95% for Valve Surgeries"
+    }
+  ],
+
+  tips:[
+    "Choose the valve type based on age and lifestyle",
+    "Follow prescribed blood thinners if using mechanical valves",
+    "Attend regular cardiac checkups",
+    "Maintain a heart-healthy diet and exercise routine"
+  ]
+},
+
+angioplasty:{
+  title:"Angioplasty & Stenting",
+  desc:"Angioplasty is a minimally invasive procedure used to open blocked or narrowed coronary arteries and restore proper blood flow to the heart.",
+  desc2:"During the procedure, a small balloon is inflated inside the artery, and a stent is often placed to keep the artery open and prevent future blockages.",
+
+  types:[
+    {name:"Balloon Angioplasty", desc:"Blocked artery is opened using a small balloon."},
+    {name:"Drug-Eluting Stent (DES)", desc:"Stent releases medication to prevent re-blockage."},
+    {name:"Bare Metal Stent (BMS)", desc:"Standard stent used to support the artery walls."},
+    {name:"Primary Angioplasty", desc:"Emergency angioplasty performed during a heart attack."}
+  ],
+
+  who:[
+    {heading:"1. Coronary Artery Blockage", points:["Narrowed or blocked heart arteries","Reduced blood flow to heart"]},
+    {heading:"2. Chest Pain (Angina)", points:["Frequent chest discomfort","Pain during physical activity"]},
+    {heading:"3. Heart Attack", points:["Emergency treatment to restore blood flow"]},
+    {heading:"4. Failed Medication Therapy", points:["Symptoms not controlled by medicines"]}
+  ],
+
+  cost:[
+    {type:"Balloon Angioplasty", inr:"₹1,50,000 – ₹2,50,000", usd:"$1,752 – $2,920"},
+    {type:"Single Drug-Eluting Stent", inr:"₹2,00,000 – ₹3,50,000", usd:"$2,336 – $4,088"},
+    {type:"Double Stent Angioplasty", inr:"₹3,00,000 – ₹5,00,000", usd:"$3,504 – $5,840"},
+    {type:"Complex/Multiple Stents", inr:"₹4,00,000 – ₹7,00,000", usd:"$4,672 – $8,176"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Sanjay Mehta",
+      experience:"20+ Years Experience",
+      specialty:"Senior Interventional Cardiologist",
+      qualifications:"MBBS, MD (Cardiology), DM (Cardiology)",
+      hospital:"Fortis Escorts Heart Institute, Delhi"
+    },
+    {
+      name:"Dr. Ritu Sharma",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Coronary Angioplasty and Stenting",
+      qualifications:"MBBS, MD, DM (Cardiology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Vivek Anand",
+      experience:"18+ Years Experience",
+      specialty:"Interventional Cardiologist",
+      qualifications:"MBBS, MD, DM (Cardiology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Escorts Heart Institute",
+      location:"Delhi, India",
+      details:"Leading cardiac center with advanced catheterization labs",
+      accreditation:"NABH Certified",
+      successRate:"98% for Angioplasty Procedures"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cardiac care with modern cath labs",
+      accreditation:"JCI Certified",
+      successRate:"97% for Angioplasty Procedures"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive heart care with experienced cardiologists",
+      accreditation:"NABH Certified",
+      successRate:"96% for Angioplasty Procedures"
+    }
+  ],
+
+  tips:[
+    "Follow prescribed blood-thinning medications",
+    "Adopt a heart-healthy diet",
+    "Quit smoking and limit alcohol",
+    "Attend regular cardiac checkups"
+  ]
+},
+
+pacemaker:{
+  title:"Pacemaker Implantation",
+  desc:"Pacemaker implantation is a procedure in which a small electronic device is placed in the chest to help control abnormal heart rhythms.",
+  desc2:"The pacemaker sends electrical signals to the heart to maintain a normal heartbeat, especially in patients with slow or irregular heart rhythms.",
+
+  types:[
+    {name:"Single-Chamber Pacemaker", desc:"Connected to one chamber of the heart, usually the right ventricle."},
+    {name:"Dual-Chamber Pacemaker", desc:"Connected to both the right atrium and right ventricle for coordinated heartbeats."},
+    {name:"Biventricular Pacemaker (CRT)", desc:"Used for heart failure patients to improve heart pumping efficiency."},
+    {name:"Leadless Pacemaker", desc:"Miniature pacemaker implanted directly into the heart without wires."}
+  ],
+
+  who:[
+    {heading:"1. Slow Heart Rate (Bradycardia)", points:["Heart beats too slowly","Dizziness or fainting"]},
+    {heading:"2. Irregular Heart Rhythms", points:["Heart rhythm disorders","Electrical conduction problems"]},
+    {heading:"3. Heart Block", points:["Blocked electrical signals in the heart"]},
+    {heading:"4. Heart Failure", points:["Weak heart needing synchronized beating"]}
+  ],
+
+  cost:[
+    {type:"Single-Chamber Pacemaker", inr:"₹1,50,000 – ₹3,00,000", usd:"$1,752 – $3,504"},
+    {type:"Dual-Chamber Pacemaker", inr:"₹2,50,000 – ₹4,50,000", usd:"$2,920 – $5,256"},
+    {type:"Biventricular Pacemaker (CRT)", inr:"₹5,00,000 – ₹8,00,000", usd:"$5,840 – $9,344"},
+    {type:"Leadless Pacemaker", inr:"₹8,00,000 – ₹15,00,000", usd:"$9,344 – $17,520"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rakesh Gupta",
+      experience:"20+ Years Experience",
+      specialty:"Senior Cardiac Electrophysiologist",
+      qualifications:"MBBS, MD, DM (Cardiology)",
+      hospital:"Fortis Escorts Heart Institute, Delhi"
+    },
+    {
+      name:"Dr. Neeraj Patel",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Pacemaker and Electrophysiology Procedures",
+      qualifications:"MBBS, MD, DM (Cardiology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Amit Sinha",
+      experience:"18+ Years Experience",
+      specialty:"Cardiac Rhythm Specialist",
+      qualifications:"MBBS, MD, DM (Cardiology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Escorts Heart Institute",
+      location:"Delhi, India",
+      details:"Advanced cardiac center with dedicated electrophysiology labs",
+      accreditation:"NABH Certified",
+      successRate:"98% for Pacemaker Procedures"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cardiac care with advanced rhythm treatment",
+      accreditation:"JCI Certified",
+      successRate:"97% for Pacemaker Procedures"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive cardiac care with modern pacemaker facilities",
+      accreditation:"NABH Certified",
+      successRate:"96% for Pacemaker Procedures"
+    }
+  ],
+
+  tips:[
+    "Avoid strong magnetic fields near the pacemaker",
+    "Carry your pacemaker ID card at all times",
+    "Attend regular device checkups",
+    "Follow your doctor’s activity guidelines"
+  ]
+},
+
+congenital:{
+  title:"Congenital Heart Surgery",
+  desc:"Congenital heart surgery is performed to correct structural heart defects that are present from birth.",
+  desc2:"These procedures help restore normal blood flow, improve heart function, and allow children or adults with congenital defects to live healthier lives.",
+
+  types:[
+    {name:"Atrial Septal Defect (ASD) Repair", desc:"Closure of a hole between the upper heart chambers."},
+    {name:"Ventricular Septal Defect (VSD) Repair", desc:"Closure of a hole between the lower heart chambers."},
+    {name:"Patent Ductus Arteriosus (PDA) Closure", desc:"Sealing of an abnormal blood vessel connection."},
+    {name:"Tetralogy of Fallot Repair", desc:"Complex surgery to correct multiple heart defects."},
+    {name:"Valve or Artery Reconstruction", desc:"Repair or replacement of abnormal heart valves or arteries."}
+  ],
+
+  who:[
+    {heading:"1. Children Born with Heart Defects", points:["ASD, VSD, PDA","Complex congenital defects"]},
+    {heading:"2. Symptoms of Heart Problems", points:["Shortness of breath","Poor weight gain in infants"]},
+    {heading:"3. Cyanosis (Bluish Skin)", points:["Low oxygen levels in blood"]},
+    {heading:"4. Heart Failure Risk", points:["Enlarged heart","Weak heart function"]}
+  ],
+
+  cost:[
+    {type:"ASD/VSD Repair", inr:"₹2,50,000 – ₹5,00,000", usd:"$2,920 – $5,840"},
+    {type:"PDA Closure", inr:"₹1,50,000 – ₹3,50,000", usd:"$1,752 – $4,088"},
+    {type:"Tetralogy of Fallot Repair", inr:"₹4,00,000 – ₹8,00,000", usd:"$4,672 – $9,344"},
+    {type:"Complex Congenital Surgery", inr:"₹6,00,000 – ₹12,00,000", usd:"$7,008 – $14,016"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Suresh Rao",
+      experience:"25+ Years Experience",
+      specialty:"Senior Pediatric Cardiac Surgeon",
+      qualifications:"MBBS, MS, MCh (Cardiothoracic Surgery)",
+      hospital:"Fortis Escorts Heart Institute, Delhi"
+    },
+    {
+      name:"Dr. Ananya Iyer",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Congenital Heart Surgery",
+      qualifications:"MBBS, MS, MCh (Cardiac Surgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Vikram Malhotra",
+      experience:"20+ Years Experience",
+      specialty:"Pediatric and Adult Congenital Heart Surgeon",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Escorts Heart Institute",
+      location:"Delhi, India",
+      details:"Specialized pediatric cardiac surgery unit",
+      accreditation:"NABH Certified",
+      successRate:"97% for Congenital Heart Surgeries"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"Advanced congenital heart surgery and pediatric ICU",
+      accreditation:"JCI Certified",
+      successRate:"96% for Congenital Heart Surgeries"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive cardiac center with congenital surgery specialists",
+      accreditation:"NABH Certified",
+      successRate:"95% for Congenital Heart Surgeries"
+    }
+  ],
+
+  tips:[
+    "Choose hospitals with pediatric cardiac ICU facilities",
+    "Follow regular heart checkups after surgery",
+    "Ensure proper nutrition for children",
+    "Attend all follow-up appointments"
+  ]
+},
+
+
+/* ONCOLOGY */
+chemotherapy:{
+  title:"Chemotherapy",
+  desc:"Chemotherapy is a cancer treatment that uses powerful drugs to destroy or slow the growth of cancer cells in the body.",
+  desc2:"It may be used alone or combined with surgery, radiation, or targeted therapy depending on the type and stage of cancer.",
+
+  types:[
+    {name:"Adjuvant Chemotherapy", desc:"Given after surgery to destroy remaining cancer cells."},
+    {name:"Neoadjuvant Chemotherapy", desc:"Given before surgery to shrink tumors."},
+    {name:"Palliative Chemotherapy", desc:"Used to relieve symptoms and improve quality of life."},
+    {name:"Systemic Chemotherapy", desc:"Drugs travel through the bloodstream to treat cancer throughout the body."}
+  ],
+
+  who:[
+    {heading:"1. Diagnosed Cancer Patients", points:["Breast cancer","Lung cancer","Colon cancer","Blood cancers"]},
+    {heading:"2. Advanced or Metastatic Cancer", points:["Cancer spread to other organs"]},
+    {heading:"3. Before or After Surgery", points:["To shrink tumors","To prevent recurrence"]},
+    {heading:"4. When Other Treatments Are Not Enough", points:["Combined with radiation or targeted therapy"]}
+  ],
+
+  cost:[
+    {type:"Single Chemotherapy Cycle", inr:"₹20,000 – ₹75,000", usd:"$235 – $875"},
+    {type:"Standard 6-Cycle Treatment", inr:"₹1,20,000 – ₹4,50,000", usd:"$1,400 – $5,256"},
+    {type:"Advanced Drug-Based Chemotherapy", inr:"₹2,00,000 – ₹8,00,000", usd:"$2,336 – $9,344"},
+    {type:"High-Dose Chemotherapy", inr:"₹5,00,000 – ₹12,00,000", usd:"$5,840 – $14,016"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Neeraj Kumar",
+      experience:"20+ Years Experience",
+      specialty:"Senior Medical Oncologist",
+      qualifications:"MBBS, MD (Oncology), DM (Medical Oncology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Priya Menon",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Chemotherapy and Targeted Therapy",
+      qualifications:"MBBS, MD, DM (Oncology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Amit Shah",
+      experience:"18+ Years Experience",
+      specialty:"Medical Oncologist",
+      qualifications:"MBBS, MD (Oncology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive cancer center with advanced chemotherapy units",
+      accreditation:"NABH Certified",
+      successRate:"95% treatment success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard oncology care with advanced drug therapies",
+      accreditation:"JCI Certified",
+      successRate:"94% treatment success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Advanced oncology department with modern chemotherapy facilities",
+      accreditation:"NABH Certified",
+      successRate:"93% treatment success rates"
+    }
+  ],
+
+  tips:[
+    "Follow the full chemotherapy schedule",
+    "Maintain a healthy and balanced diet",
+    "Stay hydrated during treatment",
+    "Report side effects to your doctor immediately"
+  ]
+},
+
+radiation:{
+  title:"Radiation Therapy",
+  desc:"Radiation therapy is a cancer treatment that uses high-energy rays or particles to destroy cancer cells and shrink tumors.",
+  desc2:"It may be used as a primary treatment, before or after surgery, or combined with chemotherapy depending on the type and stage of cancer.",
+
+  types:[
+    {name:"External Beam Radiation Therapy (EBRT)", desc:"Radiation is delivered from a machine outside the body."},
+    {name:"Intensity-Modulated Radiation Therapy (IMRT)", desc:"Advanced radiation that targets tumors precisely."},
+    {name:"Stereotactic Radiosurgery (SRS)", desc:"Highly focused radiation used for brain and small tumors."},
+    {name:"Brachytherapy", desc:"Radioactive sources are placed inside or near the tumor."}
+  ],
+
+  who:[
+    {heading:"1. Cancer Patients", points:["Breast cancer","Prostate cancer","Lung cancer","Brain tumors"]},
+    {heading:"2. After Surgery", points:["To destroy remaining cancer cells"]},
+    {heading:"3. Before Surgery", points:["To shrink tumors for easier removal"]},
+    {heading:"4. Symptom Relief", points:["Pain from advanced cancer","Bleeding or obstruction"]}
+  ],
+
+  cost:[
+    {type:"External Beam Radiation", inr:"₹1,50,000 – ₹3,50,000", usd:"$1,752 – $4,088"},
+    {type:"IMRT Treatment", inr:"₹2,50,000 – ₹5,50,000", usd:"$2,920 – $6,424"},
+    {type:"Stereotactic Radiosurgery (SRS)", inr:"₹3,00,000 – ₹7,00,000", usd:"$3,504 – $8,176"},
+    {type:"Brachytherapy", inr:"₹2,00,000 – ₹5,00,000", usd:"$2,336 – $5,840"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rohan Gupta",
+      experience:"20+ Years Experience",
+      specialty:"Senior Radiation Oncologist",
+      qualifications:"MBBS, MD (Radiation Oncology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Meena Iyer",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Advanced Radiation Techniques",
+      qualifications:"MBBS, MD (Radiation Oncology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Karan Malhotra",
+      experience:"18+ Years Experience",
+      specialty:"Radiation Oncology Specialist",
+      qualifications:"MBBS, MD (Radiation Oncology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced cancer center with modern radiation therapy equipment",
+      accreditation:"NABH Certified",
+      successRate:"95% treatment success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard oncology care with advanced radiotherapy units",
+      accreditation:"JCI Certified",
+      successRate:"94% treatment success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive cancer care with precision radiation therapy",
+      accreditation:"NABH Certified",
+      successRate:"93% treatment success rates"
+    }
+  ],
+
+  tips:[
+    "Attend all scheduled radiation sessions",
+    "Protect treated skin areas from sunlight",
+    "Maintain a healthy diet during treatment",
+    "Report any side effects to your doctor"
+  ]
+},
+
+targeted:{
+  title:"Targeted Therapy",
+  desc:"Targeted therapy is a cancer treatment that uses drugs designed to specifically attack cancer cells without harming most normal cells.",
+  desc2:"It works by blocking the growth and spread of cancer by interfering with specific molecules involved in tumor development.",
+
+  types:[
+    {name:"Monoclonal Antibody Therapy", desc:"Uses lab-made antibodies to target cancer cells."},
+    {name:"Tyrosine Kinase Inhibitors (TKIs)", desc:"Blocks signals that help cancer cells grow."},
+    {name:"Angiogenesis Inhibitors", desc:"Prevents tumors from forming new blood vessels."},
+    {name:"Hormone-Based Targeted Therapy", desc:"Blocks hormones that fuel certain cancers."}
+  ],
+
+  who:[
+    {heading:"1. Patients with Specific Cancer Types", points:["Breast cancer","Lung cancer","Leukemia","Colorectal cancer"]},
+    {heading:"2. Advanced or Metastatic Cancer", points:["Cancer that has spread to other organs"]},
+    {heading:"3. When Chemotherapy Is Not Effective", points:["Resistant or recurrent cancer"]},
+    {heading:"4. Combination Therapy", points:["Used along with chemotherapy or radiation"]}
+  ],
+
+  cost:[
+    {type:"Monthly Targeted Therapy Medication", inr:"₹50,000 – ₹2,00,000", usd:"$584 – $2,336"},
+    {type:"3-Month Targeted Therapy Plan", inr:"₹1,50,000 – ₹6,00,000", usd:"$1,752 – $7,008"},
+    {type:"6-Month Targeted Therapy Plan", inr:"₹3,00,000 – ₹12,00,000", usd:"$3,504 – $14,016"},
+    {type:"Advanced Biologic Targeted Drugs", inr:"₹5,00,000 – ₹20,00,000", usd:"$5,840 – $23,360"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Kapoor",
+      experience:"20+ Years Experience",
+      specialty:"Senior Medical Oncologist, Targeted Therapy Specialist",
+      qualifications:"MBBS, MD (Oncology), DM (Medical Oncology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Priyanka Rao",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Precision Cancer Treatments",
+      qualifications:"MBBS, MD, DM (Oncology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Kunal Shah",
+      experience:"18+ Years Experience",
+      specialty:"Medical Oncologist",
+      qualifications:"MBBS, MD (Oncology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced oncology center offering targeted cancer therapies",
+      accreditation:"NABH Certified",
+      successRate:"94% treatment success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cancer care with precision medicine",
+      accreditation:"JCI Certified",
+      successRate:"93% treatment success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Modern oncology department with targeted therapy options",
+      accreditation:"NABH Certified",
+      successRate:"92% treatment success rates"
+    }
+  ],
+
+  tips:[
+    "Take medications exactly as prescribed",
+    "Attend regular monitoring tests",
+    "Report side effects early",
+    "Maintain a healthy diet and lifestyle"
+  ]
+},
+
+immunotherapy:{
+  title:"Immunotherapy",
+  desc:"Immunotherapy is a cancer treatment that helps the body’s immune system recognize and fight cancer cells more effectively.",
+  desc2:"It works by boosting or modifying the immune response so it can detect and destroy cancer cells that were previously able to hide from the immune system.",
+
+  types:[
+    {name:"Checkpoint Inhibitors", desc:"Drugs that help immune cells recognize and attack cancer cells."},
+    {name:"CAR T-Cell Therapy", desc:"Genetically modified immune cells used to target cancer."},
+    {name:"Cancer Vaccines", desc:"Vaccines designed to stimulate the immune system against cancer."},
+    {name:"Cytokine Therapy", desc:"Uses immune proteins to boost the body’s response to cancer."}
+  ],
+
+  who:[
+    {heading:"1. Patients with Certain Cancers", points:["Melanoma","Lung cancer","Kidney cancer","Lymphoma"]},
+    {heading:"2. Advanced or Metastatic Cancer", points:["Cancer that has spread to other organs"]},
+    {heading:"3. When Other Treatments Are Not Effective", points:["Resistant or recurrent cancers"]},
+    {heading:"4. Combination Cancer Therapy", points:["Used with chemotherapy or targeted therapy"]}
+  ],
+
+  cost:[
+    {type:"Single Immunotherapy Cycle", inr:"₹1,50,000 – ₹4,00,000", usd:"$1,752 – $4,672"},
+    {type:"3-Month Immunotherapy Plan", inr:"₹4,50,000 – ₹12,00,000", usd:"$5,256 – $14,016"},
+    {type:"6-Month Immunotherapy Plan", inr:"₹9,00,000 – ₹20,00,000", usd:"$10,512 – $23,360"},
+    {type:"CAR T-Cell Therapy", inr:"₹25,00,000 – ₹50,00,000", usd:"$29,200 – $58,400"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rahul Verma",
+      experience:"20+ Years Experience",
+      specialty:"Senior Medical Oncologist, Immunotherapy Specialist",
+      qualifications:"MBBS, MD (Oncology), DM (Medical Oncology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Sneha Iyer",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Advanced Cancer Immunotherapy",
+      qualifications:"MBBS, MD, DM (Oncology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Karan Mehta",
+      experience:"18+ Years Experience",
+      specialty:"Medical Oncologist",
+      qualifications:"MBBS, MD (Oncology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced oncology center offering modern immunotherapy treatments",
+      accreditation:"NABH Certified",
+      successRate:"93% treatment success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cancer care with immunotherapy programs",
+      accreditation:"JCI Certified",
+      successRate:"92% treatment success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive oncology department with immunotherapy options",
+      accreditation:"NABH Certified",
+      successRate:"91% treatment success rates"
+    }
+  ],
+
+  tips:[
+    "Attend all scheduled treatment sessions",
+    "Report any immune-related side effects early",
+    "Maintain proper nutrition and hydration",
+    "Follow regular monitoring and follow-up visits"
+  ]
+},
+
+surgical_oncology:{
+  title:"Surgical Oncology",
+  desc:"Surgical oncology involves the removal of cancerous tumors and surrounding tissues through surgery.",
+  desc2:"It is often used as a primary treatment for solid tumors or combined with chemotherapy, radiation, or targeted therapy for better outcomes.",
+
+  types:[
+    {name:"Tumor Removal Surgery", desc:"Removal of cancerous tumors from affected organs."},
+    {name:"Minimally Invasive Cancer Surgery", desc:"Uses laparoscopic or robotic techniques with smaller incisions."},
+    {name:"Debulking Surgery", desc:"Removes as much of the tumor as possible when full removal is not feasible."},
+    {name:"Reconstructive Surgery", desc:"Restores the appearance or function of affected body parts after tumor removal."}
+  ],
+
+  who:[
+    {heading:"1. Patients with Solid Tumors", points:["Breast cancer","Colon cancer","Lung cancer","Skin cancer"]},
+    {heading:"2. Early-Stage Cancer", points:["Tumor localized in one area"]},
+    {heading:"3. After Chemotherapy or Radiation", points:["To remove remaining cancer cells"]},
+    {heading:"4. Symptom Relief", points:["Large tumors causing pain or obstruction"]}
+  ],
+
+  cost:[
+    {type:"Basic Tumor Removal Surgery", inr:"₹1,50,000 – ₹4,00,000", usd:"$1,752 – $4,672"},
+    {type:"Minimally Invasive Cancer Surgery", inr:"₹2,50,000 – ₹6,00,000", usd:"$2,920 – $7,008"},
+    {type:"Major Organ Cancer Surgery", inr:"₹4,00,000 – ₹10,00,000", usd:"$4,672 – $11,680"},
+    {type:"Robotic Cancer Surgery", inr:"₹6,00,000 – ₹15,00,000", usd:"$7,008 – $17,520"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Gupta",
+      experience:"22+ Years Experience",
+      specialty:"Senior Surgical Oncologist",
+      qualifications:"MBBS, MS, MCh (Surgical Oncology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Meera Nair",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Minimally Invasive Cancer Surgery",
+      qualifications:"MBBS, MS, MCh (Oncology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Kunal Arora",
+      experience:"15+ Years Experience",
+      specialty:"Surgical Oncologist",
+      qualifications:"MBBS, MS, MCh (Surgical Oncology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive cancer center with advanced surgical oncology units",
+      accreditation:"NABH Certified",
+      successRate:"94% surgical success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard oncology care with robotic cancer surgery",
+      accreditation:"JCI Certified",
+      successRate:"93% surgical success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Modern oncology department with experienced cancer surgeons",
+      accreditation:"NABH Certified",
+      successRate:"92% surgical success rates"
+    }
+  ],
+
+  tips:[
+    "Choose a hospital with specialized oncology surgeons",
+    "Follow pre- and post-surgery instructions carefully",
+    "Attend all follow-up appointments",
+    "Maintain a healthy lifestyle after surgery"
+  ]
+},
+
+bmt:{
+  title:"Bone Marrow Transplant",
+  desc:"Bone marrow transplant (BMT), also known as stem cell transplant, is a procedure that replaces damaged or diseased bone marrow with healthy stem cells.",
+  desc2:"It is commonly used to treat blood cancers and certain genetic or immune system disorders.",
+
+  types:[
+    {name:"Autologous Transplant", desc:"Uses the patient’s own stem cells."},
+    {name:"Allogeneic Transplant", desc:"Uses stem cells from a compatible donor."},
+    {name:"Haploidentical Transplant", desc:"Uses partially matched donor stem cells."},
+    {name:"Cord Blood Transplant", desc:"Uses stem cells from umbilical cord blood."}
+  ],
+
+  who:[
+    {heading:"1. Blood Cancer Patients", points:["Leukemia","Lymphoma","Multiple myeloma"]},
+    {heading:"2. Bone Marrow Disorders", points:["Aplastic anemia","Myelodysplastic syndrome"]},
+    {heading:"3. Genetic Disorders", points:["Thalassemia","Sickle cell disease"]},
+    {heading:"4. Failed Previous Treatments", points:["Cancer not responding to chemotherapy"]}
+  ],
+
+  cost:[
+    {type:"Autologous Bone Marrow Transplant", inr:"₹8,00,000 – ₹15,00,000", usd:"$9,344 – $17,520"},
+    {type:"Allogeneic Bone Marrow Transplant", inr:"₹15,00,000 – ₹30,00,000", usd:"$17,520 – $35,040"},
+    {type:"Haploidentical Transplant", inr:"₹18,00,000 – ₹35,00,000", usd:"$21,024 – $40,880"},
+    {type:"Cord Blood Transplant", inr:"₹20,00,000 – ₹40,00,000", usd:"$23,360 – $46,720"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rahul Bhargava",
+      experience:"22+ Years Experience",
+      specialty:"Senior Hematologist and BMT Specialist",
+      qualifications:"MBBS, MD, DM (Hematology)",
+      hospital:"Fortis Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Sunita Sharma",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Stem Cell Transplantation",
+      qualifications:"MBBS, MD (Medicine), DM (Hematology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Amit Jain",
+      experience:"15+ Years Experience",
+      specialty:"Bone Marrow Transplant Specialist",
+      qualifications:"MBBS, MD, DM (Hematology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Gurgaon, India",
+      details:"Advanced BMT center with specialized transplant ICUs",
+      accreditation:"NABH Certified",
+      successRate:"90–95% transplant success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard stem cell transplant program",
+      accreditation:"JCI Certified",
+      successRate:"90–94% transplant success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive hematology and bone marrow transplant unit",
+      accreditation:"NABH Certified",
+      successRate:"88–92% transplant success rates"
+    }
+  ],
+
+  tips:[
+    "Choose hospitals with dedicated transplant ICUs",
+    "Maintain strict hygiene to prevent infections",
+    "Follow all post-transplant medications carefully",
+    "Attend regular follow-up and monitoring tests"
+  ]
+},
+
+
+/* NEUROLOGY */
+brain_tumor:{
+  title:"Brain Tumor Surgery",
+  desc:"Brain tumor surgery is performed to remove abnormal growths in the brain that may be cancerous or non-cancerous.",
+  desc2:"The goal is to remove as much of the tumor as safely possible while preserving normal brain function.",
+
+  types:[
+    {name:"Craniotomy", desc:"Traditional surgery where a part of the skull is opened to remove the tumor."},
+    {name:"Minimally Invasive Brain Surgery", desc:"Uses smaller incisions and advanced tools for tumor removal."},
+    {name:"Endoscopic Brain Surgery", desc:"Uses a small camera to remove tumors through natural openings or small cuts."},
+    {name:"Stereotactic Brain Surgery", desc:"Highly precise surgery using imaging guidance."}
+  ],
+
+  who:[
+    {heading:"1. Patients with Brain Tumors", points:["Benign (non-cancerous) tumors","Malignant (cancerous) tumors"]},
+    {heading:"2. Neurological Symptoms", points:["Persistent headaches","Seizures","Vision or speech problems"]},
+    {heading:"3. Tumor Growth or Pressure", points:["Increased intracranial pressure","Tumor affecting brain function"]},
+    {heading:"4. Failed Non-Surgical Treatments", points:["Tumor not responding to radiation or medication"]}
+  ],
+
+  cost:[
+    {type:"Basic Brain Tumor Surgery", inr:"₹3,00,000 – ₹7,00,000", usd:"$3,504 – $8,176"},
+    {type:"Complex Brain Tumor Surgery", inr:"₹6,00,000 – ₹12,00,000", usd:"$7,008 – $14,016"},
+    {type:"Minimally Invasive Brain Surgery", inr:"₹5,00,000 – ₹10,00,000", usd:"$5,840 – $11,680"},
+    {type:"Stereotactic Brain Surgery", inr:"₹4,00,000 – ₹9,00,000", usd:"$4,672 – $10,512"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Ashok Raj",
+      experience:"25+ Years Experience",
+      specialty:"Senior Neurosurgeon, Brain Tumor Specialist",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Mehul Desai",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Minimally Invasive Brain Surgery",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Karan Bhatia",
+      experience:"15+ Years Experience",
+      specialty:"Neurosurgeon",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced neurosurgery center with modern brain tumor treatment",
+      accreditation:"NABH Certified",
+      successRate:"92–96% surgical success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard neuroscience center",
+      accreditation:"JCI Certified",
+      successRate:"90–95% surgical success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive neurosurgery department with advanced equipment",
+      accreditation:"NABH Certified",
+      successRate:"89–94% surgical success rates"
+    }
+  ],
+
+  tips:[
+    "Choose hospitals with advanced neurosurgery facilities",
+    "Follow all post-surgery rehabilitation plans",
+    "Attend regular follow-up scans",
+    "Report any neurological symptoms immediately"
+  ]
+},
+
+spine_tumor:{
+  title:"Spine Tumor Surgery",
+  desc:"Spine tumor surgery is performed to remove abnormal growths in or around the spinal cord.",
+  desc2:"The goal is to relieve pressure on nerves, reduce pain, and prevent neurological damage while removing as much of the tumor as safely possible.",
+
+  types:[
+    {name:"Tumor Removal Surgery", desc:"Direct removal of spinal tumors."},
+    {name:"Minimally Invasive Spine Tumor Surgery", desc:"Uses small incisions and advanced tools."},
+    {name:"Spinal Decompression Surgery", desc:"Relieves pressure on nerves or spinal cord."},
+    {name:"Spinal Stabilization Surgery", desc:"Uses rods or screws to stabilize the spine after tumor removal."}
+  ],
+
+  who:[
+    {heading:"1. Patients with Spine Tumors", points:["Benign spinal tumors","Malignant spinal tumors"]},
+    {heading:"2. Nerve Compression Symptoms", points:["Severe back pain","Weakness in limbs","Numbness or tingling"]},
+    {heading:"3. Loss of Mobility", points:["Difficulty walking","Loss of coordination"]},
+    {heading:"4. Tumor Growth Affecting Spine", points:["Tumor pressing on spinal cord or nerves"]}
+  ],
+
+  cost:[
+    {type:"Basic Spine Tumor Surgery", inr:"₹3,00,000 – ₹6,00,000", usd:"$3,504 – $7,008"},
+    {type:"Complex Spine Tumor Surgery", inr:"₹5,00,000 – ₹12,00,000", usd:"$5,840 – $14,016"},
+    {type:"Minimally Invasive Spine Surgery", inr:"₹4,00,000 – ₹9,00,000", usd:"$4,672 – $10,512"},
+    {type:"Spinal Stabilization with Implants", inr:"₹6,00,000 – ₹14,00,000", usd:"$7,008 – $16,352"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Arvind Kumar",
+      experience:"22+ Years Experience",
+      specialty:"Senior Neurosurgeon, Spine Tumor Specialist",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Rakesh Menon",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Spine Oncology Surgery",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Neeraj Singh",
+      experience:"15+ Years Experience",
+      specialty:"Spine Surgeon",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced spine surgery center with tumor treatment facilities",
+      accreditation:"NABH Certified",
+      successRate:"90–95% surgical success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard spine and neurosurgery center",
+      accreditation:"JCI Certified",
+      successRate:"89–94% surgical success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive spine surgery department",
+      accreditation:"NABH Certified",
+      successRate:"88–92% surgical success rates"
+    }
+  ],
+
+  tips:[
+    "Seek treatment at specialized spine or neurosurgery centers",
+    "Follow rehabilitation and physiotherapy plans",
+    "Maintain proper posture during recovery",
+    "Attend regular follow-up imaging tests"
+  ]
+},
+
+stroke:{
+  title:"Stroke Management",
+  desc:"Stroke management involves emergency and long-term treatments to restore blood flow to the brain and prevent further damage.",
+  desc2:"Early treatment is critical to reduce brain injury, improve recovery, and prevent future strokes.",
+
+  types:[
+    {name:"Ischemic Stroke Treatment", desc:"Treatment to remove or dissolve blood clots."},
+    {name:"Hemorrhagic Stroke Treatment", desc:"Treatment to control bleeding in the brain."},
+    {name:"Thrombolysis", desc:"Clot-busting medication given within the golden hours."},
+    {name:"Mechanical Thrombectomy", desc:"Minimally invasive procedure to remove clots from brain arteries."}
+  ],
+
+  who:[
+    {heading:"1. Sudden Neurological Symptoms", points:["Weakness or numbness on one side","Slurred speech","Vision problems"]},
+    {heading:"2. High-Risk Patients", points:["High blood pressure","Diabetes","Heart disease"]},
+    {heading:"3. Transient Ischemic Attack (TIA)", points:["Mini-stroke symptoms"]},
+    {heading:"4. Recurrent Stroke Patients", points:["History of previous stroke"]}
+  ],
+
+  cost:[
+    {type:"Emergency Stroke Treatment", inr:"₹1,50,000 – ₹4,00,000", usd:"$1,752 – $4,672"},
+    {type:"Thrombolysis Treatment", inr:"₹2,00,000 – ₹5,00,000", usd:"$2,336 – $5,840"},
+    {type:"Mechanical Thrombectomy", inr:"₹4,00,000 – ₹10,00,000", usd:"$4,672 – $11,680"},
+    {type:"Stroke Rehabilitation Program", inr:"₹50,000 – ₹2,00,000", usd:"$584 – $2,336"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Sandeep Kumar",
+      experience:"20+ Years Experience",
+      specialty:"Senior Neurologist, Stroke Specialist",
+      qualifications:"MBBS, MD, DM (Neurology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Priya Menon",
+      experience:"15+ Years Experience",
+      specialty:"Expert in Acute Stroke Care",
+      qualifications:"MBBS, MD, DM (Neurology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Kunal Bansal",
+      experience:"18+ Years Experience",
+      specialty:"Neurologist",
+      qualifications:"MBBS, MD (Medicine), DM (Neurology)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced stroke unit with 24/7 emergency care",
+      accreditation:"NABH Certified",
+      successRate:"90–94% treatment success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard stroke care and rehabilitation center",
+      accreditation:"JCI Certified",
+      successRate:"89–93% treatment success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive neurology department with stroke units",
+      accreditation:"NABH Certified",
+      successRate:"88–92% treatment success rates"
+    }
+  ],
+
+  tips:[
+    "Seek emergency care immediately at first stroke symptoms",
+    "Control blood pressure, diabetes, and cholesterol",
+    "Follow rehabilitation and physiotherapy plans",
+    "Adopt a healthy lifestyle to prevent future strokes"
+  ]
+},
+
+epilepsy:{
+  title:"Epilepsy Surgery",
+  desc:"Epilepsy surgery is performed to remove or alter the part of the brain causing seizures when medications are not effective.",
+  desc2:"The goal is to reduce or completely stop seizures while preserving normal brain functions.",
+
+  types:[
+    {name:"Resective Surgery", desc:"Removal of the brain area causing seizures."},
+    {name:"Laser Ablation Surgery", desc:"Minimally invasive procedure using laser energy to destroy seizure-causing tissue."},
+    {name:"Corpus Callosotomy", desc:"Surgery that cuts the connection between the two brain hemispheres."},
+    {name:"Vagus Nerve Stimulation (VNS)", desc:"Implantation of a device to control seizures through nerve stimulation."}
+  ],
+
+  who:[
+    {heading:"1. Drug-Resistant Epilepsy", points:["Seizures not controlled by medications"]},
+    {heading:"2. Frequent or Severe Seizures", points:["Daily or weekly seizures","Seizures affecting quality of life"]},
+    {heading:"3. Localized Seizure Source", points:["Seizures originating from one area of the brain"]},
+    {heading:"4. Failed Medical Therapy", points:["Patients not responding to anti-epileptic drugs"]}
+  ],
+
+  cost:[
+    {type:"Basic Epilepsy Surgery", inr:"₹4,00,000 – ₹8,00,000", usd:"$4,672 – $9,344"},
+    {type:"Advanced Epilepsy Surgery", inr:"₹6,00,000 – ₹12,00,000", usd:"$7,008 – $14,016"},
+    {type:"Laser Ablation Surgery", inr:"₹5,00,000 – ₹10,00,000", usd:"$5,840 – $11,680"},
+    {type:"Vagus Nerve Stimulation (VNS)", inr:"₹7,00,000 – ₹15,00,000", usd:"$8,176 – $17,520"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rohit Mehra",
+      experience:"20+ Years Experience",
+      specialty:"Senior Neurosurgeon, Epilepsy Specialist",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Anita Krishnan",
+      experience:"16+ Years Experience",
+      specialty:"Expert in Epilepsy Surgery",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Karan Gupta",
+      experience:"14+ Years Experience",
+      specialty:"Neurosurgeon",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced neurosurgery center with epilepsy treatment programs",
+      accreditation:"NABH Certified",
+      successRate:"85–90% seizure control rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard neuroscience center",
+      accreditation:"JCI Certified",
+      successRate:"84–89% seizure control rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive epilepsy care with advanced surgical options",
+      accreditation:"NABH Certified",
+      successRate:"82–88% seizure control rates"
+    }
+  ],
+
+  tips:[
+    "Undergo detailed neurological evaluation before surgery",
+    "Follow all medication and therapy instructions",
+    "Attend regular post-surgery follow-ups",
+    "Maintain a seizure-safe lifestyle"
+  ]
+},
+
+dbs:{
+  title:"Deep Brain Stimulation (DBS)",
+  desc:"Deep Brain Stimulation is a surgical procedure in which a small device is implanted in the brain to send electrical signals that help control abnormal movements.",
+  desc2:"It is commonly used to treat movement disorders such as Parkinson’s disease, essential tremor, and dystonia when medications are not effective.",
+
+  types:[
+    {name:"DBS for Parkinson’s Disease", desc:"Helps control tremors, stiffness, and slow movements."},
+    {name:"DBS for Essential Tremor", desc:"Reduces involuntary shaking of hands or other body parts."},
+    {name:"DBS for Dystonia", desc:"Controls abnormal muscle contractions and postures."},
+    {name:"Adaptive DBS", desc:"Advanced system that adjusts stimulation automatically."}
+  ],
+
+  who:[
+    {heading:"1. Parkinson’s Disease Patients", points:["Uncontrolled tremors","Medication side effects"]},
+    {heading:"2. Essential Tremor Patients", points:["Severe shaking affecting daily activities"]},
+    {heading:"3. Dystonia Patients", points:["Involuntary muscle contractions"]},
+    {heading:"4. Patients Not Responding to Medication", points:["Symptoms not controlled with drugs"]}
+  ],
+
+  cost:[
+    {type:"Standard DBS Surgery", inr:"₹8,00,000 – ₹15,00,000", usd:"$9,344 – $17,520"},
+    {type:"Advanced DBS System", inr:"₹12,00,000 – ₹20,00,000", usd:"$14,016 – $23,360"},
+    {type:"Bilateral DBS Surgery", inr:"₹15,00,000 – ₹25,00,000", usd:"$17,520 – $29,200"},
+    {type:"DBS Battery Replacement", inr:"₹3,00,000 – ₹6,00,000", usd:"$3,504 – $7,008"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Ashish Verma",
+      experience:"22+ Years Experience",
+      specialty:"Senior Neurosurgeon, DBS Specialist",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Raghav Iyer",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Movement Disorder Surgery",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Neeraj Bansal",
+      experience:"15+ Years Experience",
+      specialty:"Neurosurgeon",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced neuroscience center with DBS programs",
+      accreditation:"NABH Certified",
+      successRate:"85–90% symptom improvement rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard movement disorder treatment center",
+      accreditation:"JCI Certified",
+      successRate:"84–89% symptom improvement rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive neurosurgery department with DBS facilities",
+      accreditation:"NABH Certified",
+      successRate:"82–88% symptom improvement rates"
+    }
+  ],
+
+  tips:[
+    "Undergo complete neurological evaluation before surgery",
+    "Attend regular device programming sessions",
+    "Follow all post-surgery instructions carefully",
+    "Schedule battery checks and replacements when needed"
+  ]
+},
+
+aneurysm:{
+  title:"Aneurysm Surgery",
+  desc:"Aneurysm surgery is performed to treat a weakened or bulging area in a blood vessel, usually in the brain, to prevent rupture or bleeding.",
+  desc2:"The goal is to secure the aneurysm and restore normal blood flow while preventing life-threatening complications.",
+
+  types:[
+    {name:"Surgical Clipping", desc:"A metal clip is placed at the base of the aneurysm to stop blood flow into it."},
+    {name:"Endovascular Coiling", desc:"Minimally invasive procedure using coils to block the aneurysm."},
+    {name:"Flow Diverter Stent", desc:"A special stent is placed to redirect blood flow away from the aneurysm."},
+    {name:"Balloon-Assisted Coiling", desc:"Uses a balloon to help place coils safely in the aneurysm."}
+  ],
+
+  who:[
+    {heading:"1. Patients with Brain Aneurysm", points:["Unruptured aneurysm detected in scans"]},
+    {heading:"2. Ruptured Aneurysm", points:["Sudden severe headache","Brain hemorrhage"]},
+    {heading:"3. High-Risk Aneurysm", points:["Large or growing aneurysm"]},
+    {heading:"4. Family History of Aneurysm", points:["Genetic risk factors"]}
+  ],
+
+  cost:[
+    {type:"Surgical Clipping", inr:"₹4,00,000 – ₹9,00,000", usd:"$4,672 – $10,512"},
+    {type:"Endovascular Coiling", inr:"₹5,00,000 – ₹12,00,000", usd:"$5,840 – $14,016"},
+    {type:"Flow Diverter Stent", inr:"₹8,00,000 – ₹18,00,000", usd:"$9,344 – $21,024"},
+    {type:"Balloon-Assisted Coiling", inr:"₹6,00,000 – ₹14,00,000", usd:"$7,008 – $16,352"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rajesh Mehta",
+      experience:"22+ Years Experience",
+      specialty:"Senior Neurosurgeon, Aneurysm Specialist",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Vinay Kumar",
+      experience:"18+ Years Experience",
+      specialty:"Expert in Endovascular Neurosurgery",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Karan Sethi",
+      experience:"15+ Years Experience",
+      specialty:"Neurosurgeon",
+      qualifications:"MBBS, MS, MCh (Neurosurgery)",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced neurosurgery center with aneurysm treatment programs",
+      accreditation:"NABH Certified",
+      successRate:"88–94% surgical success rates"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard neuroscience center",
+      accreditation:"JCI Certified",
+      successRate:"87–92% surgical success rates"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive neurosurgery department",
+      accreditation:"NABH Certified",
+      successRate:"85–90% surgical success rates"
+    }
+  ],
+
+  tips:[
+    "Seek immediate medical attention for severe headaches",
+    "Control blood pressure and cholesterol",
+    "Avoid smoking and excessive alcohol",
+    "Attend regular follow-up imaging tests"
+  ]
+},
+
+
+/* COSMETIC */
+buccal:{
+  title:"Buccal Fat Removal",
+  desc:"Buccal fat removal is a cosmetic procedure that reduces excess fat in the cheeks to create a slimmer and more contoured facial appearance.",
+  desc2:"The surgery involves removing the buccal fat pads through small incisions inside the mouth, resulting in a more defined jawline and cheek structure.",
+
+  types:[
+    {name:"Standard Buccal Fat Removal", desc:"Removal of buccal fat pads to slim the cheeks."},
+    {name:"Buccal Fat Removal with Chin Contouring", desc:"Combined procedure for improved facial balance."},
+    {name:"Buccal Fat Removal with Facelift", desc:"Performed along with facelift for full facial rejuvenation."},
+    {name:"Buccal Fat Removal with Liposuction", desc:"Combined with neck or jawline liposuction."}
+  ],
+
+  who:[
+    {heading:"1. Round or Chubby Cheeks", points:["Excess fat in lower cheeks"]},
+    {heading:"2. Desire for Sharper Jawline", points:["Want more defined facial structure"]},
+    {heading:"3. Stable Body Weight", points:["Good candidates with healthy lifestyle"]},
+    {heading:"4. Realistic Expectations", points:["Understanding cosmetic outcomes"]}
+  ],
+
+  cost:[
+    {type:"Standard Buccal Fat Removal", inr:"₹50,000 – ₹1,20,000", usd:"$600 – $1,450"},
+    {type:"With Chin Contouring", inr:"₹90,000 – ₹1,80,000", usd:"$1,080 – $2,160"},
+    {type:"With Facelift", inr:"₹2,50,000 – ₹5,00,000", usd:"$3,000 – $6,000"},
+    {type:"With Liposuction", inr:"₹1,20,000 – ₹2,50,000", usd:"$1,450 – $3,000"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rohan Mehta",
+      experience:"15+ Years Experience",
+      specialty:"Cosmetic & Plastic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Mumbai"
+    },
+    {
+      name:"Dr. Sneha Kapoor",
+      experience:"12+ Years Experience",
+      specialty:"Facial Aesthetic Specialist",
+      qualifications:"MBBS, DNB (Plastic Surgery)",
+      hospital:"Apollo Hospital, Delhi"
+    },
+    {
+      name:"Dr. Arjun Nair",
+      experience:"14+ Years Experience",
+      specialty:"Plastic & Reconstructive Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Aster Medcity, Kochi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Mumbai, India",
+      details:"Advanced cosmetic surgery center with facial contouring expertise",
+      accreditation:"NABH Certified",
+      successRate:"96–98% patient satisfaction"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Delhi, India",
+      details:"International-standard plastic surgery department",
+      accreditation:"JCI Certified",
+      successRate:"95–97% patient satisfaction"
+    },
+    {
+      name:"Aster Medcity",
+      location:"Kochi, India",
+      details:"Modern cosmetic surgery facilities",
+      accreditation:"NABH Certified",
+      successRate:"94–96% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Follow a soft diet for a few days after surgery",
+    "Avoid smoking during recovery",
+    "Maintain stable body weight",
+    "Follow surgeon’s post-op instructions carefully"
+  ]
+},
+
+laser_hair:{
+  title:"Laser Hair Removal",
+  desc:"Laser hair removal is a cosmetic procedure that uses focused light energy to remove unwanted hair from different parts of the body.",
+  desc2:"The laser targets hair follicles, reducing hair growth over multiple sessions and providing long-term smooth skin.",
+
+  types:[
+    {name:"Diode Laser Hair Removal", desc:"Suitable for most skin types with effective long-term results."},
+    {name:"Alexandrite Laser", desc:"Best for lighter skin tones and fine hair."},
+    {name:"Nd:YAG Laser", desc:"Safe for darker skin tones."},
+    {name:"IPL (Intense Pulsed Light)", desc:"Light-based treatment for hair reduction."}
+  ],
+
+  who:[
+    {heading:"1. Unwanted Body or Facial Hair", points:["Face, arms, legs, underarms, bikini area"]},
+    {heading:"2. Frequent Shaving or Waxing", points:["People tired of regular hair removal methods"]},
+    {heading:"3. Ingrown Hair Problems", points:["Patients with skin irritation from shaving"]},
+    {heading:"4. Desire for Long-Term Hair Reduction", points:["Looking for smoother skin"]}
+  ],
+
+  cost:[
+    {type:"Small Area (Upper Lip/Chin)", inr:"₹1,000 – ₹3,000 per session", usd:"$12 – $36"},
+    {type:"Medium Area (Underarms/Bikini)", inr:"₹3,000 – ₹8,000 per session", usd:"$36 – $96"},
+    {type:"Large Area (Full Arms/Legs)", inr:"₹8,000 – ₹20,000 per session", usd:"$96 – $240"},
+    {type:"Full Body Package", inr:"₹40,000 – ₹1,20,000", usd:"$480 – $1,450"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Neha Bansal",
+      experience:"12+ Years Experience",
+      specialty:"Dermatologist & Laser Specialist",
+      qualifications:"MBBS, MD (Dermatology)",
+      hospital:"Apollo Hospital, Delhi"
+    },
+    {
+      name:"Dr. Ritu Sharma",
+      experience:"10+ Years Experience",
+      specialty:"Cosmetic Dermatologist",
+      qualifications:"MBBS, DVD (Dermatology)",
+      hospital:"Fortis Hospital, Mumbai"
+    },
+    {
+      name:"Dr. Ananya Iyer",
+      experience:"14+ Years Experience",
+      specialty:"Skin & Laser Treatment Expert",
+      qualifications:"MBBS, MD (Dermatology)",
+      hospital:"Manipal Hospital, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Apollo Hospital",
+      location:"Delhi, India",
+      details:"Advanced dermatology and laser treatment center",
+      accreditation:"JCI Certified",
+      successRate:"95–98% patient satisfaction"
+    },
+    {
+      name:"Fortis Hospital",
+      location:"Mumbai, India",
+      details:"Modern cosmetic dermatology facilities",
+      accreditation:"NABH Certified",
+      successRate:"94–97% patient satisfaction"
+    },
+    {
+      name:"Manipal Hospital",
+      location:"Bangalore, India",
+      details:"Specialized skin and laser clinics",
+      accreditation:"NABH Certified",
+      successRate:"93–96% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Avoid sun exposure before and after sessions",
+    "Do not wax or pluck hair before treatment",
+    "Follow recommended session schedule",
+    "Use sunscreen on treated areas"
+  ]
+},
+
+hair_transplant:{
+  title:"Hair Transplant",
+  desc:"Hair transplant is a cosmetic procedure in which healthy hair follicles are moved from one part of the scalp to areas with thinning or no hair.",
+  desc2:"It provides a permanent solution for hair loss and helps restore a natural-looking hairline and density.",
+
+  types:[
+    {name:"FUE (Follicular Unit Extraction)", desc:"Individual hair follicles are extracted and implanted."},
+    {name:"FUT (Follicular Unit Transplant)", desc:"A strip of scalp is removed and follicles are transplanted."},
+    {name:"DHI (Direct Hair Implantation)", desc:"Advanced method with direct implantation using a special pen."},
+    {name:"Beard or Eyebrow Transplant", desc:"Hair transplant for facial hair or eyebrows."}
+  ],
+
+  who:[
+    {heading:"1. Male Pattern Baldness", points:["Receding hairline","Thinning crown area"]},
+    {heading:"2. Female Hair Thinning", points:["Diffuse hair loss"]},
+    {heading:"3. Hair Loss from Injury or Burns", points:["Scar-related hair loss"]},
+    {heading:"4. Stable Hair Loss Pattern", points:["Suitable donor hair available"]}
+  ],
+
+  cost:[
+    {type:"FUE Hair Transplant", inr:"₹60,000 – ₹1,80,000", usd:"$720 – $2,160"},
+    {type:"FUT Hair Transplant", inr:"₹50,000 – ₹1,20,000", usd:"$600 – $1,450"},
+    {type:"DHI Hair Transplant", inr:"₹1,20,000 – ₹2,50,000", usd:"$1,450 – $3,000"},
+    {type:"Beard/Eyebrow Transplant", inr:"₹40,000 – ₹1,00,000", usd:"$480 – $1,200"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Garg",
+      experience:"18+ Years Experience",
+      specialty:"Hair Transplant Surgeon",
+      qualifications:"MBBS, MS, Fellowship in Hair Restoration",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Priya Sharma",
+      experience:"12+ Years Experience",
+      specialty:"Cosmetic & Hair Restoration Specialist",
+      qualifications:"MBBS, MD (Dermatology)",
+      hospital:"Apollo Hospital, Delhi"
+    },
+    {
+      name:"Dr. Rohit Batra",
+      experience:"15+ Years Experience",
+      specialty:"Hair Transplant & Aesthetic Surgeon",
+      qualifications:"MBBS, MS, Fellowship in Hair Transplant",
+      hospital:"Fortis Hospital, Mumbai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Advanced hair restoration and cosmetic surgery center",
+      accreditation:"NABH Certified",
+      successRate:"95–98% graft survival rate"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Delhi, India",
+      details:"International-standard hair transplant facilities",
+      accreditation:"JCI Certified",
+      successRate:"94–97% graft survival rate"
+    },
+    {
+      name:"Fortis Hospital",
+      location:"Mumbai, India",
+      details:"Modern aesthetic and hair transplant unit",
+      accreditation:"NABH Certified",
+      successRate:"93–96% graft survival rate"
+    }
+  ],
+
+  tips:[
+    "Avoid touching or scratching the transplanted area",
+    "Follow post-operative washing instructions",
+    "Avoid strenuous activity for a few days",
+    "Maintain a healthy diet for better hair growth"
+  ]
+},
+gynecomastia:{
+  title:"Gynecomastia Surgery",
+  desc:"Gynecomastia surgery is a cosmetic procedure to reduce excess male breast tissue and create a flatter, more masculine chest contour.",
+  desc2:"The surgery may involve liposuction, gland removal, or a combination of both to achieve natural-looking results.",
+
+  types:[
+    {name:"Liposuction Only", desc:"Removes excess fat from the chest area."},
+    {name:"Gland Excision", desc:"Surgical removal of glandular breast tissue."},
+    {name:"Combination Surgery", desc:"Both liposuction and gland removal for best results."},
+    {name:"Severe Gynecomastia Correction", desc:"Includes skin tightening for advanced cases."}
+  ],
+
+  who:[
+    {heading:"1. Enlarged Male Breast Tissue", points:["Excess fat or glandular tissue in chest"]},
+    {heading:"2. Hormonal Imbalance", points:["Gynecomastia caused by hormone changes"]},
+    {heading:"3. Weight Loss Patients", points:["Loose chest skin after weight loss"]},
+    {heading:"4. Emotional or Social Discomfort", points:["Lack of confidence due to chest shape"]}
+  ],
+
+  cost:[
+    {type:"Liposuction Only", inr:"₹60,000 – ₹1,20,000", usd:"$720 – $1,450"},
+    {type:"Gland Excision", inr:"₹80,000 – ₹1,80,000", usd:"$960 – $2,160"},
+    {type:"Combination Surgery", inr:"₹1,20,000 – ₹2,50,000", usd:"$1,450 – $3,000"},
+    {type:"Severe Gynecomastia Correction", inr:"₹2,00,000 – ₹4,00,000", usd:"$2,400 – $4,800"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rakesh Khazanchi",
+      experience:"25+ Years Experience",
+      specialty:"Senior Plastic & Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Karthik Ram",
+      experience:"15+ Years Experience",
+      specialty:"Cosmetic & Reconstructive Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Sameer Kaul",
+      experience:"18+ Years Experience",
+      specialty:"Plastic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Advanced cosmetic and reconstructive surgery center",
+      accreditation:"NABH Certified",
+      successRate:"96–98% patient satisfaction"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard plastic surgery department",
+      accreditation:"JCI Certified",
+      successRate:"95–97% patient satisfaction"
+    },
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Comprehensive cosmetic surgery facilities",
+      accreditation:"NABH Certified",
+      successRate:"94–96% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Wear compression garments after surgery",
+    "Avoid heavy exercise for a few weeks",
+    "Follow the surgeon’s recovery instructions",
+    "Maintain a stable weight for lasting results"
+  ]
+},
+
+eyelid:{
+  title:"Eyelid Surgery",
+  desc:"Eyelid surgery, also known as blepharoplasty, is a cosmetic or functional procedure that removes excess skin, fat, or muscle from the upper or lower eyelids.",
+  desc2:"It helps improve vision in some cases and gives the eyes a more youthful and refreshed appearance.",
+
+  types:[
+    {name:"Upper Eyelid Surgery", desc:"Removes excess skin and fat from upper eyelids."},
+    {name:"Lower Eyelid Surgery", desc:"Reduces under-eye bags and wrinkles."},
+    {name:"Double Eyelid Surgery", desc:"Creates a defined eyelid crease."},
+    {name:"Functional Blepharoplasty", desc:"Performed to improve vision blocked by drooping eyelids."}
+  ],
+
+  who:[
+    {heading:"1. Droopy Upper Eyelids", points:["Excess skin affecting vision or appearance"]},
+    {heading:"2. Under-Eye Bags", points:["Puffy or sagging lower eyelids"]},
+    {heading:"3. Tired or Aged Eye Appearance", points:["Wrinkles or loose skin around eyes"]},
+    {heading:"4. Functional Vision Problems", points:["Eyelids blocking normal field of vision"]}
+  ],
+
+  cost:[
+    {type:"Upper Eyelid Surgery", inr:"₹50,000 – ₹1,20,000", usd:"$600 – $1,450"},
+    {type:"Lower Eyelid Surgery", inr:"₹70,000 – ₹1,50,000", usd:"$840 – $1,800"},
+    {type:"Double Eyelid Surgery", inr:"₹60,000 – ₹1,40,000", usd:"$720 – $1,680"},
+    {type:"Functional Blepharoplasty", inr:"₹80,000 – ₹1,80,000", usd:"$960 – $2,160"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anup Dhir",
+      experience:"20+ Years Experience",
+      specialty:"Plastic & Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Apollo Hospital, Delhi"
+    },
+    {
+      name:"Dr. Rajat Gupta",
+      experience:"15+ Years Experience",
+      specialty:"Facial Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Mumbai"
+    },
+    {
+      name:"Dr. Nisha Mehta",
+      experience:"12+ Years Experience",
+      specialty:"Oculoplastic Surgeon",
+      qualifications:"MBBS, MS (Ophthalmology), Fellowship in Oculoplasty",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Apollo Hospital",
+      location:"Delhi, India",
+      details:"Advanced plastic and cosmetic surgery department",
+      accreditation:"JCI Certified",
+      successRate:"95–98% patient satisfaction"
+    },
+    {
+      name:"Fortis Hospital",
+      location:"Mumbai, India",
+      details:"Modern facial cosmetic surgery facilities",
+      accreditation:"NABH Certified",
+      successRate:"94–97% patient satisfaction"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Specialized oculoplastic surgery center",
+      accreditation:"NABH Certified",
+      successRate:"93–96% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Apply cold compresses to reduce swelling",
+    "Avoid rubbing or touching the eyes",
+    "Wear sunglasses outdoors",
+    "Follow post-surgery medication instructions"
+  ]
+},
+
+ear:{
+  title:"Ear Surgery",
+  desc:"Ear surgery, also known as otoplasty, is a cosmetic or reconstructive procedure to correct the shape, position, or size of the ears.",
+  desc2:"It is commonly performed to fix protruding ears, congenital deformities, or injuries, improving both appearance and confidence.",
+
+  types:[
+    {name:"Otoplasty (Ear Pinning)", desc:"Surgery to reposition protruding ears closer to the head."},
+    {name:"Ear Reduction Surgery", desc:"Reduces the size of overly large ears."},
+    {name:"Ear Reconstruction", desc:"Rebuilds ear structure after injury or congenital defects."},
+    {name:"Earlobe Repair", desc:"Corrects torn or stretched earlobes."}
+  ],
+
+  who:[
+    {heading:"1. Protruding Ears", points:["Ears sticking out prominently"]},
+    {heading:"2. Large or Misshapen Ears", points:["Congenital ear deformities"]},
+    {heading:"3. Torn or Stretched Earlobes", points:["Damage from heavy earrings or injury"]},
+    {heading:"4. Cosmetic Concerns", points:["Desire for improved ear appearance"]}
+  ],
+
+  cost:[
+    {type:"Otoplasty (Ear Pinning)", inr:"₹40,000 – ₹1,00,000", usd:"$480 – $1,200"},
+    {type:"Ear Reduction Surgery", inr:"₹60,000 – ₹1,40,000", usd:"$720 – $1,680"},
+    {type:"Ear Reconstruction", inr:"₹1,50,000 – ₹4,00,000", usd:"$1,800 – $4,800"},
+    {type:"Earlobe Repair", inr:"₹15,000 – ₹40,000", usd:"$180 – $480"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Aditya Aggarwal",
+      experience:"18+ Years Experience",
+      specialty:"Plastic & Reconstructive Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Meera Nair",
+      experience:"14+ Years Experience",
+      specialty:"Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Kunal Shah",
+      experience:"16+ Years Experience",
+      specialty:"Facial Plastic Surgeon",
+      qualifications:"MBBS, MS, Fellowship in Cosmetic Surgery",
+      hospital:"Max Hospital, Mumbai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced plastic and reconstructive surgery center",
+      accreditation:"NABH Certified",
+      successRate:"95–97% patient satisfaction"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cosmetic surgery department",
+      accreditation:"JCI Certified",
+      successRate:"94–96% patient satisfaction"
+    },
+    {
+      name:"Max Hospital",
+      location:"Mumbai, India",
+      details:"Modern facial cosmetic surgery facilities",
+      accreditation:"NABH Certified",
+      successRate:"93–95% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Wear protective headband as advised",
+    "Avoid sleeping on the ears for a few weeks",
+    "Keep surgical area clean and dry",
+    "Attend follow-up appointments"
+  ]
+},
+
+chin:{
+  title:"Chin Surgery",
+  desc:"Chin surgery, also known as genioplasty, is a cosmetic procedure that reshapes or repositions the chin to improve facial balance and profile.",
+  desc2:"The procedure can involve implants or bone repositioning to enhance chin projection, correct asymmetry, or achieve better facial harmony.",
+
+  types:[
+    {name:"Chin Implant Surgery", desc:"Silicone or biocompatible implant used to enhance chin projection."},
+    {name:"Sliding Genioplasty", desc:"Bone is cut and repositioned to reshape the chin."},
+    {name:"Chin Reduction Surgery", desc:"Reduces the size of an overly prominent chin."},
+    {name:"Chin Surgery with Jaw Correction", desc:"Combined procedure for improved facial alignment."}
+  ],
+
+  who:[
+    {heading:"1. Receding or Weak Chin", points:["Chin appears small or set back"]},
+    {heading:"2. Facial Imbalance", points:["Chin not proportionate to nose or jaw"]},
+    {heading:"3. Asymmetrical Chin", points:["Uneven or misaligned chin structure"]},
+    {heading:"4. Desire for Better Facial Profile", points:["Cosmetic enhancement"]}
+  ],
+
+  cost:[
+    {type:"Chin Implant Surgery", inr:"₹80,000 – ₹2,00,000", usd:"$960 – $2,400"},
+    {type:"Sliding Genioplasty", inr:"₹1,50,000 – ₹3,50,000", usd:"$1,800 – $4,200"},
+    {type:"Chin Reduction Surgery", inr:"₹1,20,000 – ₹2,80,000", usd:"$1,450 – $3,360"},
+    {type:"Combined Chin & Jaw Surgery", inr:"₹3,00,000 – ₹6,00,000", usd:"$3,600 – $7,200"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Manoj Khanna",
+      experience:"22+ Years Experience",
+      specialty:"Plastic & Facial Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Karthik Ram",
+      experience:"16+ Years Experience",
+      specialty:"Cosmetic & Reconstructive Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Ritu Chopra",
+      experience:"14+ Years Experience",
+      specialty:"Facial Plastic Surgeon",
+      qualifications:"MBBS, MS, Fellowship in Cosmetic Surgery",
+      hospital:"Max Hospital, Mumbai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced facial cosmetic surgery department",
+      accreditation:"NABH Certified",
+      successRate:"95–97% patient satisfaction"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard plastic surgery facilities",
+      accreditation:"JCI Certified",
+      successRate:"94–96% patient satisfaction"
+    },
+    {
+      name:"Max Hospital",
+      location:"Mumbai, India",
+      details:"Modern facial aesthetic surgery center",
+      accreditation:"NABH Certified",
+      successRate:"93–95% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Follow soft diet during early recovery",
+    "Avoid strenuous activities for a few weeks",
+    "Maintain good oral hygiene if incision is inside the mouth",
+    "Attend all follow-up appointments"
+  ]
+},
+
+cheek:{
+  title:"Cheek Augmentation",
+  desc:"Cheek augmentation is a cosmetic procedure that enhances the volume and shape of the cheeks to create a more youthful and balanced facial appearance.",
+  desc2:"The procedure may involve implants, dermal fillers, or fat transfer to improve cheek definition and facial contour.",
+
+  types:[
+    {name:"Cheek Implants", desc:"Permanent implants used to enhance cheek volume."},
+    {name:"Dermal Fillers", desc:"Injectable fillers for temporary cheek enhancement."},
+    {name:"Fat Transfer", desc:"Patient’s own fat used to add natural volume to cheeks."},
+    {name:"Combined Facial Contouring", desc:"Cheek augmentation along with chin or jaw procedures."}
+  ],
+
+  who:[
+    {heading:"1. Flat or Sunken Cheeks", points:["Loss of cheek volume"]},
+    {heading:"2. Age-Related Volume Loss", points:["Sagging or hollow cheeks"]},
+    {heading:"3. Desire for Sharper Facial Features", points:["Enhanced cheek definition"]},
+    {heading:"4. Facial Asymmetry", points:["Uneven cheek shape or structure"]}
+  ],
+
+  cost:[
+    {type:"Cheek Implants", inr:"₹1,20,000 – ₹2,80,000", usd:"$1,450 – $3,360"},
+    {type:"Dermal Fillers", inr:"₹20,000 – ₹60,000 per session", usd:"$240 – $720"},
+    {type:"Fat Transfer", inr:"₹80,000 – ₹2,00,000", usd:"$960 – $2,400"},
+    {type:"Combined Facial Contouring", inr:"₹2,50,000 – ₹5,00,000", usd:"$3,000 – $6,000"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anup Dhir",
+      experience:"20+ Years Experience",
+      specialty:"Plastic & Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Apollo Hospital, Delhi"
+    },
+    {
+      name:"Dr. Rajat Gupta",
+      experience:"15+ Years Experience",
+      specialty:"Facial Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Mumbai"
+    },
+    {
+      name:"Dr. Nisha Mehta",
+      experience:"12+ Years Experience",
+      specialty:"Aesthetic Surgeon",
+      qualifications:"MBBS, MS, Fellowship in Cosmetic Surgery",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Apollo Hospital",
+      location:"Delhi, India",
+      details:"Advanced plastic and cosmetic surgery department",
+      accreditation:"JCI Certified",
+      successRate:"95–97% patient satisfaction"
+    },
+    {
+      name:"Fortis Hospital",
+      location:"Mumbai, India",
+      details:"Modern facial aesthetic surgery center",
+      accreditation:"NABH Certified",
+      successRate:"94–96% patient satisfaction"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Specialized cosmetic surgery facilities",
+      accreditation:"NABH Certified",
+      successRate:"93–95% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Avoid touching or massaging treated areas initially",
+    "Follow the doctor’s post-procedure instructions",
+    "Use cold compress to reduce swelling",
+    "Attend follow-up appointments if required"
+  ]
+},
+
+buttock:{
+  title:"Buttock Enhancement",
+  desc:"Buttock enhancement is a cosmetic procedure designed to improve the size, shape, and contour of the buttocks.",
+  desc2:"The procedure may involve implants, fat transfer, or lifts to achieve a fuller, more balanced body profile.",
+
+  types:[
+    {name:"Brazilian Butt Lift (BBL)", desc:"Fat is taken from other body areas and injected into the buttocks."},
+    {name:"Buttock Implants", desc:"Silicone implants used to increase buttock size and shape."},
+    {name:"Buttock Lift", desc:"Removes excess skin and tightens the area for a lifted appearance."},
+    {name:"Combination Procedure", desc:"Fat transfer combined with lift or implants for optimal results."}
+  ],
+
+  who:[
+    {heading:"1. Flat or Small Buttocks", points:["Desire for fuller body contour"]},
+    {heading:"2. Sagging Skin", points:["Loose skin due to aging or weight loss"]},
+    {heading:"3. Body Contouring Goals", points:["Want improved proportions"]},
+    {heading:"4. Adequate Fat Donor Areas", points:["For Brazilian Butt Lift procedure"]}
+  ],
+
+  cost:[
+    {type:"Brazilian Butt Lift (BBL)", inr:"₹2,50,000 – ₹5,50,000", usd:"$3,000 – $6,600"},
+    {type:"Buttock Implants", inr:"₹3,00,000 – ₹6,50,000", usd:"$3,600 – $7,800"},
+    {type:"Buttock Lift", inr:"₹2,00,000 – ₹4,50,000", usd:"$2,400 – $5,400"},
+    {type:"Combination Procedure", inr:"₹4,00,000 – ₹8,00,000", usd:"$4,800 – $9,600"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Vipul Nanda",
+      experience:"20+ Years Experience",
+      specialty:"Plastic & Cosmetic Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Karthik Ram",
+      experience:"16+ Years Experience",
+      specialty:"Cosmetic & Reconstructive Surgeon",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Rajat Gupta",
+      experience:"15+ Years Experience",
+      specialty:"Body Contouring Specialist",
+      qualifications:"MBBS, MS, MCh (Plastic Surgery)",
+      hospital:"Fortis Hospital, Mumbai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Advanced cosmetic and body contouring surgery center",
+      accreditation:"NABH Certified",
+      successRate:"94–96% patient satisfaction"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard plastic surgery facilities",
+      accreditation:"JCI Certified",
+      successRate:"93–95% patient satisfaction"
+    },
+    {
+      name:"Fortis Hospital",
+      location:"Mumbai, India",
+      details:"Modern body contouring and cosmetic surgery unit",
+      accreditation:"NABH Certified",
+      successRate:"92–94% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Avoid sitting directly on the buttocks during early recovery",
+    "Wear compression garments as advised",
+    "Follow post-surgery activity restrictions",
+    "Maintain stable body weight for lasting results"
+  ]
+},
+
+
+/* TRANSPLANTS */
+kidney_tx:{
+  title:"Kidney Transplant",
+  desc:"Kidney transplant is a surgical procedure in which a healthy kidney from a donor is placed into a patient with end-stage kidney disease.",
+  desc2:"The transplanted kidney takes over the function of filtering waste and excess fluids, improving quality of life and reducing the need for dialysis.",
+
+  types:[
+    {name:"Living Donor Transplant", desc:"Kidney donated by a living family member or compatible donor."},
+    {name:"Deceased Donor Transplant", desc:"Kidney received from a brain-dead donor."},
+    {name:"Preemptive Kidney Transplant", desc:"Transplant performed before starting dialysis."},
+    {name:"Paired Kidney Exchange", desc:"Kidney exchange between incompatible donor-recipient pairs."}
+  ],
+
+  who:[
+    {heading:"1. End-Stage Kidney Disease", points:["Chronic kidney failure"]},
+    {heading:"2. Long-Term Dialysis Patients", points:["Patients on dialysis for extended periods"]},
+    {heading:"3. Severe Kidney Damage", points:["Kidney function below critical levels"]},
+    {heading:"4. Suitable Donor Available", points:["Compatible living or deceased donor"]}
+  ],
+
+  cost:[
+    {type:"Living Donor Kidney Transplant", inr:"₹6,00,000 – ₹12,00,000", usd:"$7,200 – $14,400"},
+    {type:"Deceased Donor Transplant", inr:"₹5,00,000 – ₹10,00,000", usd:"$6,000 – $12,000"},
+    {type:"Preemptive Transplant", inr:"₹6,50,000 – ₹12,50,000", usd:"$7,800 – $15,000"},
+    {type:"Paired Kidney Exchange", inr:"₹7,00,000 – ₹13,00,000", usd:"$8,400 – $15,600"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Kumar",
+      experience:"25+ Years Experience",
+      specialty:"Senior Kidney Transplant Surgeon",
+      qualifications:"MBBS, MS, MCh (Urology)",
+      hospital:"Apollo Hospital, Chennai"
+    },
+    {
+      name:"Dr. Rajesh Ahlawat",
+      experience:"30+ Years Experience",
+      specialty:"Urologist & Transplant Specialist",
+      qualifications:"MBBS, MS, MCh (Urology)",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Sandeep Guleria",
+      experience:"28+ Years Experience",
+      specialty:"Kidney Transplant Surgeon",
+      qualifications:"MBBS, MS, MCh (Surgery)",
+      hospital:"Indraprastha Apollo Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"Leading center for kidney transplants with advanced facilities",
+      accreditation:"JCI Certified",
+      successRate:"92–96% one-year graft survival"
+    },
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Advanced multi-organ transplant center",
+      accreditation:"NABH Certified",
+      successRate:"90–95% one-year graft survival"
+    },
+    {
+      name:"Indraprastha Apollo Hospital",
+      location:"Delhi, India",
+      details:"International-standard kidney transplant unit",
+      accreditation:"JCI Certified",
+      successRate:"91–94% one-year graft survival"
+    }
+  ],
+
+  tips:[
+    "Take immunosuppressant medicines regularly",
+    "Maintain strict hygiene to prevent infections",
+    "Follow a kidney-friendly diet",
+    "Attend regular follow-up appointments"
+  ]
+},
+
+lung_tx:{
+  title:"Lung Transplant",
+  desc:"Lung transplant is a surgical procedure in which one or both diseased lungs are replaced with healthy lungs from a donor.",
+  desc2:"It is performed in patients with end-stage lung disease to improve breathing, quality of life, and survival.",
+
+  types:[
+    {name:"Single Lung Transplant", desc:"Only one diseased lung is replaced."},
+    {name:"Double Lung Transplant", desc:"Both lungs are replaced with donor lungs."},
+    {name:"Heart-Lung Transplant", desc:"Both heart and lungs are replaced together."},
+    {name:"Living Donor Lung Transplant", desc:"Two donors each provide a lung lobe."}
+  ],
+
+  who:[
+    {heading:"1. End-Stage Lung Disease", points:["Severe COPD","Pulmonary fibrosis"]},
+    {heading:"2. Cystic Fibrosis", points:["Genetic lung disorders"]},
+    {heading:"3. Pulmonary Hypertension", points:["High blood pressure in lung arteries"]},
+    {heading:"4. Severe Lung Damage", points:["Irreversible lung failure"]}
+  ],
+
+  cost:[
+    {type:"Single Lung Transplant", inr:"₹20,00,000 – ₹35,00,000", usd:"$24,000 – $42,000"},
+    {type:"Double Lung Transplant", inr:"₹30,00,000 – ₹50,00,000", usd:"$36,000 – $60,000"},
+    {type:"Heart-Lung Transplant", inr:"₹40,00,000 – ₹70,00,000", usd:"$48,000 – $84,000"},
+    {type:"Living Donor Lung Transplant", inr:"₹35,00,000 – ₹60,00,000", usd:"$42,000 – $72,000"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Arvind Kumar",
+      experience:"30+ Years Experience",
+      specialty:"Lung Transplant Surgeon",
+      qualifications:"MBBS, MS, MCh (Thoracic Surgery)",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Sandeep Attawar",
+      experience:"25+ Years Experience",
+      specialty:"Cardiothoracic & Lung Transplant Surgeon",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"KIMS Hospital, Hyderabad"
+    },
+    {
+      name:"Dr. G. Ramesh",
+      experience:"20+ Years Experience",
+      specialty:"Thoracic Surgeon",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"Apollo Hospital, Chennai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Advanced lung transplant and respiratory care center",
+      accreditation:"NABH Certified",
+      successRate:"80–88% one-year survival"
+    },
+    {
+      name:"KIMS Hospital",
+      location:"Hyderabad, India",
+      details:"Specialized center for heart and lung transplants",
+      accreditation:"NABH Certified",
+      successRate:"78–85% one-year survival"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard lung transplant program",
+      accreditation:"JCI Certified",
+      successRate:"75–83% one-year survival"
+    }
+  ],
+
+  tips:[
+    "Follow strict infection control measures",
+    "Take immunosuppressant medications regularly",
+    "Attend pulmonary rehabilitation sessions",
+    "Maintain regular follow-up with transplant team"
+  ]
+},
+
+heart_tx:{
+  title:"Heart Transplant",
+  desc:"Heart transplant is a surgical procedure in which a failing or diseased heart is replaced with a healthy donor heart.",
+  desc2:"It is usually recommended for patients with end-stage heart failure when other treatments are no longer effective.",
+
+  types:[
+    {name:"Orthotopic Heart Transplant", desc:"Standard procedure where the patient’s heart is replaced with a donor heart."},
+    {name:"Heterotopic Heart Transplant", desc:"Donor heart is connected without removing the patient’s heart (rare)."},
+    {name:"Heart-Lung Transplant", desc:"Both heart and lungs are replaced together."},
+    {name:"Bridge-to-Transplant", desc:"Temporary devices used until a donor heart becomes available."}
+  ],
+
+  who:[
+    {heading:"1. End-Stage Heart Failure", points:["Severely weakened heart function"]},
+    {heading:"2. Cardiomyopathy", points:["Diseases of the heart muscle"]},
+    {heading:"3. Severe Coronary Artery Disease", points:["Blocked heart arteries not treatable otherwise"]},
+    {heading:"4. Congenital Heart Disease", points:["Serious heart defects from birth"]}
+  ],
+
+  cost:[
+    {type:"Standard Heart Transplant", inr:"₹18,00,000 – ₹35,00,000", usd:"$21,600 – $42,000"},
+    {type:"Heart-Lung Transplant", inr:"₹35,00,000 – ₹65,00,000", usd:"$42,000 – $78,000"},
+    {type:"Bridge-to-Transplant Devices", inr:"₹8,00,000 – ₹20,00,000", usd:"$9,600 – $24,000"},
+    {type:"Post-Transplant Care (Annual)", inr:"₹2,00,000 – ₹5,00,000", usd:"$2,400 – $6,000"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Naresh Trehan",
+      experience:"40+ Years Experience",
+      specialty:"Cardiac Surgeon & Transplant Specialist",
+      qualifications:"MBBS, MS, FRCS",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Sandeep Attawar",
+      experience:"25+ Years Experience",
+      specialty:"Heart & Lung Transplant Surgeon",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"KIMS Hospital, Hyderabad"
+    },
+    {
+      name:"Dr. M. R. Girinath",
+      experience:"30+ Years Experience",
+      specialty:"Cardiac Surgeon",
+      qualifications:"MBBS, MS, MCh (CTVS)",
+      hospital:"Apollo Hospital, Chennai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Leading center for advanced cardiac and heart transplant surgeries",
+      accreditation:"NABH Certified",
+      successRate:"85–90% one-year survival"
+    },
+    {
+      name:"KIMS Hospital",
+      location:"Hyderabad, India",
+      details:"Specialized heart and lung transplant program",
+      accreditation:"NABH Certified",
+      successRate:"82–88% one-year survival"
+    },
+    {
+      name:"Apollo Hospital",
+      location:"Chennai, India",
+      details:"International-standard cardiac transplant facilities",
+      accreditation:"JCI Certified",
+      successRate:"80–86% one-year survival"
+    }
+  ],
+
+  tips:[
+    "Take anti-rejection medications exactly as prescribed",
+    "Maintain a heart-healthy diet",
+    "Attend regular cardiac follow-up visits",
+    "Avoid infections and crowded places during early recovery"
+  ]
+},
+
+liver_tx:{
+  title:"Liver Transplant",
+  desc:"Liver transplant is a surgical procedure in which a damaged or failing liver is replaced with a healthy liver from a donor.",
+  desc2:"It is recommended for patients with end-stage liver disease or acute liver failure when other treatments are no longer effective.",
+
+  types:[
+    {name:"Living Donor Liver Transplant", desc:"A portion of liver from a living donor is transplanted."},
+    {name:"Deceased Donor Liver Transplant", desc:"Whole liver from a brain-dead donor is used."},
+    {name:"Split Liver Transplant", desc:"One donor liver is divided between two recipients."},
+    {name:"Auxiliary Liver Transplant", desc:"Partial donor liver supports the patient’s liver temporarily."}
+  ],
+
+  who:[
+    {heading:"1. End-Stage Liver Disease", points:["Cirrhosis","Chronic liver failure"]},
+    {heading:"2. Acute Liver Failure", points:["Sudden severe liver damage"]},
+    {heading:"3. Liver Cancer", points:["Early-stage liver tumors"]},
+    {heading:"4. Genetic Liver Disorders", points:["Inherited liver diseases"]}
+  ],
+
+  cost:[
+    {type:"Living Donor Liver Transplant", inr:"₹18,00,000 – ₹30,00,000", usd:"$21,600 – $36,000"},
+    {type:"Deceased Donor Liver Transplant", inr:"₹20,00,000 – ₹35,00,000", usd:"$24,000 – $42,000"},
+    {type:"Split Liver Transplant", inr:"₹22,00,000 – ₹38,00,000", usd:"$26,400 – $45,600"},
+    {type:"Auxiliary Liver Transplant", inr:"₹25,00,000 – ₹40,00,000", usd:"$30,000 – $48,000"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Arvinder Singh Soin",
+      experience:"35+ Years Experience",
+      specialty:"Liver Transplant Surgeon",
+      qualifications:"MBBS, MS, FRCS",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Mohamed Rela",
+      experience:"30+ Years Experience",
+      specialty:"Hepatobiliary & Liver Transplant Surgeon",
+      qualifications:"MBBS, MS, FRCS",
+      hospital:"Rela Hospital, Chennai"
+    },
+    {
+      name:"Dr. Subhash Gupta",
+      experience:"25+ Years Experience",
+      specialty:"Liver Transplant Specialist",
+      qualifications:"MBBS, MS, DNB",
+      hospital:"Max Hospital, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"One of India’s leading liver transplant centers",
+      accreditation:"NABH Certified",
+      successRate:"88–92% one-year survival"
+    },
+    {
+      name:"Rela Hospital",
+      location:"Chennai, India",
+      details:"Internationally recognized liver transplant institute",
+      accreditation:"JCI Certified",
+      successRate:"90–94% one-year survival"
+    },
+    {
+      name:"Max Hospital",
+      location:"Delhi, India",
+      details:"Advanced liver transplant and hepatology unit",
+      accreditation:"NABH Certified",
+      successRate:"85–90% one-year survival"
+    }
+  ],
+
+  tips:[
+    "Take anti-rejection medicines as prescribed",
+    "Avoid alcohol and follow liver-friendly diet",
+    "Maintain regular follow-up tests",
+    "Practice good hygiene to prevent infections"
+  ]
+},
+
+
+/* IVF */
+myomectomy:{
+  title:"Myomectomy",
+  desc:"Myomectomy is a surgical procedure performed to remove uterine fibroids while preserving the uterus.",
+  desc2:"It is commonly recommended for women who want relief from fibroid symptoms or wish to maintain fertility.",
+
+  types:[
+    {name:"Abdominal Myomectomy", desc:"Open surgery to remove large or multiple fibroids."},
+    {name:"Laparoscopic Myomectomy", desc:"Minimally invasive removal of fibroids using small incisions."},
+    {name:"Hysteroscopic Myomectomy", desc:"Fibroids removed through the vagina using a hysteroscope."},
+    {name:"Robotic Myomectomy", desc:"Robot-assisted minimally invasive fibroid removal."}
+  ],
+
+  who:[
+    {heading:"1. Symptomatic Fibroids", points:["Heavy menstrual bleeding","Pelvic pain or pressure"]},
+    {heading:"2. Fertility Concerns", points:["Fibroids affecting pregnancy chances"]},
+    {heading:"3. Enlarged Uterus", points:["Abdominal swelling due to fibroids"]},
+    {heading:"4. Failed Medical Treatment", points:["Symptoms not controlled with medicines"]}
+  ],
+
+  cost:[
+    {type:"Abdominal Myomectomy", inr:"₹1,20,000 – ₹2,80,000", usd:"$1,450 – $3,360"},
+    {type:"Laparoscopic Myomectomy", inr:"₹1,80,000 – ₹3,50,000", usd:"$2,160 – $4,200"},
+    {type:"Hysteroscopic Myomectomy", inr:"₹80,000 – ₹2,00,000", usd:"$960 – $2,400"},
+    {type:"Robotic Myomectomy", inr:"₹3,00,000 – ₹5,50,000", usd:"$3,600 – $6,600"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Neena Bahl",
+      experience:"25+ Years Experience",
+      specialty:"Senior Gynecologist & Fibroid Specialist",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Sadhna Singhal",
+      experience:"20+ Years Experience",
+      specialty:"Gynecologic Surgeon",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Manjula Anagani",
+      experience:"22+ Years Experience",
+      specialty:"Robotic Gynecologic Surgeon",
+      qualifications:"MBBS, MD, Fellowship in Robotic Surgery",
+      hospital:"Care Hospital, Hyderabad"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced gynecology and fibroid treatment center",
+      accreditation:"NABH Certified",
+      successRate:"94–97% patient satisfaction"
+    },
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Comprehensive women’s health and fertility center",
+      accreditation:"NABH Certified",
+      successRate:"93–96% patient satisfaction"
+    },
+    {
+      name:"Care Hospital",
+      location:"Hyderabad, India",
+      details:"Specialized robotic gynecologic surgery unit",
+      accreditation:"NABH Certified",
+      successRate:"92–95% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Follow doctor’s instructions for activity restrictions",
+    "Avoid heavy lifting during recovery",
+    "Attend follow-up checkups",
+    "Maintain a healthy diet to support healing"
+  ]
+},
+
+hysteroscopy:{
+  title:"Hysteroscopy",
+  desc:"Hysteroscopy is a minimally invasive procedure used to examine the inside of the uterus using a thin, lighted instrument called a hysteroscope.",
+  desc2:"It is used for both diagnosis and treatment of uterine conditions such as fibroids, polyps, abnormal bleeding, or infertility issues.",
+
+  types:[
+    {name:"Diagnostic Hysteroscopy", desc:"Used to examine the uterus and identify abnormalities."},
+    {name:"Operative Hysteroscopy", desc:"Used to treat problems like fibroids or polyps."},
+    {name:"Hysteroscopic Polypectomy", desc:"Removal of uterine polyps."},
+    {name:"Hysteroscopic Myomectomy", desc:"Removal of fibroids inside the uterus."}
+  ],
+
+  who:[
+    {heading:"1. Abnormal Uterine Bleeding", points:["Heavy or irregular periods"]},
+    {heading:"2. Uterine Polyps or Fibroids", points:["Growths inside the uterus"]},
+    {heading:"3. Infertility Investigation", points:["Evaluating uterine causes of infertility"]},
+    {heading:"4. Recurrent Miscarriages", points:["Checking uterine abnormalities"]}
+  ],
+
+  cost:[
+    {type:"Diagnostic Hysteroscopy", inr:"₹20,000 – ₹50,000", usd:"$240 – $600"},
+    {type:"Operative Hysteroscopy", inr:"₹50,000 – ₹1,20,000", usd:"$600 – $1,450"},
+    {type:"Polypectomy", inr:"₹40,000 – ₹1,00,000", usd:"$480 – $1,200"},
+    {type:"Hysteroscopic Myomectomy", inr:"₹80,000 – ₹2,00,000", usd:"$960 – $2,400"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Neena Bahl",
+      experience:"25+ Years Experience",
+      specialty:"Senior Gynecologist",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"Fortis Hospital, Delhi"
+    },
+    {
+      name:"Dr. Sadhna Singhal",
+      experience:"20+ Years Experience",
+      specialty:"Gynecologic Surgeon",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"Medanta Hospital, Gurgaon"
+    },
+    {
+      name:"Dr. Manjula Anagani",
+      experience:"22+ Years Experience",
+      specialty:"Minimally Invasive Gynecologic Surgeon",
+      qualifications:"MBBS, MD, Fellowship in Robotic Surgery",
+      hospital:"Care Hospital, Hyderabad"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Fortis Hospital",
+      location:"Delhi, India",
+      details:"Advanced gynecology and minimally invasive surgery center",
+      accreditation:"NABH Certified",
+      successRate:"95–98% procedural success"
+    },
+    {
+      name:"Medanta Hospital",
+      location:"Gurgaon, India",
+      details:"Comprehensive women’s health and fertility unit",
+      accreditation:"NABH Certified",
+      successRate:"94–97% procedural success"
+    },
+    {
+      name:"Care Hospital",
+      location:"Hyderabad, India",
+      details:"Specialized minimally invasive gynecology department",
+      accreditation:"NABH Certified",
+      successRate:"93–96% procedural success"
+    }
+  ],
+
+  tips:[
+    "Follow post-procedure rest instructions",
+    "Report any unusual bleeding or pain",
+    "Attend follow-up visits",
+    "Maintain good reproductive health habits"
+  ]
+},
+
+ivf:{
+  title:"In Vitro Fertilization (IVF)",
+  desc:"IVF is an advanced fertility treatment in which eggs are retrieved from the ovaries and fertilized with sperm in a laboratory.",
+  desc2:"The resulting embryo is then transferred into the uterus to achieve pregnancy.",
+
+  types:[
+    {name:"Conventional IVF", desc:"Standard IVF using the couple’s own eggs and sperm."},
+    {name:"ICSI (Intracytoplasmic Sperm Injection)", desc:"Single sperm injected directly into the egg."},
+    {name:"Donor Egg IVF", desc:"Eggs from a donor are used for fertilization."},
+    {name:"Frozen Embryo Transfer (FET)", desc:"Previously frozen embryos are transferred into the uterus."}
+  ],
+
+  who:[
+    {heading:"1. Blocked or Damaged Fallopian Tubes", points:["Prevents natural fertilization"]},
+    {heading:"2. Male Factor Infertility", points:["Low sperm count or motility"]},
+    {heading:"3. Ovulation Disorders", points:["Irregular or absent ovulation"]},
+    {heading:"4. Unexplained Infertility", points:["No clear cause of infertility"]}
+  ],
+
+  cost:[
+    {type:"Basic IVF Cycle", inr:"₹1,20,000 – ₹2,50,000", usd:"$1,450 – $3,000"},
+    {type:"IVF with ICSI", inr:"₹1,80,000 – ₹3,50,000", usd:"$2,160 – $4,200"},
+    {type:"Donor Egg IVF", inr:"₹2,50,000 – ₹5,00,000", usd:"$3,000 – $6,000"},
+    {type:"Frozen Embryo Transfer", inr:"₹80,000 – ₹1,50,000", usd:"$960 – $1,800"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Firuza Parikh",
+      experience:"30+ Years Experience",
+      specialty:"IVF & Fertility Specialist",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"Jaslok Hospital, Mumbai"
+    },
+    {
+      name:"Dr. Rita Bakshi",
+      experience:"25+ Years Experience",
+      specialty:"IVF Specialist",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"International Fertility Centre, Delhi"
+    },
+    {
+      name:"Dr. Kamini Rao",
+      experience:"35+ Years Experience",
+      specialty:"Reproductive Medicine Specialist",
+      qualifications:"MBBS, MD, Fellowship in Reproductive Medicine",
+      hospital:"Milann Fertility Center, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Jaslok Hospital",
+      location:"Mumbai, India",
+      details:"Advanced fertility and IVF treatment center",
+      accreditation:"NABH Certified",
+      successRate:"60–70% success per cycle"
+    },
+    {
+      name:"International Fertility Centre",
+      location:"Delhi, India",
+      details:"Specialized IVF and assisted reproduction center",
+      accreditation:"ISO Certified",
+      successRate:"55–65% success per cycle"
+    },
+    {
+      name:"Milann Fertility Center",
+      location:"Bangalore, India",
+      details:"Leading reproductive medicine institute",
+      accreditation:"NABH Certified",
+      successRate:"60–68% success per cycle"
+    }
+  ],
+
+  tips:[
+    "Maintain a healthy weight and balanced diet",
+    "Avoid smoking and alcohol",
+    "Follow medication schedules strictly",
+    "Reduce stress and attend regular follow-ups"
+  ]
+},
+
+iui:{
+  title:"Intrauterine Insemination (IUI)",
+  desc:"IUI is a fertility treatment in which specially prepared sperm is directly placed into the uterus during ovulation.",
+  desc2:"This increases the chances of fertilization by bringing sperm closer to the egg at the right time.",
+
+  types:[
+    {name:"Natural Cycle IUI", desc:"Performed without fertility medications."},
+    {name:"Stimulated IUI", desc:"Fertility drugs are used to stimulate egg production."},
+    {name:"Donor Sperm IUI", desc:"Donor sperm is used for insemination."},
+    {name:"Double IUI", desc:"Two inseminations performed in one cycle."}
+  ],
+
+  who:[
+    {heading:"1. Mild Male Factor Infertility", points:["Low sperm count or motility"]},
+    {heading:"2. Cervical Factor Infertility", points:["Sperm unable to pass through cervix"]},
+    {heading:"3. Ovulation Disorders", points:["Irregular ovulation"]},
+    {heading:"4. Unexplained Infertility", points:["No clear cause found"]}
+  ],
+
+  cost:[
+    {type:"Natural Cycle IUI", inr:"₹8,000 – ₹15,000", usd:"$100 – $180"},
+    {type:"Stimulated IUI", inr:"₹15,000 – ₹30,000", usd:"$180 – $360"},
+    {type:"Donor Sperm IUI", inr:"₹25,000 – ₹50,000", usd:"$300 – $600"},
+    {type:"Double IUI Cycle", inr:"₹30,000 – ₹60,000", usd:"$360 – $720"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Rita Bakshi",
+      experience:"25+ Years Experience",
+      specialty:"Fertility Specialist",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"International Fertility Centre, Delhi"
+    },
+    {
+      name:"Dr. Firuza Parikh",
+      experience:"30+ Years Experience",
+      specialty:"IVF & IUI Specialist",
+      qualifications:"MBBS, MD (Obstetrics & Gynecology)",
+      hospital:"Jaslok Hospital, Mumbai"
+    },
+    {
+      name:"Dr. Kamini Rao",
+      experience:"35+ Years Experience",
+      specialty:"Reproductive Medicine Specialist",
+      qualifications:"MBBS, MD, Fellowship in Reproductive Medicine",
+      hospital:"Milann Fertility Center, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"International Fertility Centre",
+      location:"Delhi, India",
+      details:"Specialized fertility and IUI treatment center",
+      accreditation:"ISO Certified",
+      successRate:"15–25% success per cycle"
+    },
+    {
+      name:"Jaslok Hospital",
+      location:"Mumbai, India",
+      details:"Advanced reproductive medicine unit",
+      accreditation:"NABH Certified",
+      successRate:"18–28% success per cycle"
+    },
+    {
+      name:"Milann Fertility Center",
+      location:"Bangalore, India",
+      details:"Leading fertility and reproductive health center",
+      accreditation:"NABH Certified",
+      successRate:"20–30% success per cycle"
+    }
+  ],
+
+  tips:[
+    "Track ovulation accurately",
+    "Maintain a healthy lifestyle",
+    "Follow medication and appointment schedules",
+    "Stay relaxed and reduce stress levels"
+  ]
+},
+
+
+/* DENTAL */
+implants:{
+  title:"Dental Implants",
+  desc:"Dental implants are artificial tooth roots made of titanium that are placed into the jawbone to support replacement teeth.",
+  desc2:"They provide a long-lasting and natural-looking solution for missing teeth, improving chewing ability and appearance.",
+
+  types:[
+    {name:"Single Tooth Implant", desc:"Replacement of one missing tooth with an implant and crown."},
+    {name:"Multiple Tooth Implants", desc:"Implants used to replace several missing teeth."},
+    {name:"All-on-4 Implants", desc:"Full arch replacement using four implants."},
+    {name:"Zygomatic Implants", desc:"Special implants for patients with severe bone loss."}
+  ],
+
+  who:[
+    {heading:"1. Missing Teeth", points:["One or more missing teeth"]},
+    {heading:"2. Loose Dentures", points:["Difficulty with removable dentures"]},
+    {heading:"3. Bone Loss", points:["Jawbone deterioration after tooth loss"]},
+    {heading:"4. Need for Permanent Solution", points:["Desire for fixed, long-term tooth replacement"]}
+  ],
+
+  cost:[
+    {type:"Single Tooth Implant", inr:"₹25,000 – ₹60,000", usd:"$300 – $720"},
+    {type:"Multiple Implants", inr:"₹60,000 – ₹2,50,000", usd:"$720 – $3,000"},
+    {type:"All-on-4 Implants", inr:"₹3,50,000 – ₹6,00,000", usd:"$4,200 – $7,200"},
+    {type:"Zygomatic Implants", inr:"₹5,00,000 – ₹10,00,000", usd:"$6,000 – $12,000"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Kohli",
+      experience:"35+ Years Experience",
+      specialty:"Implantologist & Prosthodontist",
+      qualifications:"BDS, MDS (Prosthodontics)",
+      hospital:"Dr. Kohli’s Dental Center, Delhi"
+    },
+    {
+      name:"Dr. Ashish Jain",
+      experience:"20+ Years Experience",
+      specialty:"Dental Implant Specialist",
+      qualifications:"BDS, MDS (Oral Surgery)",
+      hospital:"Dent Ally Clinic, Delhi"
+    },
+    {
+      name:"Dr. Rajiv Verma",
+      experience:"18+ Years Experience",
+      specialty:"Implant & Cosmetic Dentist",
+      qualifications:"BDS, Fellowship in Implantology",
+      hospital:"Apollo White Dental, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Apollo White Dental",
+      location:"Bangalore, India",
+      details:"Modern dental implant and cosmetic dentistry center",
+      accreditation:"ISO Certified",
+      successRate:"95–98% implant success"
+    },
+    {
+      name:"Dent Ally Clinic",
+      location:"Delhi, India",
+      details:"Specialized implant and oral surgery clinic",
+      accreditation:"ISO Certified",
+      successRate:"94–97% implant success"
+    },
+    {
+      name:"Clove Dental",
+      location:"Multiple Cities, India",
+      details:"Large dental chain with advanced implant services",
+      accreditation:"ISO Certified",
+      successRate:"93–96% implant success"
+    }
+  ],
+
+  tips:[
+    "Maintain good oral hygiene",
+    "Avoid smoking after implant surgery",
+    "Attend regular dental checkups",
+    "Follow post-surgery care instructions"
+  ]
+},
+
+root_canal:{
+  title:"Root Canal Treatment",
+  desc:"Root canal treatment is a dental procedure used to remove infected or damaged pulp from inside a tooth.",
+  desc2:"After cleaning and disinfecting, the tooth is sealed and restored to prevent further infection and save the natural tooth.",
+
+  types:[
+    {name:"Single-Visit Root Canal", desc:"Treatment completed in one appointment."},
+    {name:"Multiple-Visit Root Canal", desc:"Treatment completed over two or more visits."},
+    {name:"Retreatment Root Canal", desc:"Redoing a previous root canal that failed."},
+    {name:"Apicoectomy", desc:"Minor surgical procedure to remove the root tip."}
+  ],
+
+  who:[
+    {heading:"1. Severe Tooth Pain", points:["Persistent or throbbing toothache"]},
+    {heading:"2. Tooth Infection", points:["Pus or abscess near the tooth"]},
+    {heading:"3. Sensitivity", points:["Pain with hot or cold foods"]},
+    {heading:"4. Deep Decay or Injury", points:["Damage reaching the tooth pulp"]}
+  ],
+
+  cost:[
+    {type:"Single-Root Tooth", inr:"₹2,000 – ₹5,000", usd:"$25 – $60"},
+    {type:"Multi-Root Tooth", inr:"₹4,000 – ₹10,000", usd:"$50 – $120"},
+    {type:"Retreatment", inr:"₹6,000 – ₹15,000", usd:"$70 – $180"},
+    {type:"Apicoectomy", inr:"₹8,000 – ₹20,000", usd:"$100 – $240"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Kohli",
+      experience:"35+ Years Experience",
+      specialty:"Endodontist & Prosthodontist",
+      qualifications:"BDS, MDS (Prosthodontics)",
+      hospital:"Dr. Kohli’s Dental Center, Delhi"
+    },
+    {
+      name:"Dr. Ashish Jain",
+      experience:"20+ Years Experience",
+      specialty:"Endodontist",
+      qualifications:"BDS, MDS (Endodontics)",
+      hospital:"Dent Ally Clinic, Delhi"
+    },
+    {
+      name:"Dr. Ritu Gupta",
+      experience:"15+ Years Experience",
+      specialty:"Root Canal Specialist",
+      qualifications:"BDS, MDS (Endodontics)",
+      hospital:"Clove Dental, Delhi"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Clove Dental",
+      location:"Multiple Cities, India",
+      details:"Advanced root canal and dental care center",
+      accreditation:"ISO Certified",
+      successRate:"95–98% treatment success"
+    },
+    {
+      name:"Dent Ally Clinic",
+      location:"Delhi, India",
+      details:"Specialized endodontic and implant center",
+      accreditation:"ISO Certified",
+      successRate:"94–97% treatment success"
+    },
+    {
+      name:"Apollo White Dental",
+      location:"Bangalore, India",
+      details:"Modern dental clinic with advanced root canal technology",
+      accreditation:"ISO Certified",
+      successRate:"93–96% treatment success"
+    }
+  ],
+
+  tips:[
+    "Avoid chewing on the treated tooth until crown placement",
+    "Maintain proper oral hygiene",
+    "Attend follow-up appointments",
+    "Get a dental crown for long-term protection"
+  ]
+},
+
+cosmetic_dental:{
+  title:"Cosmetic Dentistry",
+  desc:"Cosmetic dentistry includes procedures that improve the appearance of teeth, gums, and smile.",
+  desc2:"These treatments focus on enhancing tooth color, shape, alignment, and overall smile aesthetics.",
+
+  types:[
+    {name:"Teeth Whitening", desc:"Procedure to remove stains and brighten teeth."},
+    {name:"Dental Veneers", desc:"Thin shells placed on teeth to improve appearance."},
+    {name:"Dental Bonding", desc:"Tooth-colored resin used to repair chips or gaps."},
+    {name:"Smile Makeover", desc:"Combination of cosmetic treatments for full smile enhancement."}
+  ],
+
+  who:[
+    {heading:"1. Discolored Teeth", points:["Yellow or stained teeth"]},
+    {heading:"2. Chipped or Broken Teeth", points:["Damaged tooth structure"]},
+    {heading:"3. Gaps Between Teeth", points:["Spaces affecting smile aesthetics"]},
+    {heading:"4. Uneven or Misaligned Teeth", points:["Irregular tooth shape or alignment"]}
+  ],
+
+  cost:[
+    {type:"Teeth Whitening", inr:"₹5,000 – ₹15,000", usd:"$60 – $180"},
+    {type:"Dental Veneers (per tooth)", inr:"₹8,000 – ₹25,000", usd:"$100 – $300"},
+    {type:"Dental Bonding", inr:"₹3,000 – ₹10,000", usd:"$35 – $120"},
+    {type:"Smile Makeover", inr:"₹50,000 – ₹2,00,000", usd:"$600 – $2,400"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Kohli",
+      experience:"35+ Years Experience",
+      specialty:"Cosmetic Dentist & Prosthodontist",
+      qualifications:"BDS, MDS (Prosthodontics)",
+      hospital:"Dr. Kohli’s Dental Center, Delhi"
+    },
+    {
+      name:"Dr. Ashish Jain",
+      experience:"20+ Years Experience",
+      specialty:"Cosmetic & Implant Dentist",
+      qualifications:"BDS, MDS (Oral Surgery)",
+      hospital:"Dent Ally Clinic, Delhi"
+    },
+    {
+      name:"Dr. Rajiv Verma",
+      experience:"18+ Years Experience",
+      specialty:"Cosmetic Dentistry Specialist",
+      qualifications:"BDS, Fellowship in Aesthetic Dentistry",
+      hospital:"Apollo White Dental, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Apollo White Dental",
+      location:"Bangalore, India",
+      details:"Advanced cosmetic and aesthetic dentistry center",
+      accreditation:"ISO Certified",
+      successRate:"95–98% patient satisfaction"
+    },
+    {
+      name:"Dent Ally Clinic",
+      location:"Delhi, India",
+      details:"Specialized cosmetic and implant dentistry clinic",
+      accreditation:"ISO Certified",
+      successRate:"94–97% patient satisfaction"
+    },
+    {
+      name:"Clove Dental",
+      location:"Multiple Cities, India",
+      details:"Large dental network offering cosmetic treatments",
+      accreditation:"ISO Certified",
+      successRate:"93–96% patient satisfaction"
+    }
+  ],
+
+  tips:[
+    "Maintain daily brushing and flossing",
+    "Avoid staining foods and drinks",
+    "Visit dentist regularly for cleanings",
+    "Follow post-treatment care instructions"
+  ]
+},
+
+braces:{
+  title:"Braces & Aligners",
+  desc:"Braces and aligners are orthodontic treatments used to straighten teeth, correct bite issues, and improve overall dental alignment.",
+  desc2:"They gradually move teeth into the desired position, enhancing both appearance and oral health.",
+
+  types:[
+    {name:"Metal Braces", desc:"Traditional stainless-steel braces for effective tooth alignment."},
+    {name:"Ceramic Braces", desc:"Tooth-colored braces for a more aesthetic appearance."},
+    {name:"Lingual Braces", desc:"Braces placed behind the teeth, making them less visible."},
+    {name:"Clear Aligners", desc:"Removable, transparent trays used to straighten teeth."}
+  ],
+
+  who:[
+    {heading:"1. Crooked Teeth", points:["Teeth not properly aligned"]},
+    {heading:"2. Bite Problems", points:["Overbite, underbite, or crossbite"]},
+    {heading:"3. Gaps Between Teeth", points:["Spaces affecting appearance or function"]},
+    {heading:"4. Crowded Teeth", points:["Lack of space causing overlapping teeth"]}
+  ],
+
+  cost:[
+    {type:"Metal Braces", inr:"₹25,000 – ₹60,000", usd:"$300 – $720"},
+    {type:"Ceramic Braces", inr:"₹40,000 – ₹90,000", usd:"$480 – $1,080"},
+    {type:"Lingual Braces", inr:"₹80,000 – ₹2,50,000", usd:"$960 – $3,000"},
+    {type:"Clear Aligners", inr:"₹1,00,000 – ₹3,50,000", usd:"$1,200 – $4,200"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Anil Kohli",
+      experience:"35+ Years Experience",
+      specialty:"Orthodontist & Prosthodontist",
+      qualifications:"BDS, MDS (Prosthodontics)",
+      hospital:"Dr. Kohli’s Dental Center, Delhi"
+    },
+    {
+      name:"Dr. Ritu Gupta",
+      experience:"15+ Years Experience",
+      specialty:"Orthodontist",
+      qualifications:"BDS, MDS (Orthodontics)",
+      hospital:"Clove Dental, Delhi"
+    },
+    {
+      name:"Dr. Rajiv Verma",
+      experience:"18+ Years Experience",
+      specialty:"Clear Aligner Specialist",
+      qualifications:"BDS, Fellowship in Orthodontics",
+      hospital:"Apollo White Dental, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Clove Dental",
+      location:"Multiple Cities, India",
+      details:"Large dental network offering orthodontic treatments",
+      accreditation:"ISO Certified",
+      successRate:"95–98% treatment success"
+    },
+    {
+      name:"Apollo White Dental",
+      location:"Bangalore, India",
+      details:"Modern dental clinic with clear aligner services",
+      accreditation:"ISO Certified",
+      successRate:"94–97% treatment success"
+    },
+    {
+      name:"Dent Ally Clinic",
+      location:"Delhi, India",
+      details:"Specialized orthodontic and cosmetic dentistry center",
+      accreditation:"ISO Certified",
+      successRate:"93–96% treatment success"
+    }
+  ],
+
+  tips:[
+    "Maintain good oral hygiene during treatment",
+    "Avoid hard or sticky foods with braces",
+    "Wear aligners as instructed by your dentist",
+    "Attend regular orthodontic checkups"
+  ]
+},
+
+oral_surgery:{
+  title:"Oral Surgery",
+  desc:"Oral surgery includes surgical procedures performed on the teeth, gums, jaw, and facial structures to treat various dental and oral conditions.",
+  desc2:"It is commonly performed for impacted teeth, jaw corrections, dental infections, and reconstructive procedures.",
+
+  types:[
+    {name:"Wisdom Tooth Removal", desc:"Surgical extraction of impacted or problematic wisdom teeth."},
+    {name:"Jaw Surgery (Orthognathic)", desc:"Corrective surgery to fix jaw alignment issues."},
+    {name:"Dental Bone Grafting", desc:"Procedure to rebuild jawbone for implants."},
+    {name:"Cyst or Tumor Removal", desc:"Removal of abnormal growths in the oral cavity."}
+  ],
+
+  who:[
+    {heading:"1. Impacted Teeth", points:["Wisdom teeth causing pain or infection"]},
+    {heading:"2. Jaw Misalignment", points:["Difficulty in chewing or speaking"]},
+    {heading:"3. Severe Dental Infections", points:["Infections not treatable with medication"]},
+    {heading:"4. Bone Loss", points:["Insufficient bone for dental implants"]}
+  ],
+
+  cost:[
+    {type:"Wisdom Tooth Removal", inr:"₹3,000 – ₹10,000", usd:"$35 – $120"},
+    {type:"Jaw Surgery", inr:"₹1,50,000 – ₹4,00,000", usd:"$1,800 – $4,800"},
+    {type:"Bone Grafting", inr:"₹20,000 – ₹80,000", usd:"$240 – $960"},
+    {type:"Cyst or Tumor Removal", inr:"₹15,000 – ₹60,000", usd:"$180 – $720"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Ashish Jain",
+      experience:"20+ Years Experience",
+      specialty:"Oral & Maxillofacial Surgeon",
+      qualifications:"BDS, MDS (Oral Surgery)",
+      hospital:"Dent Ally Clinic, Delhi"
+    },
+    {
+      name:"Dr. Anil Kohli",
+      experience:"35+ Years Experience",
+      specialty:"Oral Surgeon & Prosthodontist",
+      qualifications:"BDS, MDS (Prosthodontics)",
+      hospital:"Dr. Kohli’s Dental Center, Delhi"
+    },
+    {
+      name:"Dr. Rajiv Verma",
+      experience:"18+ Years Experience",
+      specialty:"Oral & Implant Surgeon",
+      qualifications:"BDS, Fellowship in Implantology",
+      hospital:"Apollo White Dental, Bangalore"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Dent Ally Clinic",
+      location:"Delhi, India",
+      details:"Specialized oral and maxillofacial surgery center",
+      accreditation:"ISO Certified",
+      successRate:"94–97% surgical success"
+    },
+    {
+      name:"Apollo White Dental",
+      location:"Bangalore, India",
+      details:"Advanced oral surgery and implant center",
+      accreditation:"ISO Certified",
+      successRate:"93–96% surgical success"
+    },
+    {
+      name:"Clove Dental",
+      location:"Multiple Cities, India",
+      details:"Large dental network with oral surgery services",
+      accreditation:"ISO Certified",
+      successRate:"92–95% surgical success"
+    }
+  ],
+
+  tips:[
+    "Follow post-surgery care instructions carefully",
+    "Avoid smoking and alcohol during recovery",
+    "Maintain oral hygiene to prevent infection",
+    "Attend follow-up appointments"
+  ]
+},
+
+extraction:{
+  title:"Tooth Extraction",
+  desc:"Tooth extraction is a dental procedure in which a damaged, decayed, or problematic tooth is removed to relieve pain and prevent further oral health issues.",
+  desc2:"It is commonly performed for severely decayed teeth, impacted wisdom teeth, infections, or orthodontic treatment needs.",
+
+  types:[
+    {name:"Simple Extraction", desc:"Removal of visible teeth using dental instruments."},
+    {name:"Surgical Extraction", desc:"Procedure for impacted or broken teeth requiring minor surgery."},
+    {name:"Wisdom Tooth Extraction", desc:"Removal of problematic or impacted wisdom teeth."},
+    {name:"Multiple Tooth Extraction", desc:"Removal of more than one tooth during a single procedure."}
+  ],
+
+  who:[
+    {heading:"1. Severe Tooth Decay", points:["Tooth too damaged for filling or root canal"]},
+    {heading:"2. Impacted Wisdom Teeth", points:["Pain, swelling, or infection around wisdom teeth"]},
+    {heading:"3. Orthodontic Needs", points:["To create space for braces or aligners"]},
+    {heading:"4. Gum Disease", points:["Loose teeth due to advanced periodontal disease"]}
+  ],
+
+  cost:[
+    {type:"Simple Extraction", inr:"₹800 – ₹3,000", usd:"$10 – $35"},
+    {type:"Surgical Extraction", inr:"₹3,000 – ₹10,000", usd:"$35 – $120"},
+    {type:"Wisdom Tooth Extraction", inr:"₹5,000 – ₹15,000", usd:"$60 – $180"},
+    {type:"Multiple Tooth Extraction", inr:"₹4,000 – ₹20,000", usd:"$50 – $240"}
+  ],
+
+  doctors:[
+    {
+      name:"Dr. Ritu Sharma",
+      experience:"18+ Years Experience",
+      specialty:"Oral & Dental Surgeon",
+      qualifications:"BDS, MDS (Oral Surgery)",
+      hospital:"Clove Dental, Delhi"
+    },
+    {
+      name:"Dr. Vikram Mehta",
+      experience:"20+ Years Experience",
+      specialty:"Oral & Maxillofacial Surgeon",
+      qualifications:"BDS, MDS (Oral Surgery)",
+      hospital:"Apollo White Dental, Chennai"
+    },
+    {
+      name:"Dr. Neeraj Kapoor",
+      experience:"15+ Years Experience",
+      specialty:"General Dentist & Oral Surgeon",
+      qualifications:"BDS, Fellowship in Oral Surgery",
+      hospital:"Fortis Dental, Mumbai"
+    }
+  ],
+
+  hospitals:[
+    {
+      name:"Clove Dental",
+      location:"Multiple Cities, India",
+      details:"Large dental network offering advanced extraction procedures",
+      accreditation:"ISO Certified",
+      successRate:"95–98% success rate"
+    },
+    {
+      name:"Apollo White Dental",
+      location:"Chennai, India",
+      details:"Modern dental center with surgical extraction services",
+      accreditation:"ISO Certified",
+      successRate:"94–97% success rate"
+    },
+    {
+      name:"Fortis Dental",
+      location:"Mumbai, India",
+      details:"Comprehensive dental care including surgical extractions",
+      accreditation:"NABH Certified",
+      successRate:"93–96% success rate"
+    }
+  ],
+
+  tips:[
+    "Avoid eating hard foods for 24–48 hours",
+    "Do not rinse or spit forcefully after extraction",
+    "Follow prescribed medications",
+    "Maintain oral hygiene to prevent infection"
+  ]
+},
+
+
+};
+
+if (data[treatment]) {
+    const t = data[treatment];
+
+    const titles = document.querySelectorAll(".treatmentTitle");
+    titles.forEach(el => el.innerText = t.title + " Treatment");
+
+    if(document.getElementById("treatmentDesc"))
+    document.getElementById("treatmentDesc").innerText = t.desc;
+
+    if(document.getElementById("treatmentDesc2") && t.desc2)
+    document.getElementById("treatmentDesc2").innerText = t.desc2;
+
+
+    if(document.getElementById("treatmentWho"))
+        document.getElementById("treatmentWho").innerText = t.who;
+
+    if(document.getElementById("treatmentRecovery"))
+        document.getElementById("treatmentRecovery").innerText = t.recovery;
+
+    if(t.cost && document.getElementById("treatmentCost"))
+        document.getElementById("treatmentCost").innerText = t.cost;
+}
+ else {
+    document.getElementById("treatmentTitle").innerText = "Treatment Not Found";
+}
+
+if (data[treatment] && data[treatment].types) {
+
+ const hipData = data[treatment];
+
+
+  // Update page title and description
+ document.querySelectorAll(".treatmentTitle").forEach(el => el.innerText = hipData.title + " Treatment");
+
+  // Assuming you have one element for description
+  document.getElementById("treatmentDesc").innerText = hipData.desc;
+
+  // Update Types of Surgery Section
+  let typesHTML = hipData.types.map(type => `<li><strong>${type.name}:</strong> ${type.desc}</li>`).join("");
+  document.getElementById("typesList").innerHTML = typesHTML;
+
+  // Update Who Should Get Surgery Section
+  let whoHTML = hipData.who.map(item => {
+    let points = item.points.map(p => `<li>${p}</li>`).join("");
+    return `<div class="sub-heading">${item.heading}</div><ul>${points}</ul>`;
+  }).join("");
+  document.getElementById("whoShouldGet").innerHTML = whoHTML;
+
+  // Update Cost Table Section
+  let costRows = hipData.cost.map(row => `
+    <tr>
+      <td>${row.type}</td>
+      <td>${row.inr}</td>
+      <td>${row.usd}</td>
+    </tr>
+  `).join("");
+  document.getElementById("costTable").innerHTML = `
+    <table class="table mb-0 med-table">
+      <thead>
+        <tr><th>Surgery Type</th><th>Cost (INR)</th><th>Cost (USD)</th></tr>
+      </thead>
+      <tbody>${costRows}</tbody>
+    </table>
+   <div class="table-footer">Table: ${hipData.title} Costs by Procedure</div>
+
+  `;
+
+  // Update Doctors Section
+ let doctorsHTML = hipData.doctors.map(doc => `
+  <div class="col-md-4">
+    <div class="doctor-card2">
+      <img src="image/doc1.jpeg" alt="${doc.name}">
+      <h5>${doc.name}</h5>
+      <p>${doc.experience}<br>${doc.specialty}</p>
+      <p>Qualifications: ${doc.qualifications}</p>
+      <p>Hospital: ${doc.hospital}</p>
+      <a href="#" class="btn btn-primary btn-sm">View Profile</a>
+    </div>
+  </div>
+`).join("");
+document.getElementById("doctorList").innerHTML = doctorsHTML;
+
+
+  // Update Hospitals Section
+let hospitalsHTML = hipData.hospitals.map(hospital => `
+  <div class="col-md-4">
+    <div class="hospital-card2">
+      <img src="image/hos.jpeg" alt="${hospital.name}">
+      <h5>${hospital.name}</h5>
+      <p>${hospital.location}<br>${hospital.details}</p>
+      <p>Accreditation: ${hospital.accreditation}<br>Success Rate: ${hospital.successRate}</p>
+      <a href="#" class="btn btn-outline-primary btn-sm">View Hospital</a>
+    </div>
+  </div>
+`).join("");
+document.getElementById("hospitalList").innerHTML = hospitalsHTML;
+
+
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

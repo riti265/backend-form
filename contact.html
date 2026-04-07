@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="menu.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    /* GLOBAL */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8fbfc; /* Very subtle medical blue/gray */
+        color: #333333;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Poppins', sans-serif;
+        color: #102a43; /* Dark Navy for high contrast and trust */
+    }
+    .nav-space { height: 80px; }
+
+    /* PAGE HEADER */
+    .page-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 40px 0;
+        text-align: center;
+    }
+    .page-header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #0056b3; /* Healthcare Blue */
+    }
+    .page-header p {
+        font-size: 16px;
+        color: #627d98;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* MAIN CONTAINER */
+    .contact-section {
+        padding: 60px 0;
+    }
+    .card-box {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px; /* Classic slight rounding */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); /* Very subtle shadow */
+        padding: 40px;
+        height: 100%;
+    }
+
+    /* FORM STYLING (Classic & Clean) */
+    .form-label {
+        font-weight: 500;
+        color: #334e68;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    .form-control, .form-select {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 12px 15px;
+        font-size: 15px;
+        background-color: #ffffff;
+        transition: border-color 0.2s;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #0056b3;
+        box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1); /* Soft blue glow on focus */
+    }
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+    .text-danger {
+        color: #d32f2f !important; /* Standard error red */
+    }
+
+    /* BUTTON */
+    .btn-primary {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.3s;
+    }
+    .btn-primary:hover {
+        background-color: #004494;
+        border-color: #004494;
+    }
+
+    /* CONTACT INFO SIDEBAR */
+    .sidebar-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    .info-block {
+        display: flex;
+        margin-bottom: 25px;
+    }
+    .info-block i {
+        font-size: 20px;
+        color: #0056b3;
+        margin-right: 15px;
+        margin-top: 3px;
+    }
+    .info-block h6 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    .info-block p {
+        color: #475569;
+        font-size: 15px;
+        margin-bottom: 0;
+        line-height: 1.5;
+    }
+
+    /* IMAGE / MAP PLACEHOLDER */
+    .side-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        border: 1px solid #e2e8f0;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Contact Surgical Route</h1>
+        <p>Our medical coordination team is ready to assist you. Please fill out the form below or reach us directly via phone or email.</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <div class="row g-4">
+
+            <div class="col-lg-8">
+                <div class="card-box">
+                    <h3 class="mb-4" style="font-size: 22px;">Request a Medical Review</h3>
+                    
+                    <div id="successMessage" class="alert alert-success" style="display:none;" role="alert">
+                        <strong><i class="fas fa-check-circle me-1"></i> Success!</strong> Your request has been securely submitted. We will contact you shortly.
+                    </div>
+
+                    <form id="contactForm" action="/contact" method="POST" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            
+                            <div class="col-md-6">
+                                <label for="fullName" class="form-label">Patient Full Name <span class="text-danger">*</span></label>
+                                <input type="text" id="fullName" name="name" class="form-control" placeholder="Enter full name" required>
+                                <div class="invalid-feedback">Please enter the patient's name.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="example@domain.com" required>
+                                <div class="invalid-feedback">Please enter a valid email address (e.g., name@domain.com).</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Contact Number <span class="text-danger">*</span></label>
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 00000 00000" required>
+                                <div class="invalid-feedback">Please enter a valid phone number.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="country" class="form-label">Country of Residence <span class="text-danger">*</span></label>
+                                <select id="country" name="country" class="form-select" required>
+                                    <option value="" disabled selected>Select Country</option>
+                                    <option>India</option>
+                                    <option>UAE</option>
+                                    <option>Bangladesh</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your country.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="department" class="form-label">Specialty / Department <span class="text-danger">*</span></label>
+                                <select id="department" name="department" class="form-select" required>
+                                    <option value="" disabled selected>Select Medical Department</option>
+                                    <option>Cardiology</option>
+                                    <option>Orthopedics</option>
+                                    <option>Neurology</option>
+                                    <option>Oncology</option>
+                                    <option>Dermatology</option>
+                                    <option>General Inquiry</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a department.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="date" class="form-label">Preferred Date <span class="text-danger">*</span></label>
+                                <input type="date" id="date" name="date" class="form-control" required>
+                                <div class="invalid-feedback">Please select a date.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="time" class="form-label">Preferred Time <span class="text-danger">*</span></label>
+                                <input type="time" id="time" name="time" class="form-control" required>
+                                <div class="invalid-feedback">Please select a time.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="concern" class="form-label">Medical Concern Details <span class="text-danger">*</span></label>
+                                <textarea id="concern" name="message" class="form-control" placeholder="Please briefly describe the symptoms or medical history..." required></textarea>
+                                <div class="invalid-feedback">Please provide details regarding the medical concern.</div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    Submit Medical Inquiry
+                                </button>
+                                <p class="text-center mt-3 mb-0" style="font-size: 13px; color: #64748b;">
+                                    <i class="fas fa-lock me-1"></i> All submitted information is encrypted and strictly confidential.
+                                </p>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card-box" style="background-color: #f8fafc;">
+                    
+                    <img src="image/main doc.jpeg" alt="Medical Team" class="side-image">
+
+                    <h4 class="sidebar-title">Our Office</h4>
+                    
+                    <div class="info-block">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h6>Address</h6>
+                            <p>Surgical Route Healthcare Hub<br>New Delhi, India 110001</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h6>Phone</h6>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h6>Email</h6>
+                            <p>care@surgicalroute.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block mb-0">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h6>Working Hours</h6>
+                            <p>Mon - Sat: 9:00 AM - 6:00 PM<br>Emergency 24/7 Support</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+fetch("menu.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("menu").innerHTML = data);
+</script>
+
+<script>
+(function () {
+    'use strict'
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission if invalid
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
+// Show success message if URL has ?success=true
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('success') === 'true') {
+    document.getElementById('successMessage').style.display = 'block';
+}
+</script>
+</body>
+</html>

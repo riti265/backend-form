@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title id="pageTitle">Specialty | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="menu.css">
+
+<style>
+body{ font-family:Inter, Arial, sans-serif; background:#f6f8fb; }
+.nav-space{ height:90px; }
+
+.page-header{
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+    padding:30px 15px;
+}
+.container-narrow{ max-width:1100px; }
+
+.treatment-card{
+    background:#fff;
+    padding:22px;
+    border-radius:14px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    height:100%;
+}
+.icon-box{
+    width:56px;height:56px;
+    background:#e9f1ff;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 12px;
+}
+.icon-box i{ color:#0d6efd; font-size:24px; }
+</style>
+</head>
+
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<!-- HEADER -->
+<section class="page-header">
+  <div class="container container-narrow">
+    <h1 id="specialtyTitle">Specialty</h1>
+    <p id="specialtyDesc">Specialty description</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="py-4">
+  <div class="container container-narrow">
+    <h2 id="aboutTitle"></h2>
+    <p id="aboutDesc"></p>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="py-4 bg-light">
+  <div class="container container-narrow">
+    <h2 class="text-center mb-4">Treatments We Assist With</h2>
+    <div class="row g-4" id="treatmentCards"></div>
+  </div>
+</section>
+
+<script>
+fetch("menu.html")
+.then(r=>r.text())
+.then(d=>document.getElementById("menu").innerHTML=d);
+
+// ===== DATA OBJECT (CHANGE DATA, NOT DESIGN) =====
+const data = {
+  orthopedics: {
+    title: "Orthopaedic Treatments",
+    desc: "Expert care for bones, joints, muscles, and spine",
+    aboutTitle: "What is Orthopaedic Care?",
+    aboutDesc: "Orthopaedic care focuses on bones, joints, muscles, ligaments and spine.",
+    treatments: [
+      { name:"Knee Replacement", icon:"fa-joint" },
+      { name:"Hip Replacement", icon:"fa-bone" },
+      { name:"Spine Surgery", icon:"fa-x-ray" }
+    ]
+  },
+  cardiac: {
+    title: "Cardiac Care",
+    desc: "Advanced heart care with expert cardiologists",
+    aboutTitle: "What is Cardiac Care?",
+    aboutDesc: "Cardiac care deals with heart and blood vessel conditions.",
+    treatments: [
+      { name:"Angioplasty", icon:"fa-heart-pulse" },
+      { name:"Bypass Surgery", icon:"fa-heart" }
+    ]
+  }
+};
+
+// ===== LOAD DATA BASED ON URL =====
+const type = new URLSearchParams(window.location.search).get("type") || "orthopedics";
+const d = data[type];
+
+document.getElementById("pageTitle").innerText = d.title;
+document.getElementById("specialtyTitle").innerText = d.title;
+document.getElementById("specialtyDesc").innerText = d.desc;
+document.getElementById("aboutTitle").innerText = d.aboutTitle;
+document.getElementById("aboutDesc").innerText = d.aboutDesc;
+
+const container = document.getElementById("treatmentCards");
+d.treatments.forEach(t=>{
+  container.innerHTML += `
+    <div class="col-md-4">
+      <div class="treatment-card">
+        <div class="icon-box"><i class="fas ${t.icon}"></i></div>
+        <h5>${t.name}</h5>
+        <a href="treatment-detail.html" class="btn btn-sm btn-primary mt-2">View Details</a>
+      </div>
+    </div>
+  `;
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
