@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors"); // Added CORS for security
 
 const app = express();
 
@@ -8,32 +9,31 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // middleware
+app.use(cors({ origin: "*" })); // This allows your cPanel site to connect
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// open form page
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "form.html"));
-});
+// handle form submit from your website
+app.post("/contact", (req, res) => {
+    // These names match the "name" attributes in your contact.html form
+    const { name, email, phone, country, department, date, time, message } = req.body;
 
-// handle form submit
-app.post("/submit", (req, res) => {
-  const { name, email, phone } = req.body;
+    // Create a row for your CSV file
+    const row = `${name},${email},${phone},${country},${department},${date},${time},"${message}"\n`;
+    const filePath = path.join(__dirname, "data.csv");
 
-  const row = `${name},${email},${phone}\n`;
-  const filePath = path.join(__dirname, "data.csv");
+    // create file with header if not exists
+    if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, "Name,Email,Phone,Country,Department,Date,Time,Message\n");
+    }
 
-  // create file with header if not exists
-  if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, "Name,Email,Phone\n");
-  }
+    fs.appendFileSync(filePath, row);
 
-  fs.appendFileSync(filePath, row);
-
-  res.send("Form submitted successfully!");
+    // Send a success response back to your website
+    res.status(200).json({ message: "Form submitted successfully!" });
 });
 
 // start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
