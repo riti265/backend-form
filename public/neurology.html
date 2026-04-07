@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neurology & Neurosurgery | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Menu CSS -->
+<link rel="stylesheet" href="menu.css">
+
+<style>
+body{
+    font-family:'Poppins', Arial, sans-serif;
+    background:#f6f8fb;
+     color:rgba(33,37,41,0.75);
+}
+
+p{
+    color:rgba(33,37,41,0.75);
+}
+
+/* space for fixed menu */
+.nav-space{ height:90px; }
+
+/* HEADER */
+.page-header{
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+    padding:30px 15px;
+    text-align:center;
+}
+.page-header h1{
+    font-weight:700;
+    margin-bottom:5px;
+}
+.page-header p{
+    margin:0;
+    opacity:.95;
+    color:#e9f1ff;
+}
+
+/* WIDTH CONTROL */
+.container-narrow{ max-width:1100px; }
+
+/* ABOUT */
+.about-section{
+    padding:20px 0;
+}
+.about-section h2{
+    margin-bottom:12px;
+}
+
+/* GRID */
+.row.g-4{
+    --bs-gutter-x:1.2rem;
+    --bs-gutter-y:1.2rem;
+}
+
+/* CARD */
+.treatment-card{
+    background:#fff;
+    padding:24px 20px;
+    border-radius:14px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    height:100%;
+    transition:all .35s ease;
+}
+.treatment-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(13,110,253,.18);
+}
+
+/* ICON BOX */
+.icon-box{
+    width:56px;
+    height:56px;
+    background:#e9f1ff;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 14px;
+    transition:all .35s ease;
+}
+.icon-box i{
+    font-size:24px;
+    color:#0d6efd;
+}
+.treatment-card:hover .icon-box{
+    transform:scale(1.1);
+    background:#dbe9ff;
+}
+
+.treatment-card h5{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+/* CTA */
+.cta-box{
+    background:#fff;
+    border-radius:16px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <div class="container container-narrow">
+        <h1>Neurology & Neurosurgery</h1>
+        <p>Advanced treatment for brain, spine, and nervous system conditions</p>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+    <div class="container container-narrow">
+        <h2>What is Neurology Care?</h2>
+        <p>
+            Neurology focuses on diagnosing and treating disorders of the brain,
+            spine, and nervous system. Advanced neurosurgical procedures help
+            manage conditions like tumors, strokes, epilepsy, and spinal disorders,
+            improving patient outcomes and quality of life.
+        </p>
+    </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="py-4 bg-light">
+    <div class="container container-narrow">
+        <h2 class="text-center mb-4">Treatments We Assist With</h2>
+
+        <div class="row g-4 justify-content-center">
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-brain"></i></div>
+                    <h5>Brain Tumor Surgery</h5>
+                    <p>Advanced surgical removal of benign and malignant brain tumors.</p>
+                    <a href="treatment-detail.html?treatment=brain_tumor" 
+                    class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-x-ray"></i></div>
+                    <h5>Spine Tumor Surgery</h5>
+                    <p>Treatment for tumors affecting the spinal cord and vertebrae.</p>
+                    <a href="treatment-detail.html?treatment=spine_tumor" 
+                    class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-heartbeat"></i></div>
+                    <h5>Stroke Management</h5>
+                    <p>Emergency treatment and rehabilitation for stroke patients.</p> 
+                    <a href="treatment-detail.html?treatment=stroke" 
+                    class="btn btn-sm btn-primary mt-2">
+                       View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                    <h5>Epilepsy Surgery</h5>
+                    <p>Surgical treatment for drug-resistant epilepsy cases.</p>
+                    <a href="treatment-detail.html?treatment=epilepsy" 
+                    class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-microchip"></i></div>
+                    <h5>Deep Brain Stimulation</h5>
+                    <p>Advanced therapy for movement disorders like Parkinson’s disease.</p>
+                    <a href="treatment-detail.html?treatment=dbs" 
+                    class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-heart"></i></div>
+                    <h5>Aneurysm Surgery</h5>
+                    <p>Life-saving procedures to treat brain aneurysms.</p>
+                    <a href="treatment-detail.html?treatment=aneurysm" 
+                    class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5">
+    <div class="container container-narrow">
+        <div class="cta-box">
+            <h3>Need Neurology Treatment?</h3>
+            <p>Consult expert neurologists and neurosurgeons for advanced care.</p>
+            <a href="contact.html" class="btn btn-primary mt-3 px-4">
+                Book Free Consultation
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- MENU LOAD -->
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(data => document.getElementById("menu").innerHTML = data);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

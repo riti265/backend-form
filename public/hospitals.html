@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Find Hospitals | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="menu.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+/* ================= GLOBAL STYLES ================= */
+* { box-sizing: border-box; }
+
+body { 
+  margin: 0; 
+  background: #f6f8fb; 
+  color: #212529; /* solid dark text */
+  font-family: 'Poppins', sans-serif; 
+}
+
+/* ================= HEADINGS ================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 30px;
+  color: #102a56;
+}
+
+/* ================= PARAGRAPHS ================= */
+p, li, .small, .text-muted {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(33,37,41,0.75) !important; /* force dark text */
+}
+
+/* ================= MENU FIX ================= */
+#menu {
+  background-color: #ffffff;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.nav-space { height: 90px; }
+
+/* ================= HERO SECTION ================= */
+.hospitals-hero {
+  background: #eef3f9;
+  padding: 40px 0;
+  text-align: center;
+}
+.hospitals-hero h1 { 
+  font-weight: 700; 
+  color: #102a56; 
+  margin-bottom: 15px; 
+}
+.hospitals-hero p { 
+  color: black; 
+  font-size: 16px; 
+  max-width: 700px; 
+  margin: 0 auto; 
+}
+
+/* ================= SEARCH FORM ================= */
+.search-form { 
+  background: #fff; 
+  padding: 30px; 
+  border-radius: 16px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+  margin-bottom: 40px; 
+  margin-top: -30px; 
+  position: relative; 
+  z-index: 10; 
+}
+.search-form .form-label { 
+  font-weight: 600; 
+  color: #102a56; 
+}
+.search-form .btn { 
+  background: #102a56; 
+  border: none; 
+  padding: 10px 20px; 
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+.search-form .btn:hover { 
+  background: #0a1f3d; 
+}
+
+/* ================= HOSPITAL CARDS ================= */
+.hospital-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 25px; 
+  margin-bottom: 50px; 
+}
+
+.hospital-card { 
+  background: #fff; 
+  border-radius: 16px; 
+  padding: 25px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  transition: transform 0.3s; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center; 
+}
+.hospital-card:hover { 
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+}
+
+.hospital-img-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 3px solid #eef3f9;
+}
+.hospital-card img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.hospital-card h5 { 
+  font-weight: 600; 
+  font-size: 20px;      /* smaller size */
+  line-height: 26px;
+  color: #102a56; 
+  margin-bottom: 5px; 
+}
+
+.hospital-card .type { 
+  color: #28a745; 
+  font-weight: 600; 
+  font-size: 0.9rem; 
+  margin-bottom: 10px; 
+  text-transform: uppercase; 
+}
+.hospital-card p { 
+  margin: 5px 0; 
+  color: #212529; 
+  font-size: 16px; 
+}
+
+.btn-enquire { 
+  background: #28a745; 
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 50px; 
+  font-weight: 600; 
+  margin-top: auto; 
+  width: 100%; 
+  transition: 0.3s; 
+}
+.btn-enquire:hover { 
+  background: #218838; 
+}
+
+/* ================= NO RESULTS ================= */
+.no-results { 
+  text-align: center; 
+  color: #212529; 
+  font-size: 16px; 
+  padding: 50px; 
+  width: 100%; 
+  grid-column: 1 / -1; 
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .hospital-grid { grid-template-columns: 1fr; }
+  .search-form { padding: 20px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<section class="hospitals-hero">
+  <div class="container">
+    <h1>Find Your Hospital</h1>
+    <p>Connect with accredited hospitals for personalized healthcare. Search by city, type, and enquire seamlessly.</p>
+  </div>
+</section>
+
+<section class="container">
+  
+  <form class="search-form" id="hospitalForm">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label for="city" class="form-label">City</label>
+        <select id="city" class="form-select">
+          <option value="">All Cities</option>
+          <option value="delhi">Delhi</option>
+          <option value="mumbai">Mumbai</option>
+          <option value="bangalore">Bangalore</option>
+          <option value="chennai">Chennai</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="type" class="form-label">Hospital Type</label>
+        <select id="type" class="form-select">
+          <option value="">All Types</option>
+          <option value="multi-speciality">Multi-Speciality</option>
+          <option value="super-speciality">Super Speciality</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <button type="button" class="btn btn-primary" onclick="searchHospitals()">Search <i class="bi bi-search ms-2"></i></button>
+      </div>
+    </div>
+  </form>
+
+  <div class="hospital-grid" id="hospitalList">
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="hospital-data.js"></script>
+
+
+<script>
+// 1. Load the Menu
+fetch("menu.html")
+  .then(res => res.text())
+  .then(data => { document.getElementById("menu").innerHTML = data; })
+  .catch(e => { console.log("Menu file missing"); });
+
+// =========================================================
+//  DATA: UPDATE YOUR IMAGE FILENAMES HERE
+//  Make sure images are inside the "image" folder.
+// =========================================================
+// const hospitalsDB = {
+
+// "apollo-delhi":{
+// name:"Indraprastha Apollo Hospital",
+// city:"New Delhi, India",
+// beds:"700+",
+// icu:"250+",
+// specialties:"52+",
+// about1:"Apollo Hospital is one of the most advanced multi-specialty hospitals in India.",
+// about2:"Known for robotic surgery, cardiology, oncology, and organ transplants.",
+// address:"Sarita Vihar, Mathura Road, New Delhi – 110076",
+// map:"https://maps.google.com/maps?q=Indraprastha+Apollo+Hospital+New+Delhi&output=embed"
+// },
+
+// "fortis-delhi":{
+// name:"Fortis Escorts Heart Institute",
+// city:"New Delhi, India",
+// beds:"310+",
+// icu:"100+",
+// specialties:"30+",
+// about1:"Fortis Escorts is one of India's most trusted cardiac hospitals.",
+// about2:"Globally recognized for heart surgeries, cardiac transplants and critical care.",
+// address:"Okhla Road, New Delhi – 110025",
+// map:"https://maps.google.com/maps?q=Fortis+Escorts+Heart+Institute+Delhi&output=embed"
+// },
+
+// "medanta-gurgaon":{
+// name:"Medanta – The Medicity",
+// city:"Gurgaon, India",
+// beds:"1250+",
+// icu:"350+",
+// specialties:"50+",
+// about1:"Medanta is one of the largest super specialty hospitals in India.",
+// about2:"Known for advanced cardiac surgery, neurology, oncology and robotic surgery.",
+// address:"Sector 38, Gurgaon, Haryana – 122001",
+// map:"https://maps.google.com/maps?q=Medanta+Hospital+Gurgaon&output=embed"
+// },
+
+// "max-delhi":{
+// name:"Max Super Speciality Hospital",
+// city:"New Delhi, India",
+// beds:"500+",
+// icu:"120+",
+// specialties:"35+",
+// about1:"Max Hospital is a leading healthcare provider with modern medical technology.",
+// about2:"Specializes in cardiology, oncology, neurology and organ transplant.",
+// address:"Saket, New Delhi – 110017",
+// map:"https://maps.google.com/maps?q=Max+Hospital+Saket+Delhi&output=embed"
+// },
+
+// "aiims-delhi":{
+// name:"AIIMS Hospital",
+// city:"New Delhi, India",
+// beds:"2500+",
+// icu:"500+",
+// specialties:"60+",
+// about1:"AIIMS is India's top government medical institute and research hospital.",
+// about2:"It provides advanced healthcare at affordable costs.",
+// address:"Ansari Nagar, New Delhi – 110029",
+// map:"https://maps.google.com/maps?q=AIIMS+Delhi&output=embed"
+// },
+
+// "kokilaben-mumbai":{
+// name:"Kokilaben Dhirubhai Ambani Hospital",
+// city:"Mumbai, India",
+// beds:"750+",
+// icu:"180+",
+// specialties:"55+",
+// about1:"Kokilaben Hospital is one of Mumbai's most advanced hospitals.",
+// about2:"Specializes in cancer treatment, orthopedics, and robotic surgery.",
+// address:"Andheri West, Mumbai – 400053",
+// map:"https://maps.google.com/maps?q=Kokilaben+Dhirubhai+Ambani+Hospital+Mumbai&output=embed"
+// },
+
+// "manipal-bangalore":{
+// name:"Manipal Hospital",
+// city:"Bangalore, India",
+// beds:"600+",
+// icu:"150+",
+// specialties:"45+",
+// about1:"Manipal Hospital is known for its advanced diagnostic and surgical services.",
+// about2:"Provides high-quality healthcare across multiple specialties.",
+// address:"Old Airport Road, Bangalore – 560017",
+// map:"https://maps.google.com/maps?q=Manipal+Hospital+Bangalore&output=embed"
+// },
+
+// "narayana-bangalore":{
+// name:"Narayana Health City",
+// city:"Bangalore, India",
+// beds:"1000+",
+// icu:"300+",
+// specialties:"40+",
+// about1:"Narayana Health is famous for advanced cardiac and pediatric surgeries.",
+// about2:"Provides affordable and world-class healthcare.",
+// address:"Bommasandra Industrial Area, Bangalore – 560099",
+// map:"https://maps.google.com/maps?q=Narayana+Health+City+Bangalore&output=embed"
+// },
+
+// "miot-chennai":{
+// name:"MIOT International Hospital",
+// city:"Chennai, India",
+// beds:"1000+",
+// icu:"250+",
+// specialties:"63+",
+// about1:"MIOT International is a globally recognized hospital for orthopedic surgeries.",
+// about2:"Popular among international medical tourists.",
+// address:"Manapakkam, Chennai – 600089",
+// map:"https://maps.google.com/maps?q=MIOT+International+Hospital+Chennai&output=embed"
+// },
+
+// "apollo-chennai":{
+// name:"Apollo Hospitals Chennai",
+// city:"Chennai, India",
+// beds:"560+",
+// icu:"200+",
+// specialties:"50+",
+// about1:"Apollo Chennai is one of India's best hospitals for cardiac and cancer care.",
+// about2:"Equipped with modern medical technology and robotic surgery systems.",
+// address:"Greams Road, Chennai – 600006",
+// map:"https://maps.google.com/maps?q=Apollo+Hospitals+Chennai&output=embed"
+// }
+
+// };
+
+// 2. Function to Display Hospitals
+function renderHospitals(filteredHospitals) {
+  const list = document.getElementById('hospitalList');
+  list.innerHTML = ''; // Clear current list
+
+  if (filteredHospitals.length === 0) {
+    list.innerHTML = '<div class="no-results">No hospitals found matching your criteria.</div>';
+  } else {
+    filteredHospitals.forEach(hosp => {
+ list.innerHTML += `
+<div class="hospital-card">
+
+  <div class="hospital-img-container">
+    <img src="image/hos.jpeg">
+  </div>
+
+  <h5>${hosp.name}</h5>
+
+  <p>
+    <i class="bi bi-geo-alt-fill text-danger"></i>
+    ${hosp.city}
+  </p>
+
+  <p class="text-muted small">
+    Beds: ${hosp.beds} | ICU: ${hosp.icu}
+  </p>
+
+  <a href="hospital-detail.html?id=${Object.keys(hospitalsDB).find(key => hospitalsDB[key] === hosp)}"
+  class="btn-enquire">
+  Enquire Now
+  </a>
+
+</div>
+`;
+});
+
+
+  }
+}
+
+// 3. Initial Load (Show all hospitals)
+renderHospitals(Object.values(hospitalsDB));
+
+// 4. Search Function
+function searchHospitals() {
+  const city = document.getElementById('city').value.toLowerCase();
+  const type = document.getElementById('type').value.toLowerCase();
+  
+ const filtered = Object.values(hospitalsDB).filter(hosp =>
+    (!city || hosp.city === city) && 
+    (!type || hosp.type === type)
+  );
+  renderHospitals(filtered);
+}
+
+// 5. Enquire Function
+function enquireHospital(name) {
+  alert(`Enquiry request sent for ${name}. Our team will contact you shortly.`);
+}
+</script>
+
+
+</body>
+</html>

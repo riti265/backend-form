@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="hospital-page-title">Hospital | Surgical Route</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --dark-blue: #114b9f; 
+            --accent-color: #00d2ff;
+            --bg-light: #f8faff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* Nav Space for your Fixed Menu */
+        .nav-space { 
+            height: 90px; 
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.9), rgba(17, 75, 159, 0.95)), 
+                        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            padding: 50px 20px 40px; 
+            text-align: center;
+        }
+        .hero h1 {
+            font-weight: 800;
+            letter-spacing: -1px;
+            font-size: 2.5rem;
+        }
+
+        /* STAT CARDS */
+        .stat-card {
+            background: white;
+            color: var(--dark-blue);
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-bottom: 4px solid var(--accent-color);
+            height: 100%;
+        }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        /* SECTIONS */
+        .section { padding: 40px 0; }
+        
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 35px;
+            position: relative;
+            color: var(--dark-blue);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-blue);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* CARDS */
+        .card-custom {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            transition: 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        .icon-box {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        /* LIST STYLING */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .custom-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 28px;
+            color: var(--text-muted);
+        }
+        .custom-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #10b981;
+        }
+
+        /* CENTRE CARDS */
+        .center-card {
+            padding: 20px 15px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            height: 100%;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .center-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(13, 110, 253, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        /* CTA */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+        
+        /* UTILITIES */
+        .btn-custom {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .doctor-card {
+            border-left: 4px solid var(--primary-blue);
+            background: var(--bg-light);
+        }
+
+        /* CUSTOM FOOTER */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            transition: opacity 0.3s;
+        }
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        .footer-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .footer-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 40px 0 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<section class="hero">
+    <div class="container">
+        <h1 class="fw-bold mb-2" data-aos="fade-down" id="hospital-name">
+             Hospital Name
+        </h1>
+
+      <p class="lead mb-4" data-aos="fade-up">
+       <i class="fas fa-map-marker-alt text-danger me-2"></i>
+       <span id="hospital-city">City, India</span>
+     </p>
+
+        <div class="row mt-3 justify-content-center g-3">
+            <div class="col-6 col-md-3" data-aos="zoom-in">
+                <div class="stat-card">
+                    <h3 class="fw-bold mb-1" id="hospital-beds">0+</h3>
+                    <p class="text-muted mb-0 small fw-semibold">Beds</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-card">
+                    <h3 class="fw-bold mb-1" id="hospital-icu">0+</h3>
+                    <p class="text-muted mb-0 small fw-semibold">ICU Beds</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-card">
+                    <h3 class="fw-bold mb-1" id="hospital-specialties">0+</h3>
+                    <p class="text-muted mb-0 small fw-semibold">Specialties</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">About The Hospital</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card-custom text-center" data-aos="fade-up">
+                    <p class="lead text-muted mb-3 fs-6" id="hospital-about1"></p>
+
+                    <div class="text-start mt-4">
+                        <hr class="mb-4">
+                        <p class="text-muted fs-6 mb-4" id="hospital-about2"></p>
+                        
+                        <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-building text-primary me-2"></i> Key Facilities Available</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <ul class="custom-list small mb-0">
+                                    <li>24/7 Advanced Emergency & Trauma Center</li>
+                                    <li>State-of-the-art Robotic Surgery Units</li>
+                                    <li>Comprehensive Organ Transplant Center</li>
+                                    <li>Dedicated International Patient Lounge</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="custom-list small mb-0">
+                                    <li>NABL Accredited Diagnostic Laboratories</li>
+                                    <li>Advanced Radiology & Imaging (3 Tesla MRI)</li>
+                                    <li>24/7 In-house Pharmacy & Blood Bank</li>
+                                    <li>Telemedicine & Remote Consultation Services</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-user-md text-primary me-2"></i> Eminent Medical Experts</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded doctor-card h-100">
+                                    <h6 class="fw-bold mb-1">Dr. Anupam Sibal</h6>
+                                    <p class="text-muted small mb-0">Group Medical Director, Pediatric Gastroenterology</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded doctor-card h-100">
+                                    <h6 class="fw-bold mb-1">Dr. Sandeep Guleria</h6>
+                                    <p class="text-muted small mb-0">Senior Consultant, Renal Transplant Surgery</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded doctor-card h-100">
+                                    <h6 class="fw-bold mb-1">Dr. P.N. Renjen</h6>
+                                    <p class="text-muted small mb-0">Senior Consultant, Neurology & Stroke Specialist</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded doctor-card h-100">
+                                    <h6 class="fw-bold mb-1">Dr. S.K. Wangnoo</h6>
+                                    <p class="text-muted small mb-0">Senior Consultant, Endocrinology & Diabetology</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-white">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-right">
+                <h4 class="fw-bold mb-3 text-dark"><i class="fas fa-certificate text-warning me-2"></i> Accreditations</h4>
+                <div class="card-custom">
+                    <ul class="custom-list small">
+                        <li>First hospital in India to receive JCI accreditation in 2005.</li>
+                        <li>Accredited by NABH for excellence in patient safety.</li>
+                        <li>NABL-certified laboratories for reliable diagnostics.</li>
+                        <li>ISO 22000:2005 - HACCP certification for food safety.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-6" data-aos="fade-left">
+                <h4 class="fw-bold mb-3 text-dark"><i class="fas fa-trophy text-warning me-2"></i> Awards & Rankings</h4>
+                <div class="card-custom">
+                    <ul class="custom-list small">
+                        <li><strong>2025:</strong> Ranked 12th in India – Newsweek World’s Best.</li>
+                        <li><strong>2023:</strong> Top 10 hospitals in India – Newsweek.</li>
+                        <li><strong>2021:</strong> 6th consecutive JCI accreditation.</li>
+                        <li><strong>2019:</strong> Best Private Hospital for Medical Tourism.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Infrastructure & Technology</h2>
+
+        <div class="row g-3">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="card-custom text-center">
+                    <div class="icon-box"><i class="fas fa-robot"></i></div>
+                    <h6 class="fw-bold">Robotic Surgery Systems</h6>
+                    <p class="text-muted mt-2 small">Equipped with the Da Vinci Surgical System, providing minimally invasive, highly precise surgical interventions with faster recovery times.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-custom text-center">
+                    <div class="icon-box"><i class="fas fa-microscope"></i></div>
+                    <h6 class="fw-bold">Advanced Diagnostics</h6>
+                    <p class="text-muted mt-2 small">Featuring cutting-edge 3 Tesla MRI, 128 Slice CT scan, and highly advanced NABL-accredited pathology laboratories.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-custom text-center">
+                    <div class="icon-box"><i class="fas fa-hospital-user"></i></div>
+                    <h6 class="fw-bold">Patient-Centric Care</h6>
+                    <p class="text-muted mt-2 small">Over 15 acres of healing environment with dedicated intensive care units, infection control protocols, and comprehensive rehabilitation centers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-white">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Centres of Excellence</h2>
+
+        <div class="row g-3" id="centres">
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="center-card">
+                    <i class="fas fa-heart icon-box fs-3"></i>
+                    <h6 class="fw-bold">Cardiology</h6>
+                    <p class="text-muted mb-0 small">Heart transplants and robotic bypass surgeries.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="center-card">
+                    <i class="fas fa-brain icon-box fs-3"></i>
+                    <h6 class="fw-bold">Neurology</h6>
+                    <p class="text-muted mb-0 small">Comprehensive stroke and brain surgery expertise.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="center-card">
+                    <i class="fas fa-dna icon-box fs-3"></i>
+                    <h6 class="fw-bold">Oncology</h6>
+                    <p class="text-muted mb-0 small">Advanced precision cancer treatment & radiation.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 extra-centre d-none">
+                <div class="center-card">
+                    <i class="fas fa-bone icon-box fs-3"></i>
+                    <h6 class="fw-bold">Orthopedics</h6>
+                    <p class="text-muted mb-0 small">Minimally invasive & robotic joint replacements.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 extra-centre d-none">
+                <div class="center-card">
+                    <i class="fas fa-kidneys icon-box fs-3"></i>
+                    <h6 class="fw-bold">Nephrology</h6>
+                    <p class="text-muted mb-0 small">Advanced dialysis and kidney transplant programs.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 extra-centre d-none">
+                <div class="center-card">
+                    <i class="fas fa-ambulance icon-box fs-3"></i>
+                    <h6 class="fw-bold">Critical Care</h6>
+                    <p class="text-muted mb-0 small">24/7 emergency response and ECMO life support.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-primary btn-sm btn-custom" id="toggleBtn" onclick="toggleCentres()">
+                View All Specialties <i class="fas fa-arrow-right ms-1"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Location & Reach</h2>
+
+        <div class="row g-4 align-items-center">
+            <div class="col-md-4" data-aos="fade-right">
+                <div class="card-custom bg-white border-0 shadow-sm">
+                    <h6 class="fw-bold mb-2">Address</h6>
+                   <p class="text-muted mb-3 small">
+                      <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                      <span id="hospital-full-address"></span>
+                   </p>
+
+                    <h6 class="fw-bold mb-2">Connectivity</h6>
+                    <p class="text-muted small mb-1"><i class="fas fa-plane text-primary me-2"></i> <strong>Airport:</strong> 26 km from IGI Airport</p>
+                    <p class="text-muted small"><i class="fas fa-subway text-primary me-2"></i> <strong>Metro:</strong> Jasola Apollo (150 m)</p>
+
+                    <div class="mt-4 d-grid">
+                        <a href="https://wa.me/917986286301" target="_blank" class="btn btn-success"><i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8" data-aos="fade-left">
+                <div class="card-custom p-1 bg-white shadow-sm">
+                    <iframe id="hospital-map"
+                       width="100%"
+                       height="300"
+                       style="border:0; border-radius:12px;"
+                       loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mb-5" data-aos="zoom-in">
+    <div class="cta-banner">
+        <h3 class="fw-bold mb-2">Ready to start your treatment journey?</h3>
+        <p class="mb-3 opacity-75 small">Get expert advice and priority booking with Apollo specialists.</p>
+        <a href="contact.html" class="btn btn-light px-4 fw-bold text-primary rounded-pill">Contact Us Today</a>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row g-4 text-start">
+            
+            <div class="col-md-4">
+                <h5 class="footer-heading">Surgical Route</h5>
+                <p class="footer-text pe-md-4">Your trusted medical coordination partner for seamless healthcare solutions.</p>
+            </div>
+            
+            <div class="col-md-4">
+                <h5 class="footer-heading">Quick Links</h5>
+                <a href="doctors.html" class="footer-link">Doctors</a>
+                <a href="hospitals.html" class="footer-link">Hospitals</a>
+                <a href="specialty.html" class="footer-link">Services</a>
+            </div>
+            
+            <div class="col-md-4">
+                <h5 class="footer-heading">Contact</h5>
+                <p class="footer-text mb-2">
+                    <i class="fas fa-envelope me-2"></i>care@surgicalroute.com
+                </p>
+                <p class="footer-text">
+                    <i class="fas fa-phone-alt me-2"></i>+91 98765 43210
+                </p>
+            </div>
+            
+        </div>
+        
+        <div class="footer-divider"></div>
+        
+        <div class="text-center">
+            <p class="mb-0 footer-text text-white text-opacity-75" style="font-size: 0.85rem;">© 2026 Surgical Route. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="hospital-data.js"></script>
+<script>
+    // Load Global Menu
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("menu").innerHTML = data;
+      });
+
+    // Initialize Animations
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+
+    // View More / View Less for Centres
+    function toggleCentres() {
+        const extras = document.querySelectorAll(".extra-centre");
+        const btn = document.getElementById("toggleBtn");
+        
+        let isHidden = false;
+        extras.forEach(el => {
+            el.classList.toggle("d-none");
+            if(el.classList.contains("d-none")) isHidden = true;
+        });
+
+        if (isHidden) {
+            btn.innerHTML = 'View All Specialties <i class="fas fa-arrow-right ms-2"></i>';
+        } else {
+            btn.innerHTML = 'View Less <i class="fas fa-arrow-up ms-2"></i>';
+        }
+    }
+
+    // ==========================================
+// HOSPITAL DATABASE
+// ==========================================
+
+// const hospitalsDB = {
+
+//     "apollo-delhi": {
+//         name: "Indraprastha Apollo Hospital",
+//         city: "New Delhi, India",
+//         beds: "700+",
+//         icu: "250+",
+//         specialties: "50+",
+//         about1: "Indraprastha Apollo Hospital is a JCI-accredited multi-specialty hospital known for advanced robotic and cardiac care.",
+//         about2: "It provides world-class treatment protocols and serves both domestic and international patients.",
+//         address: "Sarita Vihar, Mathura Road, New Delhi – 110076",
+//         map: "https://maps.google.com/maps?q=Indraprastha+Apollo+Hospital+New+Delhi&output=embed"
+//     },
+
+//     "kokilaben-mumbai": {
+//         name: "Kokilaben Dhirubhai Ambani Hospital",
+//         city: "Mumbai, India",
+//         beds: "750+",
+//         icu: "180+",
+//         specialties: "55+",
+//         about1: "Kokilaben Hospital is a leading tertiary care hospital offering advanced orthopedic and robotic treatments.",
+//         about2: "Known for innovation and excellence in patient care across multiple specialties.",
+//         address: "Andheri West, Mumbai – 400053",
+//         map: "https://maps.google.com/maps?q=Kokilaben+Dhirubhai+Ambani+Hospital+Mumbai&output=embed"
+//     },
+
+//     "manipal-bangalore": {
+//         name: "Manipal Hospital",
+//         city: "Bangalore, India",
+//         beds: "600+",
+//         icu: "150+",
+//         specialties: "45+",
+//         about1: "Manipal Hospital is a trusted name in multi-specialty healthcare and advanced diagnostics.",
+//         about2: "It is known for dermatology, cardiology, and oncology excellence.",
+//         address: "Old Airport Road, Bangalore – 560017",
+//         map: "https://maps.google.com/maps?q=Manipal+Hospital+Bangalore&output=embed"
+//     },
+//     "fortis-delhi": {
+//     name: "Fortis Escorts Heart Institute",
+//     city: "New Delhi, India",
+//     beds: "310+",
+//     icu: "100+",
+//     specialties: "30+",
+//     about1: "Fortis Escorts Heart Institute is one of India's most renowned cardiac hospitals.",
+//     about2: "The hospital is globally recognized for advanced cardiology, cardiac surgery, and heart transplants.",
+//     address: "Okhla Road, New Delhi – 110025",
+//     map: "https://maps.google.com/maps?q=Fortis+Escorts+Heart+Institute+Delhi&output=embed"
+// }
+
+// };
+
+// ==========================================
+// LOAD HOSPITAL BASED ON URL
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const urlParams = new URLSearchParams(window.location.search);
+let hospitalId = urlParams.get('id');
+
+if (!hospitalId || !hospitalsDB[hospitalId]) {
+    hospitalId = "apollo-delhi";
+}
+
+const hospital = hospitalsDB[hospitalId];
+
+document.getElementById("hospital-page-title").innerText =
+hospital.name + " | Surgical Route";
+
+document.getElementById("hospital-name").innerText = hospital.name;
+document.getElementById("hospital-city").innerText = hospital.city;
+
+document.getElementById("hospital-beds").innerText = hospital.beds;
+document.getElementById("hospital-icu").innerText = hospital.icu;
+document.getElementById("hospital-specialties").innerText = hospital.specialties;
+
+document.getElementById("hospital-about1").innerText = hospital.about1;
+document.getElementById("hospital-about2").innerText = hospital.about2;
+
+document.getElementById("hospital-full-address").innerText = hospital.address;
+document.getElementById("hospital-map").src = hospital.map;
+
+});
+
+
+</script>
+
+</body>
+</html>

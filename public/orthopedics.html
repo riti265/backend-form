@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Orthopaedic Treatments | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Menu CSS -->
+<link rel="stylesheet" href="menu.css">
+
+<style>
+body{
+    font-family:'Poppins', Arial, sans-serif;
+    background:#f6f8fb;
+   color:rgba(33,37,41,0.75);
+    font-size:16px;
+    line-height:26px;
+    font-weight:400;
+}
+
+p{
+    color:rgba(33,37,41,0.75);
+}
+
+/* space for fixed menu */
+.nav-space{
+    height:90px;
+}
+
+/* SMALL BLUE HEADER */
+.page-header{
+    background:linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:#fff;
+    padding:30px 15px;
+    text-align:center;
+}
+.page-header h1{
+    font-weight:700;
+    margin-bottom:5px;
+}
+.page-header p{
+    margin:0;
+    opacity:.95;
+    color:#e9f1ff;
+}
+
+/* WIDTH CONTROL */
+.container-narrow{
+    max-width:1100px;
+}
+
+/* DEFAULT SECTION SPACING */
+section.py-5{
+    padding-top:45px;
+    padding-bottom:45px;
+}
+section h2{
+    margin-bottom:25px;
+}
+
+/* ===== ABOUT ORTHO (HEIGHT REDUCED) ===== */
+.about-ortho{
+    padding-top:20px !important;
+    padding-bottom:20px !important;
+}
+.about-ortho h2{
+    margin-bottom:12px !important;
+}
+.about-ortho p{
+    margin-bottom:0 !important;
+}
+
+/* GRID SPACING */
+.row.g-4{
+    --bs-gutter-x:1.2rem;
+    --bs-gutter-y:1.2rem;
+}
+
+/* ===== TREATMENTS SPACING FIX ===== */
+.treatments-section{
+    padding-top:20px !important;
+}
+.treatments-section h2{
+    margin-bottom:18px !important;
+}
+
+/* TREATMENT CARD */
+.treatment-card{
+    background:#fff;
+    padding:24px 20px;
+    border-radius:14px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    height:100%;
+    transition:all .35s ease;
+}
+.treatment-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(13,110,253,.18);
+}
+
+/* ICON BOX */
+.icon-box{
+    width:56px;
+    height:56px;
+    background:#e9f1ff;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 14px;
+    transition:all .35s ease;
+}
+.icon-box i{
+    font-size:24px;
+    color:#0d6efd;
+}
+.treatment-card:hover .icon-box{
+    transform:scale(1.1);
+    background:#dbe9ff;
+}
+
+.treatment-card h5{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+/* CTA */
+.cta-box{
+    background:#fff;
+    border-radius:16px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <div class="container container-narrow">
+        <h1>Orthopaedic Treatments</h1>
+        <p>Expert care for bones, joints, muscles, and spine</p>
+    </div>
+</section>
+
+<!-- WHAT IS ORTHOPAEDIC CARE (HEIGHT REDUCED) -->
+<section class="py-5 about-ortho">
+    <div class="container container-narrow">
+        <h2>What is Orthopaedic Care?</h2>
+        <p>
+            Orthopaedic care focuses on diagnosing and treating conditions related
+            to bones, joints, muscles, ligaments, and the spine to restore movement
+            and reduce pain.
+        </p>
+    </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="py-5 bg-light treatments-section">
+    <div class="container container-narrow">
+        <h2 class="text-center">Treatments We Assist With</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-joint"></i></div>
+                    <h5>Knee Replacement</h5>
+                    <p>Advanced solutions for knee joint damage and arthritis.</p>
+                    <a href="treatment-detail.html?treatment=knee" class="btn btn-sm btn-primary mt-2">
+                      View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-bone"></i></div>
+                    <h5>Hip Replacement</h5>
+                    <p>Restoring mobility and relieving chronic hip pain.</p>
+                    <a href="treatment-detail.html?treatment=hip" 
+                       class="btn btn-sm btn-primary mt-2">
+                       View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-x-ray"></i></div>
+                    <h5>Spine Surgery</h5>
+                    <p>Treatment for slip disc and spinal disorders.</p>
+                    <a href="treatment-detail.html?treatment=spine" class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-running"></i></div>
+                    <h5>Sports Injury</h5>
+                    <p>Care for ligament tears and sports-related injuries.</p>
+                    <a href="treatment-detail.html?treatment=sports" 
+                     class="btn btn-sm btn-primary mt-2">
+                     View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-bandage"></i></div>
+                    <h5>Fracture Treatment</h5>
+                    <p>Expert management of simple to complex fractures.</p>
+                    <a href="treatment-detail.html?treatment=fracture" 
+                    class="btn btn-sm btn-primary mt-2">
+                    View Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="treatment-card">
+                    <div class="icon-box"><i class="fas fa-stethoscope"></i></div>
+                    <h5>Arthroscopy</h5>
+                    <p>Minimally invasive joint surgery for faster recovery.</p>
+                    <a href="treatment-detail.html?treatment=arthroscopy" 
+                     class="btn btn-sm btn-primary mt-2">
+                     View Details
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5">
+    <div class="container container-narrow">
+        <div class="cta-box">
+            <h3>Need Orthopaedic Treatment?</h3>
+            <p>Get expert guidance and end-to-end surgical support.</p>
+            <a href="contact.html" class="btn btn-primary mt-3 px-4">
+                Book Free Consultation
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- MENU LOAD -->
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(data => document.getElementById("menu").innerHTML = data);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

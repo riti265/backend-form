@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment | Surgical Route</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --dark-blue: #0a3d84; 
+            --success-green: #20c997;
+            --whatsapp-green: #25D366;
+            --bg-light: #f0f4f8;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --card-radius: 20px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .nav-space { height: 90px; }
+
+        /* HERO BANNER */
+        .appointment-hero {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            background-blend-mode: multiply;
+            padding: 60px 0 100px 0;
+            color: white;
+            text-align: center;
+        }
+
+        /* MAIN LAYOUT */
+        .booking-container {
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* CARDS */
+        .glass-card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 40px;
+            /* Removed height: 100% so it doesn't stretch */
+        }
+
+        /* STICKY SIDEBAR */
+        .sticky-summary {
+            position: sticky;
+            top: 110px; /* Accounts for the menu height */
+        }
+
+        /* DOCTOR SUMMARY */
+        .doc-profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.15);
+            margin-top: -70px; /* Pops out of the card */
+            margin-bottom: 20px;
+            background: #fff;
+        }
+        
+        .summary-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* MODERN FORM FIELDS */
+        .form-floating > .form-control,
+        .form-floating > .form-select {
+            border: none;
+            border-bottom: 2px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            background-color: #f8fafc;
+            padding-left: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .form-floating > .form-control:focus,
+        .form-floating > .form-select:focus {
+            box-shadow: none;
+            border-bottom-color: var(--primary-blue);
+            background-color: #fff;
+        }
+        .form-floating > label {
+            padding-left: 15px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* CUSTOM TOGGLE BUTTONS (For Gender & Returning Patient) */
+        .btn-check-custom + .btn-outline {
+            border: 1px solid #e2e8f0;
+            color: var(--text-muted);
+            background: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .btn-check-custom:checked + .btn-outline {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
+        }
+
+        /* TIME SLOTS */
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+            gap: 10px;
+        }
+        .slot-btn {
+            border: 1px solid #cbd5e1;
+            background: white;
+            padding: 12px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .slot-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            background: #f0f7ff;
+        }
+        .slot-btn.active {
+            background: var(--success-green);
+            color: white;
+            border-color: var(--success-green);
+            box-shadow: 0 4px 15px rgba(32, 201, 151, 0.3);
+        }
+
+        /* ACTION BUTTONS */
+        .btn-submit {
+            background: var(--dark-blue);
+            color: white;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            transition: 0.3s;
+            font-size: 1.1rem;
+        }
+        .btn-submit:hover {
+            background: #072a5e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(10, 61, 132, 0.3);
+        }
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: white;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            transition: 0.3s;
+            font-size: 1.1rem;
+        }
+        .btn-whatsapp:hover {
+            background: #1da851;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        /* SECTION TITLES IN FORM */
+        .form-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .form-section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            margin-left: 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        .footer-heading { font-weight: 700; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-link { color: white; text-decoration: none; display: block; margin-bottom: 12px; font-size: 0.95rem; transition: opacity 0.3s; }
+        .footer-link:hover { opacity: 0.8; text-decoration: underline; }
+        .footer-text { font-size: 0.95rem; line-height: 1.5; }
+        .footer-divider { border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 40px 0 20px; }
+    </style>
+</head>
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<section class="appointment-hero">
+    <div class="container" data-aos="fade-down">
+        <h1 class="fw-bold mb-3">Request a Consultation</h1>
+        <p class="lead opacity-75 mb-0">Fast, secure, and hassle-free booking with top medical experts.</p>
+    </div>
+</section>
+
+<div class="container booking-container mb-5">
+    <div class="row g-4 justify-content-center">
+        
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="sticky-summary">
+                <div class="glass-card text-center pt-0 mt-5 mt-lg-0">
+                    
+                    <div id="doctorInfoWrapper">
+                        <div class="bg-primary text-white d-flex align-items-center justify-content-center doc-profile-img mx-auto">
+                            <i class="fas fa-hospital fa-3x"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mt-3">General Consultation</h4>
+                        <p class="text-primary fw-bold small">Surgical Route Panel</p>
+                        <p class="text-muted small">You are booking a general appointment. Our medical coordination team will match you with the best specialist based on your symptoms.</p>
+                    </div>
+                    
+                    <div class="summary-box text-start mt-4">
+                        <h6 class="fw-bold text-dark mb-3"><i class="fas fa-shield-check text-success me-2"></i> Our Promise</h6>
+                        <div class="d-flex align-items-start mb-2">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span class="small text-muted">Priority hospital access & reduced wait times.</span>
+                        </div>
+                        <div class="d-flex align-items-start mb-2">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span class="small text-muted">100% secure and confidential data handling.</span>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span class="small text-muted">Free pre-consultation guidance.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card">
+              <form id="appointmentForm" action="/contact" method="POST">
+                <input type="hidden" name="country" value="Website">
+                <input type="hidden" name="department" value="General Consultation">
+
+    <h5 class="form-section-title">
+        <i class="fas fa-user-circle text-primary me-2"></i> Patient Details
+    </h5>
+
+    <div class="row g-3 mb-5">
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                <label for="name">Full Name</label>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                <label for="phone">Phone Number (with country code)</label>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                <label for="email">Email Address</label>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+                <label for="city">City of Residence</label>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="date" class="form-control" id="dob" name="dob" required>
+                <label for="dob">Date of Birth</label>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label d-block text-muted small ps-1 mb-2">Gender</label>
+            <div class="d-flex gap-2">
+                <input type="radio" class="btn-check btn-check-custom" name="gender" id="gMale" value="Male" required>
+                <label class="btn btn-outline text-center" for="gMale">Male</label>
+
+                <input type="radio" class="btn-check btn-check-custom" name="gender" id="gFemale" value="Female">
+                <label class="btn btn-outline text-center" for="gFemale">Female</label>
+            </div>
+        </div>
+
+    </div>
+
+    <h5 class="form-section-title">
+        <i class="fas fa-calendar-alt text-primary me-2"></i> Date & Time
+    </h5>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-5">
+            <div class="form-floating">
+                <input type="date" class="form-control" id="date" name="date" required>
+                <label for="date">Preferred Appointment Date</label>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <label class="form-label d-block text-muted small ps-1 mb-2">
+                Available Slots (Local Time)
+            </label>
+            <div class="slot-grid">
+                <select name="time" class="form-select" required>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="form-section-title">
+        <i class="fas fa-notes-medical text-primary me-2"></i> Medical Information
+    </h5>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-12">
+            <label class="form-label d-block text-muted small ps-1 mb-2">
+                Have you visited our network hospitals before?
+            </label>
+            <div class="d-flex gap-3">
+                <div style="flex:1;">
+                    <input type="radio" class="btn-check btn-check-custom" name="returning" id="retYes" value="Yes" required>
+                    <label class="btn btn-outline text-center" for="retYes">
+                        Yes, Returning Patient
+                    </label>
+                </div>
+                <div style="flex:1;">
+                    <input type="radio" class="btn-check btn-check-custom" name="returning" id="retNo" value="No" checked>
+                    <label class="btn btn-outline text-center" for="retNo">
+                        No, New Patient
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-floating">
+                <textarea class="form-control" id="message" name="message" placeholder="Symptoms" style="height:100px"></textarea>
+                <label for="message">
+                    Briefly describe your symptoms or concern (Optional)
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-3 mt-2">
+        <div class="col-12">
+            <button type="submit" class="btn-submit w-100">
+                <i class="fas fa-calendar-check me-2"></i>
+                Book Appointment
+            </button>
+        </div>
+    </div>
+
+</form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row g-4 text-start">
+            <div class="col-md-4">
+                <h5 class="footer-heading">Surgical Route</h5>
+                <p class="footer-text pe-md-4">Your trusted medical coordination partner for seamless healthcare solutions.</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="footer-heading">Quick Links</h5>
+                <a href="doctors.html" class="footer-link">Doctors</a>
+                <a href="hospitals.html" class="footer-link">Hospitals</a>
+                <a href="specialty.html" class="footer-link">Services</a>
+            </div>
+            <div class="col-md-4">
+                <h5 class="footer-heading">Contact</h5>
+                <p class="footer-text mb-2"><i class="fas fa-envelope me-2"></i>siddharth@animazegraphic.com</p>
+                <p class="footer-text"><i class="fas fa-phone-alt me-2"></i>+91 79862 86301</p>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="text-center">
+            <p class="mb-0 footer-text text-white text-opacity-75" style="font-size: 0.85rem;">© 2026 Surgical Route. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+
+<script>
+    // Load Menu
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => { document.getElementById("menu").innerHTML = data; });
+
+    AOS.init({ duration: 800, once: true, offset: 50 });
+
+    // Slot selection
+    let selectedSlot = "Morning";
+
+    function selectSlot(element) {
+        document.querySelectorAll(".slot-btn").forEach(b => b.classList.remove("active"));
+        element.classList.add("active");
+        selectedSlot = element.innerText;
+    }
+
+    // Get form data for WhatsApp
+    function getFormData() {
+        let gender = "";
+        if(document.getElementById('gMale').checked) gender = "Male";
+        if(document.getElementById('gFemale').checked) gender = "Female";
+
+        let returning = "";
+        if(document.getElementById('retYes').checked) returning = "Yes";
+        if(document.getElementById('retNo').checked) returning = "No";
+
+        return {
+            name: document.getElementById("name").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            city: document.getElementById("city").value.trim(),
+            dob: document.getElementById("dob").value,
+            gender: gender,
+            date: document.getElementById("date").value,
+            message: document.getElementById("message").value.trim(),
+            returning: returning
+        };
+    }
+
+    // WhatsApp booking
+    function bookWhatsApp(){
+        const data = getFormData();
+        if (!data.name || !data.phone || !data.date) { 
+            alert("Please fill in at least your Name, Phone, and Preferred Date."); 
+            return; 
+        }
+        
+        const whatsappNumber = "917986286301";
+        const msg = `Hello Surgical Route, I would like to book an appointment.
+
+Patient: ${data.name}
+Phone: ${data.phone}
+City: ${data.city}
+
+Date: ${data.date}
+Time: ${selectedSlot}
+Symptoms: ${data.message || 'None provided'}`;
+        
+        window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+</script>
+
+
+</body>
+</html>

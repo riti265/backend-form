@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="page-title">Doctor Profile | Surgical Route</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --dark-blue: #114b9f; 
+            --success-green: #28a745;
+            --bg-light: #f4f7f6;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .nav-space { height: 90px; }
+
+        .page-header {
+            background: var(--dark-blue);
+            padding: 30px 0;
+            color: white;
+            margin-bottom: -50px; 
+            padding-bottom: 80px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        .profile-img-wrap {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 0 auto 20px;
+            background: #f8faff;
+        }
+        .profile-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .section-title {
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-badge {
+            background: #f8faff;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .check-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .check-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-muted);
+        }
+        .check-list li::before {
+            content: '\f058'; 
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-size: 1.1rem;
+        }
+
+        .timeline {
+            border-left: 2px solid #e2e8f0;
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--primary-blue);
+        }
+        
+        .sticky-sidebar {
+            position: sticky;
+            top: 110px; 
+        }
+        .btn-green {
+            background-color: var(--success-green);
+            color: white;
+            border: none;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-green:hover {
+            background-color: #218838;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 40px;
+        }
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            transition: opacity 0.3s;
+        }
+        .footer-link:hover { opacity: 0.8; text-decoration: underline; }
+        .footer-text { font-size: 0.95rem; line-height: 1.5; }
+        .footer-divider { border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 40px 0 20px; }
+    </style>
+</head>
+
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<div class="page-header text-center">
+    <div class="container">
+    </div>
+</div>
+
+<div class="container" id="profile-container" style="display: none;">
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="profile-card d-flex flex-column flex-md-row align-items-center text-center text-md-start gap-4">
+                
+                <div class="profile-img-wrap flex-shrink-0">
+                    <img id="doc-img" src="" alt="Doctor Image">
+                </div>
+                
+                <div class="flex-grow-1">
+                    <h2 class="fw-bold mb-1" id="doc-name">Doctor Name</h2>
+                    <p class="text-success fw-bold mb-2 fs-5">
+                        <i id="doc-icon" class="fas fa-user-md me-2"></i><span id="doc-specialty">Specialty</span>
+                    </p>
+                    <p class="text-muted mb-3"><i class="fas fa-hospital me-2 text-primary"></i><span id="doc-hospital">Hospital</span>, <span id="doc-location">Location</span></p>
+                    
+                    <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 mt-3">
+                        <div class="stat-badge">
+                            <span class="d-block fw-bold fs-5" id="doc-exp">0+</span>
+                            <small class="text-muted">Years Exp.</small>
+                        </div>
+                        <div class="stat-badge">
+                            <span class="d-block fw-bold fs-5 text-warning"><i class="fas fa-star"></i> <span id="doc-rating">0.0</span></span>
+                            <small class="text-muted">Patient Rating</small>
+                        </div>
+                        <div class="stat-badge">
+                            <span class="d-block fw-bold fs-5" id="doc-surgeries">0+</span>
+                            <small class="text-muted">Procedures</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        
+        <div class="col-lg-8">
+            
+            <div class="content-card">
+                <h4 class="section-title"><i class="fas fa-user-md"></i> About <span id="about-name">the Doctor</span></h4>
+                <p class="text-muted" id="doc-about1"></p>
+                <p class="text-muted mb-0" id="doc-about2"></p>
+            </div>
+
+            <div class="content-card">
+                <h4 class="section-title"><i class="fas fa-graduation-cap"></i> Education & Fellowships</h4>
+                <div class="timeline mt-4" id="doc-education"></div>
+            </div>
+
+            <div class="content-card">
+                <h4 class="section-title"><i class="fas fa-stethoscope"></i> Specializations & Expertise</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="check-list" id="doc-spec-left"></ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="check-list" id="doc-spec-right"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4 class="section-title"><i class="fas fa-thumbs-up"></i> Why Choose This Doctor?</h4>
+                <p class="text-muted mb-3">Here is why international and domestic patients trust this specialist:</p>
+                <ul class="check-list" id="doc-why"></ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sticky-sidebar">
+                
+                <div class="content-card text-center border-top border-4 border-success">
+                    <h5 class="fw-bold mb-4">Book a Consultation</h5>
+                    
+                    <div class="d-flex align-items-center justify-content-center mb-3 text-muted">
+                        <i class="fas fa-calendar-alt me-2 text-primary"></i> 
+                        <span>Available: Mon - Sat</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mb-4 text-muted">
+                        <i class="fas fa-video me-2 text-primary"></i>
+                        <span>Online Video Consult Available</span>
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <a href="appointment.html" class="btn btn-green shadow-sm text-decoration-none">
+                            Book Appointment
+                        </a>
+                        
+                        <a href="https://wa.me/919876543210" target="_blank" class="btn btn-outline-success fw-bold text-decoration-none">
+                            <i class="fab fa-whatsapp fs-5 align-middle me-1"></i> Consult via WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content-card bg-primary text-white text-center border-0" style="background: var(--dark-blue) !important;">
+                    <i class="fas fa-headset fs-1 mb-3 text-info"></i>
+                    <h5 class="fw-bold">Need Help Deciding?</h5>
+                    <p class="small opacity-75 mb-4">Our medical coordinators can help you share your reports with the doctor before booking.</p>
+                    <a href="tel:+917986286301" class="btn btn-light btn-sm fw-bold text-primary px-4 rounded-pill">Get Free Guidance</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row g-4 text-start">
+            <div class="col-md-4">
+                <h5 class="footer-heading">Surgical Route</h5>
+                <p class="footer-text pe-md-4">Your trusted medical coordination partner for seamless healthcare solutions.</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="footer-heading">Quick Links</h5>
+                <a href="doctors.html" class="footer-link">Doctors</a>
+                <a href="hospitals.html" class="footer-link">Hospitals</a>
+                <a href="specialty.html" class="footer-link">Services</a>
+            </div>
+            <div class="col-md-4">
+                <h5 class="footer-heading">Contact</h5>
+                <p class="footer-text mb-2"><i class="fas fa-envelope me-2"></i>care@surgicalroute.com</p>
+                <p class="footer-text"><i class="fas fa-phone-alt me-2"></i>+91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="text-center">
+            <p class="mb-0 footer-text text-white text-opacity-75" style="font-size: 0.85rem;">© 2026 Surgical Route. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Load Global Menu
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("menu").innerHTML = data;
+      });
+
+    // ==========================================
+    // DOCTOR DATABASE
+    // ==========================================
+    const doctorsDB = {
+        "rajesh-kumar": {
+            name: "Dr. Rajesh Kumar",
+            specialty: "Senior Cardiologist",
+            hospital: "Apollo Hospital",
+            location: "Delhi",
+            icon: "fa-heartbeat",
+            exp: "15+",
+            rating: "4.8",
+            surgeries: "5000+",
+            image: "https://img.freepik.com/premium-vector/doctor-character-design_180264-15.jpg?w=2000",
+            about1: "Dr. Rajesh Kumar is a highly acclaimed Senior Interventional Cardiologist with over 15 years of dedicated experience in advanced heart surgeries. He is globally recognized for his expertise in complex angioplasties, pacemaker implantations, and robotic-assisted cardiac procedures.",
+            about2: "Known for his patient-first approach, Dr. Kumar ensures that every patient receives a tailored treatment plan, focusing not just on immediate recovery, but on long-term cardiovascular health.",
+            education: [
+                { degree: "Fellowship in Interventional Cardiology", details: "American College of Cardiology, USA | 2012" },
+                { degree: "DM (Cardiology)", details: "AIIMS, New Delhi | 2010" },
+                { degree: "MBBS & MD (General Medicine)", details: "Maulana Azad Medical College | 2005" }
+            ],
+            specLeft: ["Coronary Angiography", "Pacemaker Implantation", "Heart Valve Replacement"],
+            specRight: ["Robotic Cardiac Surgery", "Pediatric Cardiology", "Heart Failure Management"],
+            why: [
+                { title: "High Success Rate", desc: "Maintains a 98.5% success rate in complex interventions." },
+                { title: "Global Experience", desc: "Trained in both India and the USA." }
+            ]
+        },
+        "priya-sharma": {
+            name: "Dr. Priya Sharma",
+            specialty: "Orthopedics Expert",
+            hospital: "Kokilaben Hospital",
+            location: "Mumbai",
+            icon: "fa-bone",
+            exp: "12+",
+            rating: "4.9",
+            surgeries: "3500+",
+            image: "https://img.freepik.com/premium-vector/female-doctor-character-design_180264-16.jpg?w=2000",
+            about1: "Dr. Priya Sharma is a leading Orthopedic Surgeon specializing in joint replacements, sports injuries, and advanced spine surgeries. With over a decade of experience, she is dedicated to restoring mobility and improving the quality of life.",
+            about2: "She is highly regarded for her expertise in minimally invasive arthroscopic surgeries, allowing patients to recover faster with significantly less pain.",
+            education: [
+                { degree: "Fellowship in Joint Replacement", details: "Royal College of Surgeons, UK | 2015" },
+                { degree: "MS (Orthopedics)", details: "KEM Hospital, Mumbai | 2012" },
+                { degree: "MBBS", details: "Grant Medical College | 2008" }
+            ],
+            specLeft: ["Total Knee Replacement", "Total Hip Replacement", "Sports Injury Management"],
+            specRight: ["Minimally Invasive Spine Surgery", "Arthroscopy", "Complex Fractures"],
+            why: [
+                { title: "Rapid Recovery", desc: "Uses advanced pathways to get patients walking within hours." },
+                { title: "Advanced Technology", desc: "Proficient in robotic joint replacements." }
+            ]
+        },
+        "anil-gupta": {
+            name: "Dr. Anil Gupta",
+            specialty: "Cosmetic Dermatologist",
+            hospital: "Manipal Hospital",
+            location: "Bangalore",
+            icon: "fa-spa",
+            exp: "10+",
+            rating: "4.5",
+            surgeries: "2000+",
+            image: "https://img.freepik.com/premium-vector/doctor-character-design_180264-15.jpg?w=2000",
+            about1: "Dr. Anil Gupta is a renowned Dermatologist specializing in advanced cosmetic procedures, laser treatments, and clinical skincare. He helps patients achieve optimal skin health using evidence-based medical treatments.",
+            about2: "He has extensive experience treating severe acne, pigmentation disorders, and providing anti-aging solutions using state-of-the-art medical technology.",
+            education: [
+                { degree: "Fellowship in Aesthetic Medicine", details: "ILAMED | 2016" },
+                { degree: "MD (Dermatology)", details: "Bangalore Medical College | 2014" },
+                { degree: "MBBS", details: "St. John's Medical College | 2010" }
+            ],
+            specLeft: ["Laser Hair Removal", "Acne & Scar Treatments", "Chemical Peels"],
+            specRight: ["Anti-aging (Botox/Fillers)", "Hair Loss Therapy", "Skin Pigmentation"],
+            why: [
+                { title: "Personalized Skincare", desc: "Customized regimens based on individual skin types." },
+                { title: "FDA Approved Lasers", desc: "Uses only the highest standard clinical technology." }
+            ]
+        },
+        "meera-patel": {
+            name: "Dr. Meera Patel",
+            specialty: "Neurology Expert",
+            hospital: "Fortis Malar",
+            location: "Chennai",
+            icon: "fa-brain",
+            exp: "18+",
+            rating: "4.7",
+            surgeries: "1500+",
+            image: "https://img.freepik.com/premium-vector/female-doctor-character-design_180264-16.jpg?w=2000",
+            about1: "Dr. Meera Patel is a highly respected Neurologist with vast experience in treating complex disorders of the brain, spine, and nervous system. She is an expert in stroke management and neuro-rehabilitation.",
+            about2: "She takes a deeply compassionate approach to patient care, helping families navigate difficult neurological conditions with clear communication.",
+            education: [
+                { degree: "DM (Neurology)", details: "Madras Medical College | 2008" },
+                { degree: "MD (Internal Medicine)", details: "CMC, Vellore | 2005" },
+                { degree: "MBBS", details: "JIPMER | 2001" }
+            ],
+            specLeft: ["Stroke Management", "Epilepsy Disorders", "Parkinson's Disease"],
+            specRight: ["Multiple Sclerosis", "Headache Clinics", "Nerve Pain Treatment"],
+            why: [
+                { title: "Stroke Specialist", desc: "Runs dedicated acute stroke response protocols." },
+                { title: "Compassionate Care", desc: "Extensive support for chronic neurological patients." }
+            ]
+        },
+        "vikram-singh": {
+            name: "Dr. Vikram Singh",
+            specialty: "Surgical Oncologist",
+            hospital: "Max Super Speciality",
+            location: "Delhi",
+            icon: "fa-dna",
+            exp: "20+",
+            rating: "4.8",
+            surgeries: "4000+",
+            image: "https://img.freepik.com/premium-vector/doctor-character-design_180264-15.jpg?w=2000",
+            about1: "Dr. Vikram Singh is a pioneering Surgical Oncologist recognized for his expertise in complex tumor removals and organ preservation techniques. He has dedicated his life to advancing cancer treatment in India.",
+            about2: "He works with a multidisciplinary tumor board to ensure every patient receives a comprehensive, personalized battle plan against cancer.",
+            education: [
+                { degree: "MCh (Surgical Oncology)", details: "Tata Memorial Hospital, Mumbai | 2005" },
+                { degree: "MS (General Surgery)", details: "PGIMER, Chandigarh | 2002" },
+                { degree: "MBBS", details: "AIIMS | 1998" }
+            ],
+            specLeft: ["Breast Cancer Surgery", "Gastrointestinal Oncology", "Head & Neck Tumors"],
+            specRight: ["Robotic Cancer Surgery", "Organ Preservation", "Thoracic Oncology"],
+            why: [
+                { title: "Multidisciplinary Approach", desc: "Collaborates closely with medical and radiation oncologists." },
+                { title: "Pioneering Surgeon", desc: "Highly skilled in the latest robotic tumor removal techniques." }
+            ]
+        },
+        "sarah-khan": {
+            name: "Dr. Sarah Khan",
+            specialty: "Interventional Cardiologist",
+            hospital: "Breach Candy Hospital",
+            location: "Mumbai",
+            icon: "fa-heartbeat",
+            exp: "14+",
+            rating: "4.9",
+            surgeries: "3800+",
+            image: "https://img.freepik.com/premium-vector/female-doctor-character-design_180264-16.jpg?w=2000",
+            about1: "Dr. Sarah Khan is a leading figure in the field of non-invasive and interventional cardiology. She specializes in preventive cardiology and women's heart health, addressing issues unique to female patients.",
+            about2: "With a gentle bedside manner and sharp clinical acumen, Dr. Khan is known for diagnosing complex cardiovascular conditions that others might miss.",
+            education: [
+                { degree: "Fellowship in Cardiology", details: "Cleveland Clinic, USA | 2014" },
+                { degree: "DM (Cardiology)", details: "Seth GS Medical College | 2011" },
+                { degree: "MBBS", details: "Topiwala National Medical College | 2007" }
+            ],
+            specLeft: ["Preventive Cardiology", "Echocardiography", "Coronary Stenting"],
+            specRight: ["Women's Heart Health", "Hypertension Management", "Cholesterol Management"],
+            why: [
+                { title: "Preventive Focus", desc: "Believes in catching heart disease before it requires surgery." },
+                { title: "International Training", desc: "Trained at the world-renowned Cleveland Clinic." }
+            ]
+        }
+    };
+
+    // ==========================================
+    // LOGIC TO POPULATE THE PAGE
+    // ==========================================
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    let doctorId = urlParams.get('id');
+
+    if(!doctorId || !doctorsDB[doctorId]) {
+        doctorId = "rajesh-kumar"; 
+    }
+
+    const doc = doctorsDB[doctorId];
+
+    // Updated DOM Elements (Removed the Breadcrumb name logic)
+    document.getElementById("page-title").innerText = `${doc.name} | ${doc.location} | Surgical Route`;
+    document.getElementById("about-name").innerText = doc.name;
+    
+    document.getElementById("doc-img").src = doc.image;
+    document.getElementById("doc-name").innerText = doc.name;
+    document.getElementById("doc-specialty").innerText = doc.specialty;
+    document.getElementById("doc-icon").className = `fas ${doc.icon} me-2`;
+    document.getElementById("doc-hospital").innerText = doc.hospital;
+    document.getElementById("doc-location").innerText = doc.location;
+    
+    document.getElementById("doc-exp").innerText = doc.exp;
+    document.getElementById("doc-rating").innerText = doc.rating;
+    document.getElementById("doc-surgeries").innerText = doc.surgeries;
+
+    document.getElementById("doc-about1").innerText = doc.about1;
+    document.getElementById("doc-about2").innerText = doc.about2;
+
+    let eduHTML = "";
+    doc.education.forEach((item, index) => {
+        let marginClass = index === doc.education.length - 1 ? "mb-0" : "";
+        eduHTML += `
+            <div class="timeline-item ${marginClass}">
+                <h6 class="fw-bold mb-1">${item.degree}</h6>
+                <p class="text-muted small">${item.details}</p>
+            </div>
+        `;
+    });
+    document.getElementById("doc-education").innerHTML = eduHTML;
+
+    let specLeftHTML = "";
+    doc.specLeft.forEach(item => { specLeftHTML += `<li>${item}</li>`; });
+    document.getElementById("doc-spec-left").innerHTML = specLeftHTML;
+
+    let specRightHTML = "";
+    doc.specRight.forEach(item => { specRightHTML += `<li>${item}</li>`; });
+    document.getElementById("doc-spec-right").innerHTML = specRightHTML;
+
+    let whyHTML = "";
+    doc.why.forEach(item => {
+        whyHTML += `<li><strong>${item.title}:</strong> ${item.desc}</li>`;
+    });
+    document.getElementById("doc-why").innerHTML = whyHTML;
+
+    document.getElementById("profile-container").style.display = "block";
+    AOS.init({ duration: 800, once: true, offset: 50 });
+
+</script>
+
+</body>
+</html>

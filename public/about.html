@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Us | Surgical Route</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="menu.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+/* ================= GLOBAL ================= */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f6f8fb;
+  color: rgba(33,37,41,0.75);
+  font-family: 'Poppins', sans-serif;
+}
+
+.nav-space { height: 90px; }
+
+/* ================= TYPOGRAPHY ================= */
+
+/* Main headings */
+/* ================= TYPOGRAPHY ================= */
+
+/* Main headings */
+.hero-title,
+.section-title{
+  font-weight:700;
+  font-size:30px;
+  line-height:30px;
+  color:#102a56;
+}
+
+/* Sub-headings */
+.leader h4,
+.vm-box h5{
+  font-weight:600;
+  font-size:25px;
+  line-height:30px;
+  color:#102a56;
+}
+
+/* Global paragraphs */
+/* Global paragraphs */
+p,
+.vm-box li {
+  /* Change weight from 200 to 400 for better readability */
+  font-weight: 400; 
+  
+  font-size: 16px;
+  line-height: 26px;
+  
+  /* Remove the 0.75 transparency. Use solid color. */
+  color: #212529 !important; 
+}
+
+/* Force dark text everywhere */
+body{
+ color: rgba(33,37,41,0.75);
+}
+
+/* Only this line muted */
+.text-muted{
+  color:#777 !important;
+}
+
+
+/* ================= SCREEN 1 ================= */
+.screen-one {
+  height: calc(100vh - 90px);
+  min-height: 600px;
+  background: #eef3f9;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.screen-one .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero-title {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.hero-content-row {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.hero-img {
+  width: 100%;
+  max-height: 45vh;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.hero-text {
+  padding-left: 20px;
+}
+
+/* ================= STATS ================= */
+.stats-band {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: #fff;
+  padding: 15px 0;
+  border-radius: 14px;
+  margin-top: 10px;
+}
+
+.stats-band h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.stats-band p {
+  margin: 0;
+  opacity: .9;
+  font-size: 0.9rem;
+}
+
+.stats-band i {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  display: block;
+}
+/* Force white text inside stats band */
+.stats-band,
+.stats-band h2,
+.stats-band p,
+.stats-band i {
+  color: #fff !important;
+}
+
+/* ================= SCREEN 2 ================= */
+.screen-two {
+  padding: 10px 0 60px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.leader img {
+  width: 75%;
+  border-radius: 16px;
+}
+
+.vm-box {
+  background: #eef3f9;
+  padding: 25px;
+  border-radius: 16px;
+  height: 100%;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .screen-one {
+    height: auto;
+    padding: 40px 0;
+  }
+
+  .hero-img {
+    max-height: none;
+    margin-bottom: 20px;
+  }
+
+  .hero-text {
+    padding-left: 0;
+  }
+
+  .hero-title {
+    font-size: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="menu"></div>
+<div class="nav-space"></div>
+
+<!-- SCREEN 1 -->
+<section class="screen-one">
+  <div class="container">
+
+    <h2 class="hero-title">Driving the Future of Healthcare</h2>
+
+    <div class="row hero-content-row">
+      <div class="col-md-5 mb-3 mb-md-0">
+        <img src="image/1.jpeg" class="hero-img" alt="Healthcare">
+      </div>
+      <div class="col-md-7 hero-text">
+        <p>
+          Surgical Route is redefining surgical care through a transparent,
+          accessible, and patient-first healthcare ecosystem.
+        </p>
+        <p>
+          We connect patients with accredited hospitals, world-class surgeons,
+          and personalized treatment pathways.
+        </p>
+        <p>
+          Our coordinated approach ensures a safe, seamless, and stress-free
+          healthcare journey from consultation to recovery.
+        </p>
+      </div>
+    </div>
+
+    <div class="stats-band text-center">
+      <div class="row">
+        <div class="col-md-4">
+          <i class="bi bi-hospital"></i>
+          <h2 class="counter" data-target="500">0</h2>
+          <p>Partner Hospitals</p>
+        </div>
+        <div class="col-md-4">
+          <i class="bi bi-heart-pulse"></i>
+          <h2 class="counter" data-target="1000">0</h2>
+          <p>Successful Surgeries</p>
+        </div>
+        <div class="col-md-4">
+          <i class="bi bi-headset"></i>
+          <h2>24/7</h2>
+          <p>Patient Support</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section class="screen-two">
+  <div class="container">
+
+    <h2 class="section-title">Our Leadership</h2>
+
+    <div class="row align-items-center leader mb-4">
+      <div class="col-md-4 mb-3 mb-md-0">
+        <img src="image/1.jpeg" alt="Founder">
+      </div>
+      <div class="col-md-8">
+        <h4>Mr. Siddharth Bhagat</h4>
+        <p class="text-muted">Founder & Managing Director</p>
+        <p>
+          Mr. Siddharth Bhagat founded Surgical Route with a vision to make
+          healthcare transparent, accessible, and patient-centric.
+        </p>
+        <p>
+          His leadership focuses on trust, safety, and global healthcare
+          partnerships.
+        </p>
+        <p>
+          His leadership focuses on trust, safety, and global healthcare
+          partnerships.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="vm-box">
+          <h5><i class="bi bi-eye text-primary"></i> Our Vision</h5>
+          <p>
+            To become a globally trusted healthcare platform connecting patients
+            with world-class hospitals and surgeons.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="vm-box">
+          <h5><i class="bi bi-bullseye text-primary"></i> Our Mission</h5>
+          <ul>
+            <li>Transparent surgical care</li>
+            <li>Trusted hospital network</li>
+            <li>End-to-end patient support</li>
+            <li>Safe & affordable treatment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("menu").innerHTML = data;
+  });
+
+// Counter animation
+document.querySelectorAll(".counter").forEach(counter=>{
+  const target=+counter.dataset.target;
+  let count=0;
+  const step=target/100;
+
+  const obs=new IntersectionObserver(e=>{
+    if(e[0].isIntersecting){
+      const run=setInterval(()=>{
+        count+=step;
+        if(count>=target){
+          counter.innerText=target.toLocaleString()+"+";
+          clearInterval(run);
+        }else{
+          counter.innerText=Math.floor(count).toLocaleString()+"+";
+        }
+      },20);
+      obs.disconnect();
+    }
+  },{threshold:0.6});
+  obs.observe(counter);
+});
+</script>
+
+</body>
+</html>

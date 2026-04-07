@@ -1,0 +1,147 @@
+/* NAVBAR */
+.nav-space {
+    height: 145px;
+}
+
+.navbar {
+    background: #ffffff !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.navbar-brand img {
+    height: 70px;
+    width: auto;
+}
+
+/* MENU LINKS */
+.nav-link {
+    font-weight: 500;
+    color: #2c3e50 !important;
+    margin-right: 15px;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #0056b3 !important;
+}
+
+.nav-link.active {
+    font-weight: 600;
+}
+
+/* BUTTON */
+.navbar .btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.navbar .btn-primary:hover {
+    background-color: #004494;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    z-index: 99999 !important;
+}
+
+.dropdown-item {
+    font-weight: 500;
+    padding: 10px 18px;
+}
+
+
+
+/* NAVBAR */
+.nav-space {
+    height: 145px;
+}
+
+/* .navbar {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    padding: 10px 0;
+} */
+.navbar {
+  background: #ffffff !important;   /* SOLID background */
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.navbar-brand img {
+    height: 70px;
+    width: auto;
+}
+
+/* MENU LINKS */
+.nav-link {
+    font-weight: 500;
+    color: #2c3e50 !important;
+    margin-right: 15px;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #0056b3 !important;
+}
+
+.nav-link.active {
+    font-weight: 600;
+}
+
+/* BUTTON */
+.navbar .btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navbar .btn-primary:hover {
+    background-color: #004494;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+}
+/* ============================= */
+/* TREATMENTS DROPDOWN MENU */
+/* ============================= */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+  z-index: 9999;
+}
+
+.dropdown-menu {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.dropdown-item {
+  font-weight: 500;
+  padding: 10px 18px;
+}
+.dropdown-menu {
+  z-index: 99999 !important;
+}

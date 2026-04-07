@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Route | Your Surgical Journey. Planned, Managed, Supported.</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <link rel="stylesheet" href="menu.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #0056b3; 
+            --secondary-blue: #e3f2fd;
+            --accent-green: #28a745; 
+            --teal-bg: #00695c; 
+            --orange-btn: #ef6c00; 
+            --text-dark: #2c3e50;
+            --text-grey: #6c757d;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        .text-muted {
+  color: rgba(37, 37, 41, 0.75) !important;
+}
+
+/* Section headings typography */
+.section-title h2,
+#process h2,
+#treatments h2,
+#destinations h2,
+#faq h2,
+.bg-light-blue h2,
+.text-center h3,
+h3.text-center,
+.contact-horizontal h3{
+    font-family: 'Poppins', sans-serif !important;
+    font-weight:700 !important;
+    font-size:30px !important;
+    line-height:30px !important;
+}
+
+/* Hero heading */
+.hero-section h1{
+    font-family: 'Poppins', sans-serif !important;
+    font-weight:700 !important;
+    font-size:60px !important;
+    line-height:65px !important;
+}
+
+/* Hero paragraph */
+.hero-section .lead{
+    font-family: 'Poppins', sans-serif !important;
+    font-weight:200 !important;
+    font-size:20px !important;
+    line-height:26px !important;
+}
+/* Hero feature text */
+.hero-features span{
+    font-family: 'Poppins', sans-serif !important;
+    font-weight:400 !important;
+    font-size:16px !important;
+    line-height:24px !important;
+    color: rgba(33,37,41,0.74);
+}
+
+/* Hero buttons */
+.hero-section .btn{
+    font-family: 'Poppins', sans-serif !important;
+    font-weight:700 !important;
+    font-size:20px !important;
+    line-height:30px !important;
+}
+/* Trust strip typography */
+.trust-item{
+    font-family:'Poppins', sans-serif !important;
+    font-weight:400 !important;
+    font-size:16px !important;
+    line-height:24px !important;
+}
+/* Global paragraph typography */
+/* Global paragraph typography */
+p,
+.lead,
+.small,
+.text-muted,
+.section-title p,
+.feature-box p,
+.stats-label,
+.testimonial-card p,
+.gallery-desc,
+.step-card p,
+.feature-box small{
+    font-family:'Poppins', sans-serif !important;
+    font-weight:400 !important;
+    font-size:16px !important;
+    line-height:26px !important;
+    color: rgba(33,37,41,0.74);
+}
+/* Sub-heading typography */
+.step-card h5,
+.feature-box h5,
+.feature-box h4,
+.stats-card h5,
+.treatment-card h6{
+    font-family:'Poppins', sans-serif !important;
+    font-weight:600 !important;
+    font-size:25px !important;
+    line-height:30px !important;
+    color: rgba(33,37,41,0.74);
+}
+
+
+
+  
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+        }
+        .btn-outline-primary {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            border-radius: 50px;
+            padding: 8px 25px;
+            font-weight: 600;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        .btn-cta-green {
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-cta-green:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Hero Section */
+       .hero-section {
+    padding: 5px 0 50px 0; /* reduced top space */
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.04;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-section .container { position: relative; z-index: 1; }
+        .hero-features i { color: var(--accent-green); margin-right: 8px; }
+        .hero-img {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            height: 450px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* Sections General */
+        section {
+            padding: 30px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-title h2 {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        .section-title p {
+            color: var(--text-grey);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 20px 0;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        .trust-item i {
+            font-size: 1.1rem;
+            margin-right: 10px;
+            color: #81d4fa;
+        }
+
+        /* Process */
+        .step-link { text-decoration: none; color: inherit; display: block; height: 100%; }
+        .step-card {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 20px;
+            height: 100%;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .step-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 86, 179, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--secondary-blue);
+        }
+        .step-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .step-number {
+            background: var(--primary-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 2;
+        }
+
+        /* Stats Section */
+        .stats-card {
+            background: #f8fbff;
+            border: 1px solid #e1eefc;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: left;
+            position: relative;
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        .stats-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .stats-number { font-size: 2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; line-height: 1; }
+        .stats-label { color: var(--text-grey); font-size: 0.9rem; font-weight: 500; }
+        .stats-icon { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: var(--primary-blue); opacity: 0.15; }
+
+        /* Treatments */
+        .treatment-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .treatment-card:hover { transform: translateY(-5px); border-bottom: 3px solid var(--primary-blue); }
+        .treatment-icon { font-size: 2.2rem; color: var(--primary-blue); margin-bottom: 15px; }
+
+        /* Why Choose Us */
+        .bg-light-blue { background-color: var(--secondary-blue); }
+        .feature-box {
+            display: flex;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .feature-box:hover { background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .feature-box-icon {
+            min-width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .feature-box:hover .feature-box-icon { background: var(--primary-blue); color: white; }
+
+        /* Destinations */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 220px);
+            gap: 15px;
+        }
+        .gallery-item { position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; }
+        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+        .gallery-item:nth-child(2) { grid-column: span 1; grid-row: span 1; }
+        .gallery-item:nth-child(3) { grid-column: span 1; grid-row: span 1; }
+        .gallery-item:nth-child(4) { grid-column: span 2; grid-row: span 1; }
+        @media (max-width: 768px) {
+            .gallery-container { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .gallery-item:nth-child(n) { grid-column: span 1; grid-row: auto; height: 250px; }
+        }
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .gallery-item:hover .gallery-img { transform: scale(1.1); }
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px; color: white;
+            transform: translateY(20px); transition: transform 0.4s;
+        }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+        .gallery-location { font-size: 1.3rem; font-weight: 700; display: block; }
+        .gallery-desc { font-size: 0.85rem; opacity: 0; transition: opacity 0.4s ease 0.1s; margin-top: 5px; }
+        .gallery-item:hover .gallery-desc { opacity: 1; }
+
+        /* Testimonials */
+        .testimonial-card {
+            background: white; padding: 25px; border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative;
+        }
+        .quote-icon { color: var(--secondary-blue); font-size: 2.5rem; position: absolute; top: 15px; right: 15px; }
+
+        /* FAQ */
+        .accordion-button:not(.collapsed) {
+            background-color: var(--secondary-blue);
+            color: var(--primary-blue);
+        }
+        .accordion-button:focus { box-shadow: none; border-color: rgba(0,0,0,.125); }
+        
+        /* Contact Section Specifics */
+        .contact-horizontal {
+            background-color: var(--primary-blue);
+            padding: 40px 0;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 10px;
+            border: none;
+            height: 45px;
+        }
+      /* Orange button hata kar ye White button ka code lagayein */
+    .btn-white-submit {
+    background-color: #ffffff; /* White Background */
+    color: var(--primary-blue); /* Blue Text */
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    height: 45px;
+    transition: all 0.3s;
+    }
+
+    .btn-white-submit:hover {
+    background-color: #f1f7ff; /* Hover par halka sa effect */
+    color: #003d82;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    /* Reduce overall page padding */
+.container,
+.container-fluid{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+/* Reduce card spacing */
+.step-card,
+.stats-card,
+.treatment-card,
+.testimonial-card{
+    padding:18px !important;
+}
+
+/* Reduce feature box spacing */
+.feature-box{
+    padding:8px !important;
+    margin-bottom:15px !important;
+}
+
+/* Reduce section title spacing */
+.section-title{
+    margin-bottom:25px !important;
+}
+
+/* Reduce footer padding */
+footer{
+    padding-top:35px;
+    padding-bottom:15px;
+}
+
+/* Reduce contact section padding */
+.contact-horizontal{
+    padding:30px 0;
+}
+
+
+        /* Footer */
+        footer {
+            background-color: #0b1c2c; color: #bdc3c7; padding-top: 50px; padding-bottom: 20px;
+        }
+        footer h5 { color: white; margin-bottom: 15px; font-weight: 600; }
+        footer a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px; padding-top: 15px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <div id="menu"></div>
+<div class="nav-space"></div>
+
+
+    <section class="hero-section d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="badge bg-light text-primary mb-3 px-3 py-2 border border-primary">Trusted Medical Coordination</span>
+                    <h1 class="display-4 fw-bold mb-4 text-dark">Your Surgical Journey.<br> <span style="color: var(--primary-blue);">Planned, Managed, Supported.</span></h1>
+                    <p class="lead text-muted mb-4">
+                        From choosing the right doctor to surgery, travel, recovery, and follow-up — Surgical Route manages every step of your medical journey with care, clarity, and transparency.
+                    </p>
+                    <div class="hero-features mb-4">
+                        <div class="d-flex flex-wrap gap-3">
+                            <span><i class="fa-solid fa-circle-check"></i> Free Case Review</span>
+                            <span><i class="fa-solid fa-circle-check"></i> Dedicated Case Manager</span>
+                            <span><i class="fa-solid fa-circle-check"></i> Secure & Confidential</span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 flex-column flex-sm-row">
+                       <a href="#contact" class="btn btn-cta-green btn-lg">
+                        <i class="fa-solid fa-file-medical-alt me-2"></i> Get Free Case Review
+                    </a>
+                        <button onclick="uploadReport()" class="btn btn-outline-primary btn-lg">
+                         <i class="fa-solid fa-upload me-2"></i> Upload Reports
+                        </button>
+                    </div>
+                    <p class="small text-muted mt-3"><i class="fa-regular fa-clock me-1"></i> Response within 24–48 hours</p>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="hero-img-container">
+                        <img src="image/main doc.jpeg" alt="Modern Hospital Building" class="img-fluid hero-img">
+                        <div class="card position-absolute bottom-0 start-0 mb-4 ms-n4 border-0 shadow p-3 d-none d-md-block" style="border-radius: 15px; left: -20px; bottom: 40px; animation: float 3s ease-in-out infinite;">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success text-white rounded-circle p-2 me-3">
+                                    <i class="fa-solid fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Verified Hospitals</h6>
+                                    <small class="text-muted">100% Trusted Network</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="trust-strip">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 trust-item"><i class="fa-solid fa-hospital"></i> Partnered with verified hospitals</div>
+                <div class="col-md-3 col-6 trust-item"><i class="fa-solid fa-user-doctor"></i> Experienced specialists</div>
+                <div class="col-md-3 col-6 trust-item"><i class="fa-solid fa-file-invoice-dollar"></i> Transparent estimates</div>
+                <div class="col-md-3 col-6 trust-item"><i class="fa-solid fa-language"></i> Multilingual assistance</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="process">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>A Simple, Guided Surgical Route</h2>
+                <p>Navigating medical treatment should never feel overwhelming. We offer a clear, structured process.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <a href="contact.html" class="step-link" title="Click to Upload Reports">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <img src="image/1.jpeg" alt="Medical Report Upload" class="step-img">
+                            <h5>Share Your Reports</h5>
+                            <p class="text-muted small">Click here to securely upload your medical records or speak to our team regarding your condition.</p>
+                            <span class="text-primary fw-bold small mt-auto">Upload Now <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Doctor Case Review" class="step-img">
+                        <h5>Expert Case Review</h5>
+                        <p class="text-muted small">Your case is carefully reviewed by experienced professionals to determine the best path.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <img src="image/h.s.jpeg" alt="Hospital Selection" class="step-img">
+                        <h5>Hospital Options</h5>
+                        <p class="text-muted small">Receive suitable treatment plans from verified hospitals and top specialists.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Travel and Visa" class="step-img">
+                        <h5>Travel & Visa</h5>
+                        <p class="text-muted small">We help with medical visa documentation, travel planning, and stay arrangements.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Surgery Support" class="step-img">
+                        <h5>Surgery & Support</h5>
+                        <p class="text-muted small">Dedicated on-ground support during your treatment and hospitalization period.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="step-card">
+                        <div class="step-number">6</div>
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recovery and Follow up" class="step-img">
+                        <h5>Recovery & Follow-up</h5>
+                        <p class="text-muted small">Post-treatment care coordination, continuing even after you return home.</p>
+                    </div>
+                </div>
+            </div>
+           <div class="text-center mt-5">
+                 <a href="contact.html" class="btn btn-outline-primary">Start Your Free Case Review</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section bg-light-blue">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stats-card">
+                        <h3 class="stats-number">100%</h3>
+                        <p class="stats-label mb-0">Certified Doctors</p>
+                        <i class="fa-solid fa-user-doctor stats-icon"></i>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stats-card">
+                        <h3 class="stats-number">10000+</h3>
+                        <p class="stats-label mb-0">Happy Patients</p>
+                        <i class="fa-solid fa-hospital-user stats-icon"></i>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stats-card">
+                        <h3 class="stats-number">2000+</h3>
+                        <p class="stats-label mb-0">Patient Reviews</p>
+                        <i class="fa-solid fa-comments stats-icon"></i>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="stats-card">
+                        <h3 class="stats-number">98%</h3>
+                        <p class="stats-label mb-0">Success Rate</p>
+                        <i class="fa-solid fa-chart-line stats-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="treatments">
+  <div class="container">
+    
+    <div class="section-title" data-aos="fade-up">
+      <h2>Treatments We Assist With</h2>
+      <p>Personalized plans based on medical needs, budget, and recovery expectations.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="orthopedics.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-bone treatment-icon"></i>
+            <h6>Orthopedics</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="oncology.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-user-injured treatment-icon"></i>
+            <h6>Oncology</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="cardiac.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-heart-pulse treatment-icon"></i>
+            <h6>Cardiac Care</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="neurology.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-brain treatment-icon"></i>
+            <h6>Neurology</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="cosmetic.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-wand-magic-sparkles treatment-icon"></i>
+            <h6>Cosmetic</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="dental.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-tooth treatment-icon"></i>
+            <h6>Dental</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="transplants.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-lungs treatment-icon"></i>
+            <h6>Transplants</h6>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="ivf.html" class="text-decoration-none text-dark">
+          <div class="treatment-card">
+            <i class="fa-solid fa-baby treatment-icon"></i>
+            <h6>IVF & Fertility</h6>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="specialty.html" class="btn btn-outline-primary">
+        Explore All Treatments
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+    <section class="bg-light-blue">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow" alt="Trust and Care">
+                </div>
+                <div class="col-lg-7 ps-lg-5" data-aos="fade-left">
+                    <h2 class="mb-4 text-primary fw-bold">Why Patients Choose Surgical Route</h2>
+                    <p class="mb-4 text-muted">We don’t just connect you to hospitals; we act as your personal advocate. Our goal is to make your medical journey simpler, safer, and better-planned.</p>
+                    <div class="feature-box">
+                        <div class="feature-box-icon"><i class="fa-solid fa-handshake"></i></div>
+                        <div><h5>Independent Matching</h5><p class="text-muted small mb-0">We work for you, not the hospitals. We provide unbiased connections.</p></div>
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-box-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div><h5>Transparent Cost Guidance</h5><p class="text-muted small mb-0">No surprises. We help you understand the full cost before you travel.</p></div>
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-box-icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <div><h5>Single Point of Contact</h5><p class="text-muted small mb-0">You get a dedicated Case Manager from start to finish.</p></div>
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-box-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div><h5>International Experience</h5><p class="text-muted small mb-0">We specialize in cross-border healthcare logistics and visas.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="destinations">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Destinations We Support</h2>
+                <p>Explore world-class medical destinations known for advanced care and affordability.</p>
+            </div>
+            <div class="gallery-container">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                    <img src=" image/india.jpeg" alt="India Medical Care" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-location">India</span><p class="gallery-desc">Advanced cardiac and orthopedic care.</p></div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="image/turkey.jpeg" alt="Turkey Clinic" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-location">Turkey</span><p class="gallery-desc">Leading hair transplant & cosmetic center.</p></div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="image/uae.jpeg" alt="UAE Medical Tech" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-location">UAE</span><p class="gallery-desc">Luxury healthcare infrastructure.</p></div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Thailand Medical" class="gallery-img">
+                    <div class="gallery-overlay"><span class="gallery-location">Thailand</span><p class="gallery-desc">Renowned for wellness and comprehensive checks.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4" data-aos="fade-up">
+                    <h3 class="fw-bold mb-3">Comprehensive Patient Support</h3>
+                    <p class="text-muted">Your treatment journey involves more than just surgery. Our goal is to let you focus on recovery — while we manage the rest.</p>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row g-3">
+                        <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Medical Visa Invitation Letters</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Airport Pickup & Local Transfers</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Hotel & Family Stay Arrangements</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Medical Language Interpreters</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Local Travel Coordination</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Diet & Rehabilitation Support</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Insurance & Payment Guidance</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Post-treatment Follow-ups</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3 class="text-center mb-5 fw-bold" data-aos="fade-up">Patient Experiences</h3>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-right">
+                    <div class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="fst-italic text-muted">“Surgical Route handled everything — from hospital appointments to post-surgery support. It made a stressful situation manageable.”</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">JS</div>
+                            <div class="ms-3"><h6 class="mb-0 fw-bold">John S.</h6><small class="text-muted">Knee Replacement</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-left">
+                    <div class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="fst-italic text-muted">“Having one case manager for the entire journey gave us confidence and peace of mind. Highly recommended.”</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">AM</div>
+                            <div class="ms-3"><h6 class="mb-0 fw-bold">Amina M.</h6><small class="text-muted">Cardiac Surgery</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="bg-light-blue">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="mb-4 fw-bold text-primary">Frequently Asked Questions</h2>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item mb-2 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">Is my medical information confidential?</button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">Yes. Your reports are handled securely and shared only with relevant medical professionals.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-2 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">Do you provide medical advice?</button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">No. We coordinate care. Medical advice comes directly from the partner hospitals and doctors.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-2 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">Are treatment outcomes guaranteed?</button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">Medical outcomes cannot be guaranteed, but we ensure you access top-tier specialists.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-2 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">Can a family member travel with me?</button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">Yes. We assist with accommodation and logistics for accompanying family members.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-2 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">How do I get a medical visa?</button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted small">We provide the necessary invitation letters from the hospital to help you apply for a medical visa.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow" alt="Support Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-horizontal">
+        <div class="container-fluid px-lg-5">
+            <div class="text-white text-center mb-4">
+                <h3 class="fw-bold mb-1">Your Trusted Partner in Medical Care</h3>
+                <p class="small opacity-75 mb-0">Fill out this form and our health expert will get back to you within 24 hours.</p>
+            </div>
+            
+           
+           <form action="/contact" method="POST" enctype="multipart/form-data">
+            
+             <div class="row g-3">
+
+             <div class="col-md-6 col-lg-3">
+          <input type="text" class="form-control" name="name" placeholder="Enter your full name">
+             </div>
+
+              <div class="col-md-6 col-lg-3">
+              <select class="form-select" name="country">
+             <option value="">Select Country</option>
+             <option value="India">India</option>
+             <option value="Turkey">Turkey</option>
+             <option value="Thailand">Thailand</option>
+    </select>
+    </div>
+
+     <div class="col-md-6 col-lg-3">
+     <div class="input-group">
+     <span class="input-group-text border-0 bg-white text-muted">+91</span>
+     <input type="tel" class="form-control" name="phone" placeholder="Phone number" style="border-radius: 0 8px 8px 0;">
+     </div>
+     </div>
+
+     <div class="col-md-6 col-lg-3">
+     <input type="email" class="form-control" name="email" placeholder="Enter your email">
+     </div>
+
+     <div class="col-md-9 col-lg-10">
+     <input type="text" class="form-control" name="department" placeholder="Describe your medical concern">
+     </div>
+
+     <div class="col-md-6 col-lg-3">
+     <input type="file" id="reportUpload" name="report" class="form-control">
+     </div>
+
+     <div class="col-md-3 col-lg-2">
+     <button type="submit" class="btn btn-white-submit w-100">Submit</button>
+     </div>
+
+      </div>
+      <div class="text-center mt-3">
+                     <div class="form-check d-inline-block text-white small">
+                        <input class="form-check-input" type="checkbox" value="" id="privacyCheck" checked>
+                        <label class="form-check-label opacity-75" for="privacyCheck">
+                            By submitting the form I agree to the Terms and Conditions and Privacy Policy.
+                        </label>
+                    </div>
+                </div>
+    </form>
+              
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>Surgical Route</h5>
+                    <p class="small">Your trusted partner for safe, organized, and transparent medical journeys.</p>
+                    <div class="mt-3">
+                        <a href="#" class="me-3"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="#process">How it Works</a></li>
+                        <li><a href="#treatments">Treatments</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6 mb-4">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Medical Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled small">
+                        <li><i class="fa-solid fa-phone me-2"></i> +1 234 567 890</li>
+                        <li><i class="fa-solid fa-envelope me-2"></i> care@surgicalroute.com</li>
+                        <li><i class="fa-solid fa-location-dot me-2"></i> 123 Health Plaza, Medical District</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p class="mb-1">&copy; 2023 Surgical Route. All rights reserved.</p>
+                <p class="text-warning small"><i class="fa-solid fa-triangle-exclamation"></i> For emergencies, contact local emergency services immediately.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, 
+            offset: 100, 
+            duration: 800, 
+            easing: 'ease-out-cubic',
+        });
+    </script>
+    <script>
+document.addEventListener("click", function (e) {
+  const link = e.target.closest('a[href^="index.html#"]');
+  if (!link) return;
+
+  e.preventDefault();
+  const targetId = link.getAttribute("href").split("#")[1];
+  const target = document.getElementById(targetId);
+
+  if (target) {
+    window.location.href = "index.html#" + targetId;
+  }
+});
+</script>
+
+    <!-- Bootstrap JS (required for dropdown) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   <script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("menu").innerHTML = data;
+
+    // 🔥 THIS LINE FIXES DROPDOWN
+    document
+      .querySelectorAll('.dropdown-toggle')
+      .forEach(el => new bootstrap.Dropdown(el));
+  });
+</script>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+if(params.get("success") === "true"){
+alert("Thank you! Our medical expert will contact you within 24 hours.");
+}
+
+</script>
+
+<script>
+
+document.querySelectorAll("form").forEach(function(form){
+
+    const pageName = window.location.pathname.split("/").pop() || "index.html";
+
+    const sourceInput = document.createElement("input");
+    sourceInput.type = "hidden";
+    sourceInput.name = "source";
+    sourceInput.value = pageName;
+
+    form.appendChild(sourceInput);
+
+});
+
+</script>
+
+<script>
+
+function uploadReport(){
+
+  const fileInput = document.getElementById("reportUpload");
+
+  if(fileInput){
+      fileInput.click();
+      document.getElementById("contact").scrollIntoView({
+          behavior: "smooth"
+      });
+  }
+
+}
+
+</script>
+</body>
+</html>
