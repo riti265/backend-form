@@ -81,18 +81,15 @@ const upload = multer({ storage: storage });
 ////////////////////////////////////////////////////
 // EMAIL TRANSPORTER
 ////////////////////////////////////////////////////
+
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // false for port 587, true for port 465
-    requireTLS: true,
-    family: 4,
+    port: 465,         // 👈 Switched back to the secure port
+    secure: true,      // 👈 MUST be true for port 465
+    family: 4,         // 👈 Keeps the IPv6 blocker active!
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-    },
-    tls: {
-        rejectUnauthorized: false // Helps prevent cloud server SSL blocks
     }
 });
 ////////////////////////////////////////////////////
