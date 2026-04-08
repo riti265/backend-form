@@ -228,15 +228,20 @@ app.get('/approve/:id', isAdmin, async (req, res) => {
     try {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Approved" }, { new: true });
         if (contact.email) {
+            console.log("⏳ Attempting to send email to:", contact.email);
             await transporter.sendMail({
                 from: process.env.EMAIL_USER,
                 to: contact.email,
-                subject: "Appointment Approved",
+                subject: "Appointment Approved - Surgical Route",
                 html: `<p>Dear ${contact.name}, your appointment for ${contact.department} on ${contact.date} is approved.</p>`
             });
+            console.log("✅ Email successfully sent!");
         }
         res.redirect('/admin');
-    } catch (e) { res.redirect('/admin'); }
+    } catch (e) { 
+        console.error("❌ Email Error:", e); // This will show us the exact problem!
+        res.redirect('/admin'); 
+    }
 });
 
 app.get('/reject/:id', isAdmin, async (req, res) => {
