@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
 const ExcelJS = require('exceljs');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
@@ -79,20 +78,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 ////////////////////////////////////////////////////
-// EMAIL TRANSPORTER
-////////////////////////////////////////////////////
-
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,         // 👈 Switched back to the secure port
-    secure: true,      // 👈 MUST be true for port 465
-    family: 4,         // 👈 Keeps the IPv6 blocker active!
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
-////////////////////////////////////////////////////
 // ROUTES
 ////////////////////////////////////////////////////
 
@@ -136,7 +121,7 @@ function isAdmin(req, res, next) {
 }
 
 ////////////////////////////////////////////////////
-// ADMIN PANEL (CRASH-PROOF VERSION)
+// ADMIN PANEL
 ////////////////////////////////////////////////////
 app.get('/admin', isAdmin, async (req, res) => {
     try {
@@ -225,24 +210,27 @@ app.get('/admin', isAdmin, async (req, res) => {
 });
 
 ////////////////////////////////////////////////////
-// STATUS UPDATES
+// STATUS UPDATES (NOW USING GOOGLE WEBHOOK)
 ////////////////////////////////////////////////////
 app.get('/approve/:id', isAdmin, async (req, res) => {
     try {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Approved" }, { new: true });
         if (contact.email) {
-            console.log("⏳ Attempting to send email to:", contact.email);
-            await transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: contact.email,
-                subject: "Appointment Approved - Surgical Route",
-                html: `<p>Dear ${contact.name}, your appointment for ${contact.department} on ${contact.date} is approved.</p>`
+            console.log("⏳ Sending approval email via Webhook to:", contact.email);
+            await fetch('https://script.google.com/macros/s/AKfycbyUKtz07adWPHqfK8ldoOtOklyi4Y_j_zv8ZQhLvJjAw-pWJXP36UIVgV_CmnIIUruq/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    to: contact.email,
+                    subject: "Appointment Approved - Surgical Route",
+                    html: `<p>Dear ${contact.name}, your appointment for ${contact.department} on ${contact.date} has been officially approved. We will contact you shortly with further details.</p>`
+                })
             });
-            console.log("✅ Email successfully sent!");
+            console.log("✅ Approval email successfully sent!");
         }
         res.redirect('/admin');
     } catch (e) { 
-        console.error("❌ Email Error:", e); // This will show us the exact problem!
+        console.error("❌ Email Error:", e);
         res.redirect('/admin'); 
     }
 });
@@ -251,15 +239,23 @@ app.get('/reject/:id', isAdmin, async (req, res) => {
     try {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Rejected" }, { new: true });
         if (contact.email) {
-            await transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: contact.email,
-                subject: "Appointment Update",
-                html: `<p>Dear ${contact.name}, your appointment was rejected. Contact us for details.</p>`
+            console.log("⏳ Sending rejection email via Webhook to:", contact.email);
+            await fetch('https://script.google.com/macros/s/AKfycbyUKtz07adWPHqfK8ldoOtOklyi4Y_j_zv8ZQhLvJjAw-pWJXP36UIVgV_CmnIIUruq/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    to: contact.email,
+                    subject: "Appointment Update - Surgical Route",
+                    html: `<p>Dear ${contact.name}, we regret to inform you that we cannot proceed with your appointment at this time. Please contact us for further assistance.</p>`
+                })
             });
+            console.log("✅ Rejection email successfully sent!");
         }
         res.redirect('/admin');
-    } catch (e) { res.redirect('/admin'); }
+    } catch (e) { 
+        console.error("❌ Email Error:", e);
+        res.redirect('/admin'); 
+    }
 });
 
 app.get('/delete/:id', isAdmin, async (req, res) => {
