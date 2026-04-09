@@ -217,7 +217,7 @@ app.get('/approve/:id', isAdmin, async (req, res) => {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Approved" }, { new: true });
         if (contact.email) {
             console.log("⏳ Sending approval email via Webhook to:", contact.email);
-            await fetch('https://script.google.com/macros/s/AKfycbyUKtz07adWPHqfK8ldoOtOklyi4Y_j_zv8ZQhLvJjAw-pWJXP36UIVgV_CmnIIUruq/exec', {
+            await fetch('https://script.google.com/macros/s/AKfycbyelrW9KIEiX-uuD6CZtkRzZqaCEFOzyl3bbnyaPYsriypnchpNnAFzvwHKW5mv_rah/exec', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -240,7 +240,7 @@ app.get('/reject/:id', isAdmin, async (req, res) => {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Rejected" }, { new: true });
         if (contact.email) {
             console.log("⏳ Sending rejection email via Webhook to:", contact.email);
-            await fetch('https://script.google.com/macros/s/AKfycbyUKtz07adWPHqfK8ldoOtOklyi4Y_j_zv8ZQhLvJjAw-pWJXP36UIVgV_CmnIIUruq/exec', {
+            await fetch('https://script.google.com/macros/s/AKfycbyelrW9KIEiX-uuD6CZtkRzZqaCEFOzyl3bbnyaPYsriypnchpNnAFzvwHKW5mv_rah/exec', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
