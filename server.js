@@ -69,7 +69,6 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.ht
 
 app.post('/contact', upload.single('report'), async (req, res) => {
     try {
-        // We stopped overwriting the date/time here so the patient's choices are saved!
         const newContact = new Contact({
             ...req.body,
             report: req.file ? req.file.filename : null,
@@ -99,7 +98,7 @@ function isAdmin(req, res, next) {
 }
 
 ////////////////////////////////////////////////////
-// ADMIN PANEL (NEW UPGRADED UI)
+// ADMIN PANEL (WITH WHATSAPP BUTTON)
 ////////////////////////////////////////////////////
 app.get('/admin', isAdmin, async (req, res) => {
     try {
@@ -118,9 +117,13 @@ app.get('/admin', isAdmin, async (req, res) => {
 
         let rows = "";
         contacts.forEach(c => {
-            // Format the exact time they clicked submit
             const submittedDate = new Date(c.createdAt).toLocaleDateString();
             const submittedTime = new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            // Generate WhatsApp Link
+            const cleanPhone = c.phone.replace(/[^0-9]/g, ''); // Removes any spaces or symbols
+            const waMsg = encodeURIComponent(`Hello ${c.name}, this is Surgical Route reaching out regarding your recent medical inquiry.`);
+            const waLink = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
             rows += `
             <tr>
@@ -134,9 +137,10 @@ app.get('/admin', isAdmin, async (req, res) => {
                 <td>${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-sm btn-outline-primary">View</a>` : '-'}</td>
                 <td>
                     <div class="d-flex gap-1">
-                        <a href="/approve/${c._id}" class="btn btn-sm btn-success">✓</a>
-                        <a href="/reject/${c._id}" class="btn btn-sm btn-warning">✗</a>
-                        <a href="/delete/${c._id}" class="btn btn-sm btn-danger">🗑</a>
+                        <a href="/approve/${c._id}" class="btn btn-sm btn-success" title="Approve">✓</a>
+                        <a href="/reject/${c._id}" class="btn btn-sm btn-warning" title="Reject">✗</a>
+                        <a href="${waLink}" target="_blank" class="btn btn-sm btn-success" style="background-color: #25D366; border: none;" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                        <a href="/delete/${c._id}" class="btn btn-sm btn-danger" title="Delete">🗑</a>
                     </div>
                 </td>
             </tr>`;
@@ -148,6 +152,7 @@ app.get('/admin', isAdmin, async (req, res) => {
         <head>
             <title>Admin Dashboard</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         </head>
         <body class="bg-light p-4">
             <div class="container-fluid card shadow p-4">
