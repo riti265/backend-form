@@ -15,10 +15,7 @@ const PORT = process.env.PORT || 3000;
 ////////////////////////////////////////////////////
 // MIDDLEWARE
 ////////////////////////////////////////////////////
-app.use(helmet({
-    contentSecurityPolicy: false
-}));
-
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,11 +25,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'fallbackSecret123',
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        secure: false, 
-        maxAge: 1000 * 60 * 60 // 1 hour
-    }
+    cookie: { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 }
 }));
 
 const loginLimiter = rateLimit({
@@ -52,17 +45,9 @@ mongoose.connect(process.env.MONGO_URI)
 // SCHEMA
 ////////////////////////////////////////////////////
 const contactSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    phone: String,
-    country: String,
-    department: String,
-    message: String,
-    report: String,
-    source: String,
-    date: String,
-    time: String,
-    status: { type: String, default: "Pending" },
+    name: String, email: String, phone: String, country: String,
+    department: String, message: String, report: String, source: String,
+    date: String, time: String, status: { type: String, default: "Pending" },
     createdAt: { type: Date, default: Date.now }
 });
 
@@ -80,20 +65,15 @@ const upload = multer({ storage: storage });
 ////////////////////////////////////////////////////
 // ROUTES
 ////////////////////////////////////////////////////
-
-app.get('/', (req, res) => {
-   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 app.post('/contact', upload.single('report'), async (req, res) => {
     try {
-        const now = new Date();
+        // We stopped overwriting the date/time here so the patient's choices are saved!
         const newContact = new Contact({
             ...req.body,
             report: req.file ? req.file.filename : null,
-            source: req.body.source || "Home Page",
-            date: now.toISOString().split("T")[0],
-            time: now.toTimeString().split(" ")[0]
+            source: req.body.source || "Home Page"
         });
         await newContact.save();
         res.redirect('/?success=true');
@@ -102,9 +82,7 @@ app.post('/contact', upload.single('report'), async (req, res) => {
     }
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
 
 app.post('/login', loginLimiter, async (req, res) => {
     const { username, password } = req.body;
@@ -121,7 +99,7 @@ function isAdmin(req, res, next) {
 }
 
 ////////////////////////////////////////////////////
-// ADMIN PANEL
+// ADMIN PANEL (NEW UPGRADED UI)
 ////////////////////////////////////////////////////
 app.get('/admin', isAdmin, async (req, res) => {
     try {
@@ -131,12 +109,8 @@ app.get('/admin', isAdmin, async (req, res) => {
         const skip = (page - 1) * limit;
 
         const query = { name: { $regex: search, $options: 'i' } };
-        const contacts = await Contact.find(query)
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit);
+        const contacts = await Contact.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
 
-        // Fetch counts directly from DB
         const total = await Contact.countDocuments();
         const pending = await Contact.countDocuments({ status: "Pending" });
         const approved = await Contact.countDocuments({ status: "Approved" });
@@ -144,17 +118,20 @@ app.get('/admin', isAdmin, async (req, res) => {
 
         let rows = "";
         contacts.forEach(c => {
+            // Format the exact time they clicked submit
+            const submittedDate = new Date(c.createdAt).toLocaleDateString();
+            const submittedTime = new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
             rows += `
             <tr>
                 <td><strong>${c.name}</strong><br><small>${c.email || '-'}</small></td>
-                <td>${c.phone}</td>
-                <td>${c.country}</td>
-                <td>${c.department}</td>
-                <td>${c.source || '-'}</td>
-                <td>${c.date}<br><small>${c.time}</small></td>
-                <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+                <td>${c.phone}<br><small class="text-muted">${c.country}</small></td>
+                <td><strong>${c.department}</strong><br><small class="text-muted">${c.source || '-'}</small></td>
+                <td>📅 ${c.date || 'N/A'}<br>⏰ ${c.time || 'N/A'}</td>
+                <td style="max-width: 250px; white-space: normal; font-size: 0.9em; color: #555;">${c.message || 'No details provided'}</td>
+                <td>${submittedDate}<br><small class="text-muted">${submittedTime}</small></td>
                 <td><span class="badge bg-${c.status === "Approved" ? "success" : c.status === "Rejected" ? "danger" : "warning"}">${c.status}</span></td>
-                <td>${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-sm btn-primary">View</a>` : '-'}</td>
+                <td>${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-sm btn-outline-primary">View</a>` : '-'}</td>
                 <td>
                     <div class="d-flex gap-1">
                         <a href="/approve/${c._id}" class="btn btn-sm btn-success">✓</a>
@@ -171,10 +148,9 @@ app.get('/admin', isAdmin, async (req, res) => {
         <head>
             <title>Admin Dashboard</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         </head>
         <body class="bg-light p-4">
-            <div class="container card shadow p-4">
+            <div class="container-fluid card shadow p-4">
                 <div class="d-flex justify-content-between mb-4">
                     <h3>Surgical Route Admin</h3>
                     <a href="/logout" class="btn btn-dark">Logout</a>
@@ -186,14 +162,26 @@ app.get('/admin', isAdmin, async (req, res) => {
                     <div class="col-md-3"><div class="p-3 bg-danger text-white rounded">Rejected: ${rejected}</div></div>
                 </div>
                 <form method="GET" class="d-flex gap-2 mb-3">
-                    <input name="search" value="${search}" class="form-control" placeholder="Search name...">
+                    <input name="search" value="${search}" class="form-control w-25" placeholder="Search patient name...">
                     <button class="btn btn-primary">Search</button>
-                    <a href="/export" class="btn btn-success">Export</a>
+                    <a href="/export" class="btn btn-success ms-auto">Export to Excel</a>
                 </form>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
-                        <thead class="table-dark"><tr><th>Patient</th><th>Phone</th><th>Country</th><th>Dept</th><th>Source</th><th>Appt</th><th>Created</th><th>Status</th><th>File</th><th>Actions</th></tr></thead>
-                        <tbody>${rows || '<tr><td colspan="10" class="text-center">No records found</td></tr>'}</tbody>
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Patient</th>
+                                <th>Contact & Country</th>
+                                <th>Dept & Source</th>
+                                <th>Preferred Appt</th>
+                                <th>Medical Concern</th>
+                                <th>Submitted On</th>
+                                <th>Status</th>
+                                <th>File</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows || '<tr><td colspan="9" class="text-center">No records found</td></tr>'}</tbody>
                     </table>
                 </div>
                 <div class="mt-3">
@@ -210,36 +198,30 @@ app.get('/admin', isAdmin, async (req, res) => {
 });
 
 ////////////////////////////////////////////////////
-// STATUS UPDATES (NOW USING GOOGLE WEBHOOK)
+// STATUS UPDATES & GOOGLE WEBHOOK EMAILS
 ////////////////////////////////////////////////////
 app.get('/approve/:id', isAdmin, async (req, res) => {
     try {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Approved" }, { new: true });
         if (contact.email) {
-            console.log("⏳ Sending approval email via Webhook to:", contact.email);
             await fetch('https://script.google.com/macros/s/AKfycbyelrW9KIEiX-uuD6CZtkRzZqaCEFOzyl3bbnyaPYsriypnchpNnAFzvwHKW5mv_rah/exec', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     to: contact.email,
                     subject: "Appointment Approved - Surgical Route",
-                    html: `<p>Dear ${contact.name}, your appointment for ${contact.department} on ${contact.date} has been officially approved. We will contact you shortly with further details.</p>`
+                    html: `<p>Dear ${contact.name}, your appointment for ${contact.department} on ${contact.date || 'your requested date'} has been officially approved. We will contact you shortly with further details.</p>`
                 })
             });
-            console.log("✅ Approval email successfully sent!");
         }
         res.redirect('/admin');
-    } catch (e) { 
-        console.error("❌ Email Error:", e);
-        res.redirect('/admin'); 
-    }
+    } catch (e) { res.redirect('/admin'); }
 });
 
 app.get('/reject/:id', isAdmin, async (req, res) => {
     try {
         const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Rejected" }, { new: true });
         if (contact.email) {
-            console.log("⏳ Sending rejection email via Webhook to:", contact.email);
             await fetch('https://script.google.com/macros/s/AKfycbyelrW9KIEiX-uuD6CZtkRzZqaCEFOzyl3bbnyaPYsriypnchpNnAFzvwHKW5mv_rah/exec', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -249,13 +231,9 @@ app.get('/reject/:id', isAdmin, async (req, res) => {
                     html: `<p>Dear ${contact.name}, we regret to inform you that we cannot proceed with your appointment at this time. Please contact us for further assistance.</p>`
                 })
             });
-            console.log("✅ Rejection email successfully sent!");
         }
         res.redirect('/admin');
-    } catch (e) { 
-        console.error("❌ Email Error:", e);
-        res.redirect('/admin'); 
-    }
+    } catch (e) { res.redirect('/admin'); }
 });
 
 app.get('/delete/:id', isAdmin, async (req, res) => {
