@@ -1095,6 +1095,14 @@ function uploadReport(){
 }
 
 </script>
-<elevenlabs-convai agent-id="agent_7201kfjve9xreeqvv69zq2e0qj99"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<div id="voice-agent"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const widget = document.createElement("elevenlabs-convai");
+  widget.setAttribute("agent-id", "agent_7201kfjve9xreeqvv69zq2e0qj99");
+  document.body.appendChild(widget);
+});
+</script><script src="https://unpkg.com/@elevenlabs/convai-widget-embed"></script>
 </body>
 </html>
