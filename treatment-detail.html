@@ -575,44 +575,8 @@ Who Should Get <span class="treatmentTitle">Treatment</span>?
 
     <div class="row g-4" id="doctorList">
 
-        <div class="col-md-4">
-            <div class="doctor-card2">
-                <img src="image/doc1.jpeg" alt="Dr. Rajiv Sharma">
-                <h5>Dr. Rajiv Sharma</h5>
-                <p>20+ Years Experience<br>Specialist in Orthopedic Surgery, Knee Arthroplasty</p>
-                <p>Qualifications: MBBS, MS (Ortho), Fellowship in Joint Replacement</p>
-                <p>Hospital: Fortis Hospital, Delhi</p>
-                <a href="doctors.html?specialty=orthopedics&doctor=rajiv-sharma" class="btn btn-primary btn-sm">
-                    View Profile
-                </a>
-            </div>
-        </div>
+        
 
-        <div class="col-md-4">
-            <div class="doctor-card2">
-                <img src="image/doc1.jpeg" alt="Dr. Amit Verma">
-                <h5>Dr. Amit Verma</h5>
-                <p>18+ Years Experience<br>Expert in Robotic Knee Surgery</p>
-                <p>Qualifications: MBBS, DNB (Ortho), Training in Advanced Arthroplasty</p>
-                <p>Hospital: Apollo Hospital, Chennai</p>
-                <a href="doctors.html?specialty=orthopedics&doctor=amit-verma" class="btn btn-primary btn-sm">
-                    View Profile
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="doctor-card2">
-                <img src="image/doc1.jpeg" alt="Dr. Neha Kapoor">
-                <h5>Dr. Neha Kapoor</h5>
-                <p>15+ Years Experience<br>Focus on Minimally Invasive Knee Procedures</p>
-                <p>Qualifications: MBBS, MS (Ortho), Fellowship in Sports Medicine</p>
-                <p>Hospital: Max Hospital, Delhi</p>
-                <a href="doctors.html?specialty=orthopedics&doctor=neha-kapoor" class="btn btn-primary btn-sm">
-                    View Profile
-                </a>
-            </div>
-        </div>
 
     </div>
 </div>
@@ -625,13 +589,13 @@ Who Should Get <span class="treatmentTitle">Treatment</span>?
 
     <div class="row g-4" id="hospitalList">
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="hospital-card2">
                 <img src="image/hos.jpeg" alt="Fortis Hospital">
                 <h5>Fortis Hospital</h5>
                 <p>Delhi, India<br>Advanced Orthopedic Department with Robotic Surgery Facilities</p>
                 <p>Accreditation: NABH Certified<br>Success Rate: 98% for Knee Replacements</p>
-                <a href="hospital-details.html?hospital=fortis" class="btn btn-outline-primary btn-sm">
+                <a href="hospital-detail.html?hospital=fortis-delhi" class="btn btn-outline-primary btn-sm">
                     View Hospital
                 </a>
             </div>
@@ -643,7 +607,7 @@ Who Should Get <span class="treatmentTitle">Treatment</span>?
                 <h5>Apollo Hospital</h5>
                 <p>Chennai, India<br>Specialized in Joint Replacement with International Standards</p>
                 <p>Accreditation: JCI Certified<br>Success Rate: 97% for Knee Replacements</p>
-                <a href="hospital-details.html?hospital=apollo" class="btn btn-outline-primary btn-sm">
+                <a href="hospital-detail.html?hospital=apollo-delhi" class="btn btn-outline-primary btn-sm">
                     View Hospital
                 </a>
             </div>
@@ -655,11 +619,11 @@ Who Should Get <span class="treatmentTitle">Treatment</span>?
                 <h5>Max Hospital</h5>
                 <p>Delhi, India<br>Comprehensive Care for Orthopedic Surgeries</p>
                 <p>Accreditation: NABH Certified<br>Success Rate: 96% for Knee Replacements</p>
-                <a href="hospital-details.html?hospital=max" class="btn btn-outline-primary btn-sm">
+                <a href="hospital-detail.html?hospital=max-delhi" class="btn btn-outline-primary btn-sm">
                     View Hospital
                 </a>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>
@@ -698,6 +662,52 @@ desc:"Knee replacement is a surgical procedure where a damaged knee joint is rep
 who:"Patients with severe arthritis, joint damage, or chronic knee pain.",
 recovery:"Walking with support in 2–3 days. Full recovery in 6–8 weeks.",
 cost:"USD 4,000 – 7,000",
+doctors: [
+  {
+    name: "Dr. Rajiv Sharma",
+    experience: "20+ Years Experience",
+    specialty: "Orthopedic Surgery, Knee Arthroplasty",
+    qualifications: "MBBS, MS (Ortho), Fellowship in Joint Replacement",
+    hospital: "Fortis Hospital, Delhi"
+  },
+  {
+    name: "Dr. Amit Verma",
+    experience: "18+ Years Experience",
+    specialty: "Robotic Knee Surgery",
+    qualifications: "MBBS, DNB (Ortho), Advanced Arthroplasty",
+    hospital: "Apollo Hospital, Chennai"
+  },
+  {
+    name: "Dr. Neha Kapoor",
+    experience: "15+ Years Experience",
+    specialty: "Minimally Invasive Knee Procedures",
+    qualifications: "MBBS, MS (Ortho), Sports Medicine",
+    hospital: "Max Hospital, Delhi"
+  }
+],
+hospitals: [
+  {
+    name: "Fortis Hospital",
+    location: "Delhi, India",
+    details: "Advanced Orthopedic Department with Robotic Surgery Facilities",
+    accreditation: "NABH Certified",
+    successRate: "98% for Knee Replacements"
+  },
+  {
+    name: "Apollo Hospital",
+    location: "Chennai, India",
+    details: "Specialized in Joint Replacement with International Standards",
+    accreditation: "JCI Certified",
+    successRate: "97% for Knee Replacements"
+  },
+  {
+    name: "Max Hospital",
+    location: "Delhi, India",
+    details: "Comprehensive Care for Orthopedic Surgeries",
+    accreditation: "NABH Certified",
+    successRate: "96% for Knee Replacements"
+  }
+],
 symptoms:[
 "Severe knee pain",
 "Difficulty walking or climbing stairs",
@@ -827,21 +837,21 @@ spine: {
 
   doctors: [
     {
-      name: "Dr. Rajiv Sharma",
+      name: "Dr.Komal Singh",
       experience: "20+ Years Experience",
       specialty: "Spine Surgery Specialist",
       qualifications: "MBBS, MS (Ortho), Fellowship in Spine Surgery",
       hospital: "Fortis Hospital, Delhi"
     },
     {
-      name: "Dr. Amit Verma",
+      name: "Dr.Nisha Kapoor",
       experience: "18+ Years Experience",
       specialty: "Minimally Invasive Spine Surgery",
       qualifications: "MBBS, DNB (Ortho), Spine Fellowship",
       hospital: "Apollo Hospital, Chennai"
     },
     {
-      name: "Dr. Neha Kapoor",
+      name: "Dr.Rahul Mehta",
       experience: "15+ Years Experience",
       specialty: "Spinal Deformity and Disc Surgery",
       qualifications: "MBBS, MS (Ortho), Fellowship in Spine",
@@ -924,7 +934,7 @@ sports:{
 
   doctors: [
     {
-      name: "Dr. Rajiv Sharma",
+      name: "Dr. Arjun Malhotra",
       experience: "20+ Years Experience",
       specialty: "Sports Injury and Knee Arthroscopy Specialist",
       qualifications: "MBBS, MS (Ortho), Fellowship in Sports Medicine",
@@ -1623,7 +1633,7 @@ chemotherapy:{
 
   hospitals:[
     {
-      name:"Fortis Hospital",
+      name: "Fortis Hospital Cancer Center",
       location:"Delhi, India",
       details:"Comprehensive cancer center with advanced chemotherapy units",
       accreditation:"NABH Certified",
@@ -4553,8 +4563,108 @@ document.getElementById("hospitalList").innerHTML = hospitalsHTML;
 
 }
 
+
+
+const hospitalList = document.getElementById("hospitalList");
+
+if(data[treatment] && data[treatment].hospitals){
+
+  hospitalList.innerHTML = data[treatment].hospitals.map((hosp) => {
+
+  let id = hosp.name.toLowerCase().replaceAll(" ", "-");
+
+    return `
+      <div class="col-md-4">
+        <div class="hospital-card2">
+          <img src="image/hos.jpeg">
+          <h5>${hosp.name}</h5>
+          <p>${hosp.location}<br>${hosp.details}</p>
+          <p>
+            Accreditation: ${hosp.accreditation}<br>
+            Success Rate: ${hosp.successRate}
+          </p>
+
+          <a href="hospital-detail.html?hospital=${id}" 
+             class="btn btn-outline-primary btn-sm">
+             View Hospital
+          </a>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function generateDoctorId(name){
+    return name
+        .toLowerCase()
+        .replace('dr.', '')   // remove Dr.
+        .replace('dr ', '')   // remove Dr
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+}
+
+function loadDoctors(){
+    const treatmentData = data[treatment];
+    const doctorList = document.getElementById("doctorList");
+
+    if(!treatmentData || !treatmentData.doctors) return;
+
+    doctorList.innerHTML = "";
+
+    treatmentData.doctors.forEach(doc => {
+        const id = generateDoctorId(doc.name);
+
+        doctorList.innerHTML += `
+        <div class="col-md-4">
+            <div class="doctor-card2">
+                <img src="image/doc1.jpeg">
+                <h5>${doc.name}</h5>
+                <p>${doc.experience}<br>${doc.specialty}</p>
+                <p>Qualifications: ${doc.qualifications}</p>
+                <p>Hospital: ${doc.hospital}</p>
+                <a href="doctor-detail.html?id=${id}" class="btn btn-primary btn-sm">
+                    View Profile
+                </a>
+            </div>
+        </div>
+        `;
+    });
+}
+
+loadDoctors();
+</script>
+<script>
+const hospitalContainer = document.getElementById("hospitalList");
+
+if (data[treatment] && data[treatment].hospitals) {
+
+    hospitalContainer.innerHTML = "";
+
+    data[treatment].hospitals.forEach(h => {
+
+        let id = h.name.toLowerCase().replace(/\s+/g, "-");
+
+        hospitalContainer.innerHTML += `
+        <div class="col-md-4">
+            <div class="hospital-card2">
+                <img src="image/hos.jpeg">
+                <h5>${h.name}</h5>
+                <p>${h.location}<br>${h.details}</p>
+                <p>${h.accreditation}<br>${h.successRate}</p>
+
+                <a href="hospital-detail.html?hospital=${id}" class="btn btn-outline-primary btn-sm">
+                    View Hospital
+                </a>
+            </div>
+        </div>
+        `;
+    });
+}
+</script>
 </body>
 </html>

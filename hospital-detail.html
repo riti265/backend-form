@@ -515,7 +515,7 @@
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script src="hospital-data.js"></script>
 <script>
-    // Load Global Menu
+   // Load Global Menu
     fetch("menu.html")
       .then(res => res.text())
       .then(data => {
@@ -548,93 +548,36 @@
     }
 
     // ==========================================
-// HOSPITAL DATABASE
-// ==========================================
+    // LOAD HOSPITAL BASED ON URL
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", function(){
 
-// const hospitalsDB = {
+        const urlParams = new URLSearchParams(window.location.search);
+        let hospitalId = urlParams.get('hospital') || urlParams.get('id');
 
-//     "apollo-delhi": {
-//         name: "Indraprastha Apollo Hospital",
-//         city: "New Delhi, India",
-//         beds: "700+",
-//         icu: "250+",
-//         specialties: "50+",
-//         about1: "Indraprastha Apollo Hospital is a JCI-accredited multi-specialty hospital known for advanced robotic and cardiac care.",
-//         about2: "It provides world-class treatment protocols and serves both domestic and international patients.",
-//         address: "Sarita Vihar, Mathura Road, New Delhi – 110076",
-//         map: "https://maps.google.com/maps?q=Indraprastha+Apollo+Hospital+New+Delhi&output=embed"
-//     },
-
-//     "kokilaben-mumbai": {
-//         name: "Kokilaben Dhirubhai Ambani Hospital",
-//         city: "Mumbai, India",
-//         beds: "750+",
-//         icu: "180+",
-//         specialties: "55+",
-//         about1: "Kokilaben Hospital is a leading tertiary care hospital offering advanced orthopedic and robotic treatments.",
-//         about2: "Known for innovation and excellence in patient care across multiple specialties.",
-//         address: "Andheri West, Mumbai – 400053",
-//         map: "https://maps.google.com/maps?q=Kokilaben+Dhirubhai+Ambani+Hospital+Mumbai&output=embed"
-//     },
-
-//     "manipal-bangalore": {
-//         name: "Manipal Hospital",
-//         city: "Bangalore, India",
-//         beds: "600+",
-//         icu: "150+",
-//         specialties: "45+",
-//         about1: "Manipal Hospital is a trusted name in multi-specialty healthcare and advanced diagnostics.",
-//         about2: "It is known for dermatology, cardiology, and oncology excellence.",
-//         address: "Old Airport Road, Bangalore – 560017",
-//         map: "https://maps.google.com/maps?q=Manipal+Hospital+Bangalore&output=embed"
-//     },
-//     "fortis-delhi": {
-//     name: "Fortis Escorts Heart Institute",
-//     city: "New Delhi, India",
-//     beds: "310+",
-//     icu: "100+",
-//     specialties: "30+",
-//     about1: "Fortis Escorts Heart Institute is one of India's most renowned cardiac hospitals.",
-//     about2: "The hospital is globally recognized for advanced cardiology, cardiac surgery, and heart transplants.",
-//     address: "Okhla Road, New Delhi – 110025",
-//     map: "https://maps.google.com/maps?q=Fortis+Escorts+Heart+Institute+Delhi&output=embed"
-// }
-
-// };
-
-// ==========================================
-// LOAD HOSPITAL BASED ON URL
-// ==========================================
-
-document.addEventListener("DOMContentLoaded", function(){
-
-const urlParams = new URLSearchParams(window.location.search);
-let hospitalId = urlParams.get('id');
-
-if (!hospitalId || !hospitalsDB[hospitalId]) {
-    hospitalId = "apollo-delhi";
+        if (!hospitalId || !hospitalsDB[hospitalId]) {
+    document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>Hospital Not Found</h2>";
+    return;
 }
 
-const hospital = hospitalsDB[hospitalId];
+        const hospital = hospitalsDB[hospitalId];
 
-document.getElementById("hospital-page-title").innerText =
-hospital.name + " | Surgical Route";
+        // Update the page with the data from hospital-data.js
+        document.getElementById("hospital-page-title").innerText = hospital.name + " | Surgical Route";
+        document.getElementById("hospital-name").innerText = hospital.name;
+        document.getElementById("hospital-city").innerText = hospital.city;
+        document.getElementById("hospital-beds").innerText = hospital.beds;
+        document.getElementById("hospital-icu").innerText = hospital.icu;
+        document.getElementById("hospital-specialties").innerText = hospital.specialties;
+        
+        // Using "desc" because that is what is inside your hospital-data.js file
+        document.getElementById("hospital-about1").innerText = hospital.desc;
+        document.getElementById("hospital-about2").innerText = ""; 
 
-document.getElementById("hospital-name").innerText = hospital.name;
-document.getElementById("hospital-city").innerText = hospital.city;
+        document.getElementById("hospital-full-address").innerText = hospital.address;
+        document.getElementById("hospital-map").src = hospital.map;
 
-document.getElementById("hospital-beds").innerText = hospital.beds;
-document.getElementById("hospital-icu").innerText = hospital.icu;
-document.getElementById("hospital-specialties").innerText = hospital.specialties;
-
-document.getElementById("hospital-about1").innerText = hospital.about1;
-document.getElementById("hospital-about2").innerText = hospital.about2;
-
-document.getElementById("hospital-full-address").innerText = hospital.address;
-document.getElementById("hospital-map").src = hospital.map;
-
-});
-
+    });
 
 </script>
 

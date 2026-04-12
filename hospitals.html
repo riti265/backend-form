@@ -250,176 +250,81 @@ fetch("menu.html")
   .then(data => { document.getElementById("menu").innerHTML = data; })
   .catch(e => { console.log("Menu file missing"); });
 
-// =========================================================
-//  DATA: UPDATE YOUR IMAGE FILENAMES HERE
-//  Make sure images are inside the "image" folder.
-// =========================================================
-// const hospitalsDB = {
-
-// "apollo-delhi":{
-// name:"Indraprastha Apollo Hospital",
-// city:"New Delhi, India",
-// beds:"700+",
-// icu:"250+",
-// specialties:"52+",
-// about1:"Apollo Hospital is one of the most advanced multi-specialty hospitals in India.",
-// about2:"Known for robotic surgery, cardiology, oncology, and organ transplants.",
-// address:"Sarita Vihar, Mathura Road, New Delhi – 110076",
-// map:"https://maps.google.com/maps?q=Indraprastha+Apollo+Hospital+New+Delhi&output=embed"
-// },
-
-// "fortis-delhi":{
-// name:"Fortis Escorts Heart Institute",
-// city:"New Delhi, India",
-// beds:"310+",
-// icu:"100+",
-// specialties:"30+",
-// about1:"Fortis Escorts is one of India's most trusted cardiac hospitals.",
-// about2:"Globally recognized for heart surgeries, cardiac transplants and critical care.",
-// address:"Okhla Road, New Delhi – 110025",
-// map:"https://maps.google.com/maps?q=Fortis+Escorts+Heart+Institute+Delhi&output=embed"
-// },
-
-// "medanta-gurgaon":{
-// name:"Medanta – The Medicity",
-// city:"Gurgaon, India",
-// beds:"1250+",
-// icu:"350+",
-// specialties:"50+",
-// about1:"Medanta is one of the largest super specialty hospitals in India.",
-// about2:"Known for advanced cardiac surgery, neurology, oncology and robotic surgery.",
-// address:"Sector 38, Gurgaon, Haryana – 122001",
-// map:"https://maps.google.com/maps?q=Medanta+Hospital+Gurgaon&output=embed"
-// },
-
-// "max-delhi":{
-// name:"Max Super Speciality Hospital",
-// city:"New Delhi, India",
-// beds:"500+",
-// icu:"120+",
-// specialties:"35+",
-// about1:"Max Hospital is a leading healthcare provider with modern medical technology.",
-// about2:"Specializes in cardiology, oncology, neurology and organ transplant.",
-// address:"Saket, New Delhi – 110017",
-// map:"https://maps.google.com/maps?q=Max+Hospital+Saket+Delhi&output=embed"
-// },
-
-// "aiims-delhi":{
-// name:"AIIMS Hospital",
-// city:"New Delhi, India",
-// beds:"2500+",
-// icu:"500+",
-// specialties:"60+",
-// about1:"AIIMS is India's top government medical institute and research hospital.",
-// about2:"It provides advanced healthcare at affordable costs.",
-// address:"Ansari Nagar, New Delhi – 110029",
-// map:"https://maps.google.com/maps?q=AIIMS+Delhi&output=embed"
-// },
-
-// "kokilaben-mumbai":{
-// name:"Kokilaben Dhirubhai Ambani Hospital",
-// city:"Mumbai, India",
-// beds:"750+",
-// icu:"180+",
-// specialties:"55+",
-// about1:"Kokilaben Hospital is one of Mumbai's most advanced hospitals.",
-// about2:"Specializes in cancer treatment, orthopedics, and robotic surgery.",
-// address:"Andheri West, Mumbai – 400053",
-// map:"https://maps.google.com/maps?q=Kokilaben+Dhirubhai+Ambani+Hospital+Mumbai&output=embed"
-// },
-
-// "manipal-bangalore":{
-// name:"Manipal Hospital",
-// city:"Bangalore, India",
-// beds:"600+",
-// icu:"150+",
-// specialties:"45+",
-// about1:"Manipal Hospital is known for its advanced diagnostic and surgical services.",
-// about2:"Provides high-quality healthcare across multiple specialties.",
-// address:"Old Airport Road, Bangalore – 560017",
-// map:"https://maps.google.com/maps?q=Manipal+Hospital+Bangalore&output=embed"
-// },
-
-// "narayana-bangalore":{
-// name:"Narayana Health City",
-// city:"Bangalore, India",
-// beds:"1000+",
-// icu:"300+",
-// specialties:"40+",
-// about1:"Narayana Health is famous for advanced cardiac and pediatric surgeries.",
-// about2:"Provides affordable and world-class healthcare.",
-// address:"Bommasandra Industrial Area, Bangalore – 560099",
-// map:"https://maps.google.com/maps?q=Narayana+Health+City+Bangalore&output=embed"
-// },
-
-// "miot-chennai":{
-// name:"MIOT International Hospital",
-// city:"Chennai, India",
-// beds:"1000+",
-// icu:"250+",
-// specialties:"63+",
-// about1:"MIOT International is a globally recognized hospital for orthopedic surgeries.",
-// about2:"Popular among international medical tourists.",
-// address:"Manapakkam, Chennai – 600089",
-// map:"https://maps.google.com/maps?q=MIOT+International+Hospital+Chennai&output=embed"
-// },
-
-// "apollo-chennai":{
-// name:"Apollo Hospitals Chennai",
-// city:"Chennai, India",
-// beds:"560+",
-// icu:"200+",
-// specialties:"50+",
-// about1:"Apollo Chennai is one of India's best hospitals for cardiac and cancer care.",
-// about2:"Equipped with modern medical technology and robotic surgery systems.",
-// address:"Greams Road, Chennai – 600006",
-// map:"https://maps.google.com/maps?q=Apollo+Hospitals+Chennai&output=embed"
-// }
-
-// };
-
-// 2. Function to Display Hospitals
+// 2. Function to Display Hospitals (Search Results)
 function renderHospitals(filteredHospitals) {
   const list = document.getElementById('hospitalList');
-  list.innerHTML = ''; // Clear current list
+  list.innerHTML = ''; 
 
   if (filteredHospitals.length === 0) {
     list.innerHTML = '<div class="no-results">No hospitals found matching your criteria.</div>';
   } else {
     filteredHospitals.forEach(hosp => {
- list.innerHTML += `
-<div class="hospital-card">
-
-  <div class="hospital-img-container">
-    <img src="image/hos.jpeg">
-  </div>
-
-  <h5>${hosp.name}</h5>
-
-  <p>
-    <i class="bi bi-geo-alt-fill text-danger"></i>
-    ${hosp.city}
-  </p>
-
-  <p class="text-muted small">
-    Beds: ${hosp.beds} | ICU: ${hosp.icu}
-  </p>
-
-  <a href="hospital-detail.html?id=${Object.keys(hospitalsDB).find(key => hospitalsDB[key] === hosp)}"
-  class="btn-enquire">
-  Enquire Now
-  </a>
-
-</div>
-`;
-});
-
-
+        // Find the correct ID for the URL
+        let correctId = Object.keys(hospitalsDB).find(key => hospitalsDB[key] === hosp);
+        
+        list.innerHTML += `
+        <div class="hospital-card">
+          <div class="hospital-img-container">
+            <img src="image/hos.jpeg">
+          </div>
+          <h5>${hosp.name}</h5>
+          <p>
+            <i class="bi bi-geo-alt-fill text-danger"></i>
+            ${hosp.city}
+          </p>
+          <p class="text-muted small">
+            Beds: ${hosp.beds} | ICU: ${hosp.icu}
+          </p>
+          <a href="hospital-detail.html?id=${correctId}" class="btn-enquire">
+          Enquire Now
+          </a>
+        </div>
+        `;
+    });
   }
 }
 
-// 3. Initial Load (Show all hospitals)
-renderHospitals(Object.values(hospitalsDB));
+// 3. Search Function
+function searchHospitals() {
+  const city = document.getElementById('city').value.toLowerCase();
+  const type = document.getElementById('type').value.toLowerCase();
+  
+ const filtered = Object.values(hospitalsDB).filter(hosp =>
+    (!city || hosp.city.toLowerCase() === city) && 
+    (!type || hosp.type === type)
+  );
+  renderHospitals(filtered);
+}
+
+// 4. Function to Display All Hospitals on Page Load
+function displayHospitals() {
+  const container = document.getElementById("hospitalList");
+  container.innerHTML = "";
+
+  const list = Object.entries(hospitalsDB);
+
+  list.forEach(([id, hospital]) => {
+    container.innerHTML += `
+      <div class="hospital-card">
+        <div class="hospital-img-container">
+          <img src="${hospital.img}">
+        </div>
+
+        <h5>${hospital.name}</h5>
+        <p>${hospital.city}, India</p>
+
+        <a href="hospital-detail.html?id=${id}" class="btn-enquire">
+           View Details
+        </a>
+      </div>
+    `;
+  });
+}
+
+// 5. Initial Load
+document.addEventListener("DOMContentLoaded", function () {
+  displayHospitals();
+});
 
 // 4. Search Function
 function searchHospitals() {
@@ -437,6 +342,35 @@ function searchHospitals() {
 function enquireHospital(name) {
   alert(`Enquiry request sent for ${name}. Our team will contact you shortly.`);
 }
+
+function displayHospitals() {
+  const container = document.getElementById("hospitalList");
+  container.innerHTML = "";
+
+  // convert object → array
+  const list = Object.entries(hospitalsDB);
+
+  list.forEach(([id, hospital]) => {
+    container.innerHTML += `
+      <div class="hospital-card">
+        <div class="hospital-img-container">
+          <img src="${hospital.img}">
+        </div>
+
+        <h5>${hospital.name}</h5>
+        <p>${hospital.city}, India</p>
+
+        <a href="hospital-detail.html?hospital=${id}" 
+           class="btn-enquire">
+           View Details
+        </a>
+      </div>
+    `;
+  });
+}
+document.addEventListener("DOMContentLoaded", function () {
+  displayHospitals();
+});
 </script>
 
 
