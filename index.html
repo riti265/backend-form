@@ -1097,12 +1097,16 @@ function uploadReport(){
 </script>
 <div id="voice-agent"></div>
 
+<!-- FIRST load script -->
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed"></script>
+
+<!-- THEN create widget -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const widget = document.createElement("elevenlabs-convai");
   widget.setAttribute("agent-id", "agent_7201kfjve9xreeqvv69zq2e0qj99");
   document.body.appendChild(widget);
 });
-</script><script src="https://unpkg.com/@elevenlabs/convai-widget-embed"></script>
+</script>>
 </body>
 </html>
