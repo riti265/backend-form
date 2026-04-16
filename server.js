@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 3000;
 ////////////////////////////////////////////////////
 // MIDDLEWARE
 ////////////////////////////////////////////////////
+// FIX 1: This tells the rate-limiter to trust Render's proxy (Fixes the red error)
+app.set('trust proxy', 1); 
+
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -205,9 +208,10 @@ app.get('/admin', isAdmin, async (req, res) => {
 ////////////////////////////////////////////////////
 // STATUS UPDATES & GOOGLE WEBHOOK EMAILS
 ////////////////////////////////////////////////////
+// FIX 2: Changed { new: true } to { returnDocument: 'after' }
 app.get('/approve/:id', isAdmin, async (req, res) => {
     try {
-        const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Approved" }, { new: true });
+        const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Approved" }, { returnDocument: 'after' });
         if (contact.email) {
             await fetch('https://script.google.com/macros/s/AKfycbyelrW9KIEiX-uuD6CZtkRzZqaCEFOzyl3bbnyaPYsriypnchpNnAFzvwHKW5mv_rah/exec', {
                 method: 'POST',
@@ -223,9 +227,10 @@ app.get('/approve/:id', isAdmin, async (req, res) => {
     } catch (e) { res.redirect('/admin'); }
 });
 
+// FIX 3: Changed { new: true } to { returnDocument: 'after' }
 app.get('/reject/:id', isAdmin, async (req, res) => {
     try {
-        const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Rejected" }, { new: true });
+        const contact = await Contact.findByIdAndUpdate(req.params.id, { status: "Rejected" }, { returnDocument: 'after' });
         if (contact.email) {
             await fetch('https://script.google.com/macros/s/AKfycbyelrW9KIEiX-uuD6CZtkRzZqaCEFOzyl3bbnyaPYsriypnchpNnAFzvwHKW5mv_rah/exec', {
                 method: 'POST',
