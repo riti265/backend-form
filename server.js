@@ -51,7 +51,6 @@ const contactSchema = new mongoose.Schema({
     department: String, message: String, report: String, source: String,
     date: String, time: String, status: { type: String, default: "Pending" },
     
-    // CRM FIELDS
     leadStage: { type: String, default: "New Lead" },
     followUpDate: String,
     followUpTime: String,
@@ -120,15 +119,10 @@ app.get('/admin', isAdmin, async (req, res) => {
         const limit = 10;
         const skip = (page - 1) * limit;
 
-        // Build Database Query
         let query = { name: { $regex: search, $options: 'i' } };
-        
-        if (filter === 'followup') {
-            query.followUpDate = { $exists: true, $ne: "" };
-        }
+        if (filter === 'followup') query.followUpDate = { $exists: true, $ne: "" };
 
         const contacts = await Contact.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
-
         const total = await Contact.countDocuments();
         const pending = await Contact.countDocuments({ status: "Pending" });
         const approved = await Contact.countDocuments({ status: "Approved" });
@@ -184,7 +178,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                 </td>
                 <td>
                     <div class="d-flex flex-column gap-1">
-                        <a href="${waLink}" target="_blank" class="btn btn-sm btn-success" style="background-color: #25D366; border: none; font-size: 0.75rem;" title="WhatsApp"><i class="bi bi-whatsapp"></i> Chat</a>
+                        <a href="${waLink}" target="_blank" class="btn btn-sm btn-success" style="background-color: #25D366; border: none; font-size: 0.75rem;"><i class="bi bi-whatsapp"></i> Chat</a>
                         ${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-sm btn-outline-primary" style="font-size: 0.75rem;"><i class="bi bi-file-earmark-medical"></i> Report</a>` : ''}
                     </div>
                 </td>
@@ -202,35 +196,42 @@ app.get('/admin', isAdmin, async (req, res) => {
                 body { background-color: #f4f6f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
                 .table th { font-size: 0.85rem; text-transform: uppercase; color: #6c757d; background-color: #e9ecef; }
                 
-                /* MATCHING THE IMAGE UI */
-                .modal-content { border-radius: 12px; border: none; }
+                /* Modal Styling */
+                .modal-content { border-radius: 16px; border: none; overflow: hidden; }
                 .crm-section-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; }
                 .crm-sub-title { font-size: 0.8rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1.5rem; margin-bottom: 1rem; }
                 
-                .info-box { background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 12px 16px; height: 100%; }
+                /* Left Side Input Boxes */
+                .info-box { background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; padding: 12px 16px; height: 100%; }
                 .info-label { font-size: 0.65rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
                 .info-value { font-size: 0.95rem; color: #0f172a; font-weight: 500; margin: 0; word-wrap: break-word;}
                 
-                .crm-input-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 16px; transition: border-color 0.2s;}
+                .crm-input-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 16px; transition: border-color 0.2s;}
                 .crm-input-box:focus-within { border-color: #cbd5e1; }
-                .crm-input-box input, .crm-input-box select, .crm-input-box textarea { border: none; background: transparent; padding: 0; width: 100%; font-size: 0.95rem; color: #0f172a; outline: none; box-shadow: none; font-weight: 500; resize: none;}
+                .crm-input-box input, .crm-input-box select { border: none; background: transparent; padding: 0; width: 100%; font-size: 0.95rem; color: #0f172a; outline: none; box-shadow: none; font-weight: 500;}
                 
-                .note-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; background: #ffffff; }
-                .note-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.75rem; color: #64748b; }
-                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.5;}
+                /* Right Side Notes Specifics */
+                .note-textarea { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; width: 100%; resize: none; outline: none; font-size: 0.95rem; color: #334155; transition: 0.2s;}
+                .note-textarea:focus { border-color: #94a3b8; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);}
                 
-                /* EXACT ONE-LINE BUTTONS (NO WRAPPING) */
-                .btn-action { white-space: nowrap; font-size: 0.85rem; padding: 10px 8px; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; text-decoration: none;}
-                .btn-blue { background-color: #1e40af; color: white; border: none; border-radius: 8px; transition: 0.2s; }
+                .note-card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,0.02);}
+                .note-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;}
+                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.6;}
+                
+                /* Exact One-Line Buttons */
+                .btn-action { white-space: nowrap; font-size: 0.85rem; padding: 12px 8px; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; text-decoration: none;}
+                .btn-blue { background-color: #1e40af; color: white; border: none; border-radius: 10px; transition: 0.2s; }
                 .btn-blue:hover { background-color: #1e3a8a; color: white; }
-                .btn-green { background-color: #16a34a; color: white; border: none; border-radius: 8px; transition: 0.2s; }
+                .btn-green { background-color: #16a34a; color: white; border: none; border-radius: 10px; transition: 0.2s; }
                 .btn-green:hover { background-color: #15803d; color: white; }
-                .btn-gray { background-color: #f1f5f9; color: #334155; border: none; border-radius: 8px; transition: 0.2s; }
+                .btn-gray { background-color: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; border-radius: 10px; transition: 0.2s; }
                 .btn-gray:hover { background-color: #e2e8f0; color: #0f172a;}
                 
                 #notesContainer::-webkit-scrollbar { width: 6px; }
                 #notesContainer::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
                 #notesContainer::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+                
+                .dashed-activity { border-top: 1px dashed #cbd5e1; margin-top: auto; padding-top: 16px; }
             </style>
         </head>
         <body class="p-4">
@@ -283,7 +284,8 @@ app.get('/admin', isAdmin, async (req, res) => {
                         <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button>
                         
                         <div class="modal-body p-4 p-md-5">
-                            <div class="row">
+                            <div class="row h-100">
+                                
                                 <div class="col-md-6 border-end pe-md-4">
                                     <h5 class="crm-section-title">Patient Details</h5>
                                     
@@ -327,7 +329,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                                             </div>
                                         </div>
                                         
-                                        <div class="d-flex gap-2 mt-3">
+                                        <div class="d-flex gap-2">
                                             <button type="submit" class="btn btn-blue fw-bold btn-action">Save Follow-up</button>
                                             <a href="#" id="m_approveBtn" class="btn btn-green fw-bold btn-action">Update Status</a>
                                             <a href="#" id="m_waBtn" target="_blank" class="btn btn-gray fw-bold btn-action">Open WhatsApp</a>
@@ -338,26 +340,28 @@ app.get('/admin', isAdmin, async (req, res) => {
                                 <div class="col-md-6 ps-md-4 mt-4 mt-md-0 d-flex flex-column">
                                     <h5 class="crm-section-title">Notes</h5>
                                     
-                                    <div id="historySection" style="display: none; margin-bottom: 15px;">
-                                        <div id="notesContainer" style="max-height: 280px; overflow-y: auto;" class="pe-2">
-                                            </div>
-                                    </div>
-
-                                    <form id="noteForm" method="POST" class="mt-auto">
-                                        <div class="crm-input-box mb-3" style="min-height: 110px;">
-                                            <span class="info-label">ADD NOTE</span>
-                                            <textarea name="noteText" rows="3" placeholder="Type notes here..." required></textarea>
+                                    <form id="noteForm" method="POST">
+                                        <div class="mb-4">
+                                            <span class="info-label mb-2">ADD NOTE</span>
+                                            <textarea name="noteText" class="note-textarea" rows="4" placeholder="Type call summaries, patient requests, or next steps here..." required></textarea>
                                         </div>
                                         
                                         <div class="d-flex gap-2 mb-4">
                                             <button type="submit" class="btn btn-blue fw-bold btn-action">Save Note</button>
                                             <button type="button" id="toggleHistoryBtn" class="btn btn-gray fw-bold btn-action" onclick="toggleHistory()">View History</button>
                                         </div>
-                                        
-                                        <div class="info-box text-center" style="border: 1px dashed #cbd5e1; background-color: #f8fafc; padding: 10px;">
-                                            <p class="mb-0" style="font-size: 0.75rem; color: #64748b;"><strong>Activity:</strong> inquiry received &rarr; contacted &rarr; note added &rarr; follow-up scheduled &rarr; waiting for response.</p>
-                                        </div>
                                     </form>
+
+                                    <div id="historySection" style="display: none;">
+                                        <h6 class="info-label mb-3">PAST INTERACTIONS</h6>
+                                        <div id="notesContainer" style="max-height: 250px; overflow-y: auto;" class="pe-2">
+                                            </div>
+                                    </div>
+                                    
+                                    <div class="dashed-activity mt-auto">
+                                        <p class="mb-0 text-center text-muted" style="font-size: 0.75rem;"><strong>Activity:</strong> inquiry received &rarr; contacted &rarr; note added &rarr; follow-up scheduled</p>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -384,7 +388,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                 }
 
                 function openCRMModal(id, name, phone, email, status, date, time, concern, leadStage, fDate, fTime, notesData, waLink) {
-                    // Populate Left Fields
+                    // Left Fields
                     document.getElementById('m_name2').innerText = name;
                     document.getElementById('m_phone').innerText = phone;
                     document.getElementById('m_email').innerText = email !== 'undefined' ? email : 'NA';
@@ -397,24 +401,22 @@ app.get('/admin', isAdmin, async (req, res) => {
                     document.getElementById('m_stage').value = leadStage;
                     document.getElementById('m_waBtn').href = waLink;
                     
-                    // Form Links
                     document.getElementById('crmForm').action = '/admin/crm/' + id;
                     document.getElementById('noteForm').action = '/admin/note/' + id;
-                    
                     document.getElementById('m_approveBtn').href = '/approve/' + id;
 
-                    // Reset History Toggle for new patient
+                    // Reset History Toggle
                     isHistoryVisible = false;
                     document.getElementById('historySection').style.display = 'none';
                     document.getElementById('toggleHistoryBtn').innerText = 'View History';
 
-                    // Populate Right Notes
+                    // Right Notes
                     const notesContainer = document.getElementById('notesContainer');
                     notesContainer.innerHTML = '';
                     const notes = JSON.parse(decodeURIComponent(notesData));
                     
                     if(notes.length === 0) {
-                        notesContainer.innerHTML = '<div class="note-card text-center text-muted border-0 bg-transparent">No notes added yet.</div>';
+                        notesContainer.innerHTML = '<div class="note-card text-center text-muted border-0 bg-transparent shadow-none">No notes added yet.</div>';
                     } else {
                         notes.slice().reverse().forEach((n, index) => {
                             const d = new Date(n.createdAt);
@@ -423,7 +425,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                             notesContainer.innerHTML += \`
                                 <div class="note-card">
                                     <div class="note-header">
-                                        <span>\${title}</span>
+                                        <span><i class="bi bi-record-circle text-primary me-1"></i> \${title}</span>
                                         <span>\${d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })} • \${d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
                                     </div>
                                     <p class="note-text">\${n.text}</p>
@@ -442,7 +444,7 @@ app.get('/admin', isAdmin, async (req, res) => {
 });
 
 ////////////////////////////////////////////////////
-// NEW CRM ROUTES (SAVE NOTES & UPDATES)
+// CRM ROUTES
 ////////////////////////////////////////////////////
 app.post('/admin/note/:id', isAdmin, async (req, res) => {
     try {
@@ -466,7 +468,7 @@ app.post('/admin/crm/:id', isAdmin, async (req, res) => {
 
 
 ////////////////////////////////////////////////////
-// STATUS UPDATES & GOOGLE WEBHOOK EMAILS
+// STATUS UPDATES
 ////////////////////////////////////////////////////
 app.get('/approve/:id', isAdmin, async (req, res) => {
     try {
