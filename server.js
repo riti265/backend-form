@@ -157,9 +157,9 @@ app.get('/admin', isAdmin, async (req, res) => {
                 latestNotePreview = `<br><div class="mt-1 p-2 bg-light border rounded small text-muted d-inline-block" style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${lastNote}">📝 ${shortNote}</div>`;
             }
 
-            // Get first initial for the avatar
             const initial = c.name ? c.name.charAt(0).toUpperCase() : '?';
 
+            // ADDED THE TIME TO THE TABLE ROWS HERE!
             rows += `
             <tr class="align-middle">
                 <td>
@@ -175,7 +175,10 @@ app.get('/admin', isAdmin, async (req, res) => {
                 </td>
                 <td><span class="fw-medium text-dark">${c.phone}</span><br><small class="text-muted">${c.country}</small></td>
                 <td><strong class="text-dark">${c.department}</strong><br><small class="text-muted text-truncate d-inline-block" style="max-width: 150px;">${c.message || 'No details'}</small></td>
-                <td><small class="text-muted">Submit: ${submittedDate}</small><br><small class="text-dark">Appt: <strong>${c.date || 'N/A'}</strong></small></td>
+                <td>
+                    <small class="text-muted d-block mb-1">Submit: ${submittedDate} <span class="fw-bold">${submittedTime}</span></small>
+                    <small class="text-dark d-block">Appt: <strong>${c.date || 'N/A'}</strong> <span class="fw-bold text-primary">${c.time || ''}</span></small>
+                </td>
                 <td>
                     <span class="badge bg-${c.status === "Approved" ? "success" : c.status === "Rejected" ? "danger" : "warning text-dark"} mb-1 px-2 py-1">${c.status}</span><br>
                     <span class="badge ${stageBadge} px-2 py-1"><i class="bi bi-funnel me-1"></i>${c.leadStage}</span>
@@ -206,17 +209,14 @@ app.get('/admin', isAdmin, async (req, res) => {
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <style>
-                /* MODERN DASHBOARD STYLES */
                 body { background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #334155;}
                 
-                /* BIG GRADIENT BANNER */
                 .admin-header { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 50px 20px 70px 20px; text-align: center; position: relative; border-bottom: 4px solid #f59e0b; }
                 .admin-header h1 { color: white; font-weight: 800; font-size: 2.5rem; margin-bottom: 5px; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);}
                 .admin-header p { color: #e0e7ff; font-size: 1.05rem; margin: 0; font-weight: 500;}
                 .admin-header .logout-btn { position: absolute; right: 30px; top: 30px; background: rgba(255,255,255,0.2); border-radius: 8px; font-weight: 600; padding: 8px 24px; color: white; text-decoration: none; transition: 0.2s; backdrop-filter: blur(5px);}
                 .admin-header .logout-btn:hover { background-color: white; color: #1e3a8a; }
 
-                /* MODERN STAT CARDS */
                 .stats-container { margin-top: -40px; position: relative; z-index: 10; }
                 .stat-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); text-align: left; height: 100%; border-left: 5px solid transparent; }
                 .stat-primary { border-left-color: #3b82f6; }
@@ -226,7 +226,6 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .stat-title { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;}
                 .stat-value { font-size: 2rem; font-weight: 800; color: #0f172a; line-height: 1;}
 
-                /* TABLE & CONTROLS UI */
                 .control-panel { background: white; border-radius: 12px; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 20px; }
                 .table-container { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e2e8f0; }
                 .table { margin-bottom: 0; }
@@ -234,10 +233,8 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .table tbody td { padding: 15px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
                 .table tbody tr:hover { background-color: #f8fafc; }
                 
-                /* BEAUTIFUL AVATARS */
                 .patient-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #1d4ed8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; border: 2px solid #bfdbfe; }
 
-                /* MODAL STYLING (KEPT FROM PREVIOUS - ALREADY PERFECT) */
                 .modal-content { border-radius: 16px; border: none; overflow: hidden; }
                 .crm-section-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; }
                 .crm-sub-title { font-size: 0.8rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1.5rem; margin-bottom: 1rem; }
