@@ -219,7 +219,8 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .note-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.75rem; color: #64748b; }
                 .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.5;}
                 
-                /* Custom Buttons */
+                /* EXACT ONE-LINE BUTTONS (NO WRAPPING) */
+                .btn-action { white-space: nowrap; font-size: 0.85rem; padding: 10px 8px; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; text-decoration: none;}
                 .btn-blue { background-color: #1e40af; color: white; border: none; border-radius: 8px; transition: 0.2s; }
                 .btn-blue:hover { background-color: #1e3a8a; color: white; }
                 .btn-green { background-color: #16a34a; color: white; border: none; border-radius: 8px; transition: 0.2s; }
@@ -326,10 +327,10 @@ app.get('/admin', isAdmin, async (req, res) => {
                                             </div>
                                         </div>
                                         
-                                        <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-blue fw-bold px-4 py-2 flex-grow-1">Save Follow-up</button>
-                                            <a href="#" id="m_approveBtn" class="btn btn-green fw-bold px-4 py-2">Update Status</a>
-                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-gray fw-bold px-4 py-2">Open WhatsApp</a>
+                                        <div class="d-flex gap-2 mt-3">
+                                            <button type="submit" class="btn btn-blue fw-bold btn-action">Save Follow-up</button>
+                                            <a href="#" id="m_approveBtn" class="btn btn-green fw-bold btn-action">Update Status</a>
+                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-gray fw-bold btn-action">Open WhatsApp</a>
                                         </div>
                                     </form>
                                 </div>
@@ -337,8 +338,10 @@ app.get('/admin', isAdmin, async (req, res) => {
                                 <div class="col-md-6 ps-md-4 mt-4 mt-md-0 d-flex flex-column">
                                     <h5 class="crm-section-title">Notes</h5>
                                     
-                                    <div id="notesContainer" style="max-height: 280px; overflow-y: auto;" class="pe-2 mb-3">
-                                        </div>
+                                    <div id="historySection" style="display: none; margin-bottom: 15px;">
+                                        <div id="notesContainer" style="max-height: 280px; overflow-y: auto;" class="pe-2">
+                                            </div>
+                                    </div>
 
                                     <form id="noteForm" method="POST" class="mt-auto">
                                         <div class="crm-input-box mb-3" style="min-height: 110px;">
@@ -347,8 +350,8 @@ app.get('/admin', isAdmin, async (req, res) => {
                                         </div>
                                         
                                         <div class="d-flex gap-2 mb-4">
-                                            <button type="submit" class="btn btn-blue fw-bold px-4 py-2 flex-grow-1">Save Note</button>
-                                            <button type="button" class="btn btn-gray fw-bold px-4 py-2 flex-grow-1" onclick="toggleHistory()">View History</button>
+                                            <button type="submit" class="btn btn-blue fw-bold btn-action">Save Note</button>
+                                            <button type="button" id="toggleHistoryBtn" class="btn btn-gray fw-bold btn-action" onclick="toggleHistory()">View History</button>
                                         </div>
                                         
                                         <div class="info-box text-center" style="border: 1px dashed #cbd5e1; background-color: #f8fafc; padding: 10px;">
@@ -364,13 +367,19 @@ app.get('/admin', isAdmin, async (req, res) => {
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <script>
+                let isHistoryVisible = false;
+                
                 function toggleHistory() {
-                    const container = document.getElementById('notesContainer');
-                    // This toggles expanding the box to see all notes if there are many
-                    if(container.style.maxHeight === '280px') {
-                        container.style.maxHeight = '500px';
+                    const section = document.getElementById('historySection');
+                    const btn = document.getElementById('toggleHistoryBtn');
+                    isHistoryVisible = !isHistoryVisible;
+                    
+                    if (isHistoryVisible) {
+                        section.style.display = 'block';
+                        btn.innerText = 'Hide History';
                     } else {
-                        container.style.maxHeight = '280px';
+                        section.style.display = 'none';
+                        btn.innerText = 'View History';
                     }
                 }
 
@@ -392,10 +401,14 @@ app.get('/admin', isAdmin, async (req, res) => {
                     document.getElementById('crmForm').action = '/admin/crm/' + id;
                     document.getElementById('noteForm').action = '/admin/note/' + id;
                     
-                    // Using the Update Status button as quick Approve for workflow
                     document.getElementById('m_approveBtn').href = '/approve/' + id;
 
-                    // Populate Right Notes (Matching image styling)
+                    // Reset History Toggle for new patient
+                    isHistoryVisible = false;
+                    document.getElementById('historySection').style.display = 'none';
+                    document.getElementById('toggleHistoryBtn').innerText = 'View History';
+
+                    // Populate Right Notes
                     const notesContainer = document.getElementById('notesContainer');
                     notesContainer.innerHTML = '';
                     const notes = JSON.parse(decodeURIComponent(notesData));
@@ -403,10 +416,9 @@ app.get('/admin', isAdmin, async (req, res) => {
                     if(notes.length === 0) {
                         notesContainer.innerHTML = '<div class="note-card text-center text-muted border-0 bg-transparent">No notes added yet.</div>';
                     } else {
-                        // Render notes exactly like the image
                         notes.slice().reverse().forEach((n, index) => {
                             const d = new Date(n.createdAt);
-                            const title = index === 0 ? "Call Log" : "Admin Note"; // Just a visual flair
+                            const title = index === 0 ? "Latest Activity" : "Admin Note"; 
                             
                             notesContainer.innerHTML += \`
                                 <div class="note-card">
