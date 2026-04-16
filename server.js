@@ -140,7 +140,6 @@ app.get('/admin', isAdmin, async (req, res) => {
             const safeNotes = encodeURIComponent(JSON.stringify(c.notes));
             const safeConcern = c.message ? c.message.replace(/'/g, "\\'") : 'NA';
 
-            // PREMIUM SOFT BADGES
             let statusBadge = '';
             if(c.status === "Approved") statusBadge = `<span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 fw-semibold"><i class="bi bi-check-circle-fill me-1"></i>Approved</span>`;
             else if(c.status === "Rejected") statusBadge = `<span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-2 fw-semibold"><i class="bi bi-x-circle-fill me-1"></i>Rejected</span>`;
@@ -218,12 +217,14 @@ app.get('/admin', isAdmin, async (req, res) => {
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Surgical Route | Lead Management</title>
+            <title>Surgical Route CRM</title>
+            
+            <link rel="icon" type="image/png" href="/logo.png">
+            
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <style>
-                /* MODERN SAAS UI DESIGN */
                 :root {
                     --bg-main: #f8fafc;
                     --bg-card: #ffffff;
@@ -235,18 +236,15 @@ app.get('/admin', isAdmin, async (req, res) => {
                 }
                 body { background-color: var(--bg-main); font-family: 'Inter', sans-serif; color: var(--text-main); -webkit-font-smoothing: antialiased; }
                 
-                /* TOP NAVBAR */
                 .saas-navbar { background-color: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);}
                 .brand { font-weight: 800; font-size: 1.25rem; color: var(--text-main); display: flex; align-items: center; gap: 8px;}
                 .logout-btn { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: 0.2s;}
                 .logout-btn:hover { background-color: #f1f5f9; color: var(--text-main); }
 
-                /* PAGE HEADER */
                 .page-header { padding: 32px; display: flex; justify-content: space-between; align-items: flex-end; }
                 .page-title h1 { font-weight: 800; font-size: 1.8rem; margin: 0; color: var(--text-main); letter-spacing: -0.5px;}
                 .page-title p { color: var(--text-muted); margin: 4px 0 0 0; font-size: 0.95rem; }
 
-                /* STAT CARDS */
                 .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: 0.2s; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);}
                 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06); }
                 .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
@@ -257,7 +255,6 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .stat-info h3 { font-size: 1.5rem; font-weight: 800; margin: 0; line-height: 1.2; color: var(--text-main);}
                 .stat-info p { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;}
 
-                /* TABLE CONTAINER & CONTROLS */
                 .table-wrapper { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); margin: 0 32px 32px 32px; overflow: hidden; }
                 .table-toolbar { padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background-color: #ffffff;}
                 
@@ -266,7 +263,6 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
                 .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-                /* THE PREMIUM TABLE */
                 .table { margin-bottom: 0; }
                 .table thead th { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); background-color: #f8fafc; padding: 12px 16px; border-bottom: 1px solid var(--border-color); letter-spacing: 0.5px;}
                 .table tbody td { border-bottom: 1px solid var(--border-color); }
@@ -276,7 +272,6 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .crm-link { transition: color 0.2s; }
                 .crm-link:hover { color: var(--primary) !important; text-decoration: underline !important; }
 
-                /* TABLE BUTTONS */
                 .btn-action-main { background-color: #25D366; color: white; border-radius: 6px; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: 0.2s; display: inline-block;}
                 .btn-action-main:hover { background-color: #128C7E; color: white; }
                 .btn-action-secondary { background-color: #f1f5f9; color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: 0.2s; text-align: center;}
@@ -284,7 +279,6 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .btn-action-icon { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; width: 100%; height: 28px; display: flex; align-items: center; justify-content: center; transition: 0.2s; text-decoration:none;}
                 .btn-action-icon:hover { background-color: #f8fafc; }
 
-                /* MODAL STYLING (KEPT CLEAN AND CONSISTENT) */
                 .modal-content { border-radius: 16px; border: none; overflow: hidden; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
                 .crm-section-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; }
                 .crm-sub-title { font-size: 0.8rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1.5rem; margin-bottom: 1rem; }
