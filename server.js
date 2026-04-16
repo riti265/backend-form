@@ -214,9 +214,13 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .note-textarea { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; width: 100%; resize: none; outline: none; font-size: 0.95rem; color: #334155; transition: 0.2s;}
                 .note-textarea:focus { border-color: #94a3b8; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);}
                 
-                .note-card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,0.02);}
+                /* UPDATED NOTE CARD - Prevent overflow & enable clicking */
+                .note-card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,0.02); cursor: pointer; transition: 0.2s; position: relative;}
+                .note-card:hover { background-color: #f8fafc; border-color: #cbd5e1; }
                 .note-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;}
-                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.6;}
+                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.6; word-break: break-word; overflow-wrap: break-word; /* FIXES THE OVERFLOW */ }
+                .dbl-click-hint { font-size: 0.6rem; color: #94a3b8; position: absolute; bottom: 6px; right: 12px; opacity: 0; transition: 0.2s; }
+                .note-card:hover .dbl-click-hint { opacity: 1; }
                 
                 /* Exact One-Line Buttons */
                 .btn-action { white-space: nowrap; font-size: 0.85rem; padding: 12px 8px; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; text-decoration: none;}
@@ -353,7 +357,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                                     </form>
 
                                     <div id="historySection" style="display: none;">
-                                        <h6 class="info-label mb-3">PAST INTERACTIONS</h6>
+                                        <h6 class="info-label mb-3">PAST INTERACTIONS (Double-click card to expand)</h6>
                                         <div id="notesContainer" style="max-height: 250px; overflow-y: auto;" class="pe-2">
                                             </div>
                                     </div>
@@ -364,6 +368,26 @@ app.get('/admin', isAdmin, async (req, res) => {
                                     
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="fullNoteModal" tabindex="-1" style="z-index: 1060;">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content shadow-lg border-0" style="background-color: #f8fafc;">
+                        <div class="modal-header border-bottom-0 pb-0">
+                            <h5 class="modal-title fw-bold text-dark"><i class="bi bi-journal-text text-primary me-2"></i>Full Note Reading View</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <div class="bg-white p-4 rounded border shadow-sm">
+                                <p id="fullNoteContent" style="white-space: pre-wrap; word-break: break-word; color: #1e293b; font-size: 1rem; line-height: 1.7; margin: 0;"></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 pt-0">
+                            <span id="fullNoteDate" class="text-muted small me-auto fw-bold"></span>
+                            <button type="button" class="btn btn-gray fw-bold px-4 py-2" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -385,6 +409,13 @@ app.get('/admin', isAdmin, async (req, res) => {
                         section.style.display = 'none';
                         btn.innerText = 'View History';
                     }
+                }
+
+                // Function to handle the double-click expansion
+                function openFullNote(encodedText, encodedDate) {
+                    document.getElementById('fullNoteContent').innerText = decodeURIComponent(encodedText);
+                    document.getElementById('fullNoteDate').innerText = decodeURIComponent(encodedDate);
+                    new bootstrap.Modal(document.getElementById('fullNoteModal')).show();
                 }
 
                 function openCRMModal(id, name, phone, email, status, date, time, concern, leadStage, fDate, fTime, notesData, waLink) {
@@ -416,19 +447,25 @@ app.get('/admin', isAdmin, async (req, res) => {
                     const notes = JSON.parse(decodeURIComponent(notesData));
                     
                     if(notes.length === 0) {
-                        notesContainer.innerHTML = '<div class="note-card text-center text-muted border-0 bg-transparent shadow-none">No notes added yet.</div>';
+                        notesContainer.innerHTML = '<div class="note-card text-center text-muted border-0 bg-transparent shadow-none" style="cursor: default;">No notes added yet.</div>';
                     } else {
                         notes.slice().reverse().forEach((n, index) => {
                             const d = new Date(n.createdAt);
                             const title = index === 0 ? "Latest Activity" : "Admin Note"; 
+                            const displayDate = d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) + ' • ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+                            
+                            // Safe Encoding for the double click function
+                            const safeTextContent = encodeURIComponent(n.text);
+                            const safeDateContent = encodeURIComponent(displayDate);
                             
                             notesContainer.innerHTML += \`
-                                <div class="note-card">
+                                <div class="note-card" ondblclick="openFullNote('\${safeTextContent}', '\${safeDateContent}')" title="Double-click to read full note">
                                     <div class="note-header">
                                         <span><i class="bi bi-record-circle text-primary me-1"></i> \${title}</span>
-                                        <span>\${d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })} • \${d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                                        <span>\${displayDate}</span>
                                     </div>
                                     <p class="note-text">\${n.text}</p>
+                                    <span class="dbl-click-hint"><i class="bi bi-arrows-angle-expand me-1"></i>Double-click to expand</span>
                                 </div>
                             \`;
                         });
