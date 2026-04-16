@@ -123,7 +123,6 @@ app.get('/admin', isAdmin, async (req, res) => {
         // Build Database Query
         let query = { name: { $regex: search, $options: 'i' } };
         
-        // FILTER LOGIC: If user clicked the Follow-up button, only show leads with a date set
         if (filter === 'followup') {
             query.followUpDate = { $exists: true, $ne: "" };
         }
@@ -167,8 +166,8 @@ app.get('/admin', isAdmin, async (req, res) => {
             rows += `
             <tr>
                 <td>
-                    <a href="#" class="text-primary text-decoration-none fs-6" onclick="openCRMModal('${c._id}', '${c.name}', '${c.phone}', '${c.email}', '${c.status}', '${c.date}', '${c.time}', '${safeConcern}', '${c.leadStage}', '${c.followUpDate || ''}', '${c.followUpTime || ''}', '${safeNotes}', '${waLink}')">
-                        <strong>${c.name}</strong>
+                    <a href="#" class="text-primary text-decoration-none fs-6 fw-bold" onclick="openCRMModal('${c._id}', '${c.name}', '${c.phone}', '${c.email}', '${c.status}', '${c.date}', '${c.time}', '${safeConcern}', '${c.leadStage}', '${c.followUpDate || ''}', '${c.followUpTime || ''}', '${safeNotes}', '${waLink}')">
+                        ${c.name}
                     </a>
                     <br><small>${c.email || '-'}</small>
                 </td>
@@ -200,20 +199,37 @@ app.get('/admin', isAdmin, async (req, res) => {
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <style>
-                body { background-color: #f4f6f9; }
-                .crm-modal-header { border-bottom: 2px solid #f0f0f0; }
-                .crm-box { background: #fcfcfc; border: 1px solid #e9ecef; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
-                .crm-label { font-size: 0.65rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
+                body { background-color: #f4f6f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
                 .table th { font-size: 0.85rem; text-transform: uppercase; color: #6c757d; background-color: #e9ecef; }
                 
-                /* Styled Inputs for the modern look */
-                .styled-input-box { background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; }
-                .styled-input-box input, .styled-input-box select { border: none; background: transparent; padding: 0; outline: none; width: 100%; box-shadow: none; font-weight: 500; color: #333; }
-                .styled-input-box input:focus, .styled-input-box select:focus { border: none; box-shadow: none; }
+                /* MATCHING THE IMAGE UI */
+                .modal-content { border-radius: 12px; border: none; }
+                .crm-section-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; }
+                .crm-sub-title { font-size: 0.8rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1.5rem; margin-bottom: 1rem; }
+                
+                .info-box { background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 12px 16px; height: 100%; }
+                .info-label { font-size: 0.65rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+                .info-value { font-size: 0.95rem; color: #0f172a; font-weight: 500; margin: 0; word-wrap: break-word;}
+                
+                .crm-input-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 16px; transition: border-color 0.2s;}
+                .crm-input-box:focus-within { border-color: #cbd5e1; }
+                .crm-input-box input, .crm-input-box select, .crm-input-box textarea { border: none; background: transparent; padding: 0; width: 100%; font-size: 0.95rem; color: #0f172a; outline: none; box-shadow: none; font-weight: 500; resize: none;}
+                
+                .note-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; background: #ffffff; }
+                .note-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.75rem; color: #64748b; }
+                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.5;}
+                
+                /* Custom Buttons */
+                .btn-blue { background-color: #1e40af; color: white; border: none; border-radius: 8px; transition: 0.2s; }
+                .btn-blue:hover { background-color: #1e3a8a; color: white; }
+                .btn-green { background-color: #16a34a; color: white; border: none; border-radius: 8px; transition: 0.2s; }
+                .btn-green:hover { background-color: #15803d; color: white; }
+                .btn-gray { background-color: #f1f5f9; color: #334155; border: none; border-radius: 8px; transition: 0.2s; }
+                .btn-gray:hover { background-color: #e2e8f0; color: #0f172a;}
                 
                 #notesContainer::-webkit-scrollbar { width: 6px; }
-                #notesContainer::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-                #notesContainer::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+                #notesContainer::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+                #notesContainer::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
             </style>
         </head>
         <body class="p-4">
@@ -223,22 +239,14 @@ app.get('/admin', isAdmin, async (req, res) => {
                     <a href="/logout" class="btn btn-outline-danger btn-sm">Logout</a>
                 </div>
                 
-                <div class="row g-3 mb-4 text-center">
-                    <div class="col-md-3"><div class="p-3 bg-primary bg-opacity-10 text-primary border border-primary rounded fw-bold">Total Inquiries: ${total}</div></div>
-                    <div class="col-md-3"><div class="p-3 bg-warning bg-opacity-10 text-warning border border-warning rounded fw-bold">Pending Review: ${pending}</div></div>
-                    <div class="col-md-3"><div class="p-3 bg-success bg-opacity-10 text-success border border-success rounded fw-bold">Approved: ${approved}</div></div>
-                    <div class="col-md-3"><div class="p-3 bg-danger bg-opacity-10 text-danger border border-danger rounded fw-bold">Rejected: ${rejected}</div></div>
-                </div>
-                
-                <form method="GET" class="d-flex gap-2 mb-3 align-items-center bg-light p-3 rounded border">
-                    <input name="search" value="${search}" class="form-control w-25" placeholder="Search patient name...">
+                <form method="GET" class="d-flex gap-2 mb-4 align-items-center bg-light p-3 rounded border">
+                    <input name="search" value="${search}" class="form-control w-25 border-secondary" placeholder="Search patient name...">
                     <button type="submit" class="btn btn-primary">Search</button>
                     
                     <div class="ms-3 border-start ps-3 d-flex gap-2">
                         <a href="/admin?filter=followup" class="btn btn-warning fw-bold text-dark"><i class="bi bi-calendar-check me-1"></i>Scheduled Follow-ups</a>
                         <a href="/admin" class="btn btn-outline-secondary">Clear Filter</a>
                     </div>
-
                     <a href="/export" class="btn btn-success ms-auto"><i class="bi bi-file-earmark-excel me-1"></i>Export Data</a>
                 </form>
 
@@ -255,7 +263,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted"><i class="bi bi-inbox fs-1 d-block mb-2"></i>No patients found</td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted">No patients found.</td></tr>'}</tbody>
                     </table>
                 </div>
                 
@@ -270,50 +278,42 @@ app.get('/admin', isAdmin, async (req, res) => {
 
             <div class="modal fade" id="crmModal" tabindex="-1">
                 <div class="modal-dialog modal-xl">
-                    <div class="modal-content border-0 shadow-lg">
-                        <div class="modal-header crm-modal-header p-4 bg-white border-bottom">
-                            <div>
-                                <h4 class="modal-title fw-bold text-dark" id="m_name">Patient Name</h4>
-                                <small class="text-muted" id="m_sub">phone • email</small>
-                            </div>
-                            <div class="ms-auto me-3 d-flex gap-2">
-                                <a id="m_approveBtn" href="#" class="btn btn-success btn-sm"><i class="bi bi-check-circle me-1"></i>Approve</a>
-                                <a id="m_rejectBtn" href="#" class="btn btn-danger btn-sm"><i class="bi bi-x-circle me-1"></i>Reject</a>
-                                <a id="m_deleteBtn" href="#" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this patient?');"><i class="bi bi-trash"></i></a>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body p-4 bg-white">
+                    <div class="modal-content shadow-lg">
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button>
+                        
+                        <div class="modal-body p-4 p-md-5">
                             <div class="row">
-                                <div class="col-md-6 border-end pe-4">
-                                    <h5 class="fw-bold mb-3 text-dark">Patient Details</h5>
-                                    <div class="row g-2 mb-4">
-                                        <div class="col-6"><div class="crm-box"><span class="crm-label">Name</span><div id="m_name2" class="text-dark"></div></div></div>
-                                        <div class="col-6"><div class="crm-box"><span class="crm-label">Phone</span><div id="m_phone" class="text-dark"></div></div></div>
-                                        <div class="col-6"><div class="crm-box"><span class="crm-label">Email</span><div id="m_email" class="text-dark"></div></div></div>
-                                        <div class="col-6"><div class="crm-box"><span class="crm-label">Status</span><div id="m_status" class="fw-bold text-dark"></div></div></div>
-                                        <div class="col-6"><div class="crm-box"><span class="crm-label">Preferred Appt</span><div id="m_appt" class="text-dark"></div></div></div>
-                                        <div class="col-6"><div class="crm-box"><span class="crm-label">Concern</span><div id="m_concern" class="text-dark"></div></div></div>
+                                <div class="col-md-6 border-end pe-md-4">
+                                    <h5 class="crm-section-title">Patient Details</h5>
+                                    
+                                    <div class="row g-3 mb-2">
+                                        <div class="col-6"><div class="info-box"><span class="info-label">NAME</span><p class="info-value" id="m_name2"></p></div></div>
+                                        <div class="col-6"><div class="info-box"><span class="info-label">PHONE</span><p class="info-value" id="m_phone"></p></div></div>
+                                        <div class="col-6"><div class="info-box"><span class="info-label">EMAIL</span><p class="info-value text-truncate" id="m_email"></p></div></div>
+                                        <div class="col-6"><div class="info-box"><span class="info-label">STATUS</span><p class="info-value text-uppercase fw-bold" id="m_status"></p></div></div>
+                                        <div class="col-6"><div class="info-box"><span class="info-label">PREFERRED APPT</span><p class="info-value" id="m_appt"></p></div></div>
+                                        <div class="col-6"><div class="info-box"><span class="info-label">CONCERN</span><p class="info-value" id="m_concern"></p></div></div>
                                     </div>
 
-                                    <h5 class="fw-bold mb-3 text-dark text-uppercase fs-6 text-muted">Quick CRM Actions</h5>
+                                    <h6 class="crm-sub-title">QUICK CRM ACTIONS</h6>
+                                    
                                     <form id="crmForm" method="POST">
-                                        <div class="row g-2 mb-3">
+                                        <div class="row g-3 mb-4">
                                             <div class="col-6">
-                                                <div class="styled-input-box">
-                                                    <span class="crm-label">Follow-up Date</span>
+                                                <div class="crm-input-box">
+                                                    <span class="info-label d-flex justify-content-between">FOLLOW-UP DATE <i class="bi bi-calendar3"></i></span>
                                                     <input type="date" name="followUpDate" id="m_fDate">
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <div class="styled-input-box">
-                                                    <span class="crm-label">Follow-up Time</span>
+                                                <div class="crm-input-box">
+                                                    <span class="info-label d-flex justify-content-between">FOLLOW-UP TIME <i class="bi bi-clock"></i></span>
                                                     <input type="time" name="followUpTime" id="m_fTime">
                                                 </div>
                                             </div>
-                                            <div class="col-12 mt-2">
-                                                <div class="styled-input-box">
-                                                    <span class="crm-label">Lead Stage</span>
+                                            <div class="col-12">
+                                                <div class="crm-input-box">
+                                                    <span class="info-label d-flex justify-content-between">LEAD STAGE <i class="bi bi-chevron-down"></i></span>
                                                     <select name="leadStage" id="m_stage">
                                                         <option>New Lead</option>
                                                         <option>Follow-up Pending</option>
@@ -325,32 +325,36 @@ app.get('/admin', isAdmin, async (req, res) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-primary fw-bold px-4" style="background-color: #1a56db; border:none;">Save Follow-up</button>
-                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-light border fw-bold text-dark px-4">Open WhatsApp</a>
+                                            <button type="submit" class="btn btn-blue fw-bold px-4 py-2 flex-grow-1">Save Follow-up</button>
+                                            <a href="#" id="m_approveBtn" class="btn btn-green fw-bold px-4 py-2">Update Status</a>
+                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-gray fw-bold px-4 py-2">Open WhatsApp</a>
                                         </div>
                                     </form>
                                 </div>
 
-                                <div class="col-md-6 ps-4">
-                                    <h5 class="fw-bold mb-3 text-dark">Notes</h5>
+                                <div class="col-md-6 ps-md-4 mt-4 mt-md-0 d-flex flex-column">
+                                    <h5 class="crm-section-title">Notes</h5>
                                     
-                                    <form id="noteForm" method="POST" class="mb-3">
-                                        <div class="styled-input-box bg-light mb-3">
-                                            <span class="crm-label mb-1">Add Note</span>
-                                            <textarea name="noteText" class="form-control form-control-sm border-0 bg-transparent shadow-none p-0" rows="3" placeholder="Type notes here..." required></textarea>
+                                    <div id="notesContainer" style="max-height: 280px; overflow-y: auto;" class="pe-2 mb-3">
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-primary fw-bold px-4" style="background-color: #1a56db; border:none;">Save Note</button>
-                                            <button type="button" id="toggleHistoryBtn" class="btn btn-light border fw-bold text-dark px-4" onclick="toggleHistory()">View History</button>
+
+                                    <form id="noteForm" method="POST" class="mt-auto">
+                                        <div class="crm-input-box mb-3" style="min-height: 110px;">
+                                            <span class="info-label">ADD NOTE</span>
+                                            <textarea name="noteText" rows="3" placeholder="Type notes here..." required></textarea>
+                                        </div>
+                                        
+                                        <div class="d-flex gap-2 mb-4">
+                                            <button type="submit" class="btn btn-blue fw-bold px-4 py-2 flex-grow-1">Save Note</button>
+                                            <button type="button" class="btn btn-gray fw-bold px-4 py-2 flex-grow-1" onclick="toggleHistory()">View History</button>
+                                        </div>
+                                        
+                                        <div class="info-box text-center" style="border: 1px dashed #cbd5e1; background-color: #f8fafc; padding: 10px;">
+                                            <p class="mb-0" style="font-size: 0.75rem; color: #64748b;"><strong>Activity:</strong> inquiry received &rarr; contacted &rarr; note added &rarr; follow-up scheduled &rarr; waiting for response.</p>
                                         </div>
                                     </form>
-
-                                    <div id="historySection" style="display: none;">
-                                        <hr class="text-muted opacity-25">
-                                        <div id="notesContainer" style="max-height: 280px; overflow-y: auto;" class="pe-2">
-                                            </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -360,28 +364,22 @@ app.get('/admin', isAdmin, async (req, res) => {
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <script>
-                let isHistoryVisible = false;
                 function toggleHistory() {
-                    const section = document.getElementById('historySection');
-                    const btn = document.getElementById('toggleHistoryBtn');
-                    isHistoryVisible = !isHistoryVisible;
-                    
-                    if (isHistoryVisible) {
-                        section.style.display = 'block';
-                        btn.innerText = 'Hide History';
+                    const container = document.getElementById('notesContainer');
+                    // This toggles expanding the box to see all notes if there are many
+                    if(container.style.maxHeight === '280px') {
+                        container.style.maxHeight = '500px';
                     } else {
-                        section.style.display = 'none';
-                        btn.innerText = 'View History';
+                        container.style.maxHeight = '280px';
                     }
                 }
 
                 function openCRMModal(id, name, phone, email, status, date, time, concern, leadStage, fDate, fTime, notesData, waLink) {
-                    document.getElementById('m_name').innerText = name;
-                    document.getElementById('m_sub').innerText = phone + ' • ' + (email !== 'undefined' ? email : 'No email');
+                    // Populate Left Fields
                     document.getElementById('m_name2').innerText = name;
                     document.getElementById('m_phone').innerText = phone;
                     document.getElementById('m_email').innerText = email !== 'undefined' ? email : 'NA';
-                    document.getElementById('m_status').innerText = status.toUpperCase();
+                    document.getElementById('m_status').innerText = status;
                     document.getElementById('m_appt').innerText = (date !== 'undefined' ? date : '') + ' ' + (time !== 'undefined' ? time : '');
                     document.getElementById('m_concern').innerText = concern;
                     
@@ -389,34 +387,34 @@ app.get('/admin', isAdmin, async (req, res) => {
                     document.getElementById('m_fTime').value = fTime;
                     document.getElementById('m_stage').value = leadStage;
                     document.getElementById('m_waBtn').href = waLink;
-
+                    
+                    // Form Links
                     document.getElementById('crmForm').action = '/admin/crm/' + id;
                     document.getElementById('noteForm').action = '/admin/note/' + id;
                     
+                    // Using the Update Status button as quick Approve for workflow
                     document.getElementById('m_approveBtn').href = '/approve/' + id;
-                    document.getElementById('m_rejectBtn').href = '/reject/' + id;
-                    document.getElementById('m_deleteBtn').href = '/delete/' + id;
 
-                    isHistoryVisible = false;
-                    document.getElementById('historySection').style.display = 'none';
-                    document.getElementById('toggleHistoryBtn').innerText = 'View History';
-
+                    // Populate Right Notes (Matching image styling)
                     const notesContainer = document.getElementById('notesContainer');
                     notesContainer.innerHTML = '';
                     const notes = JSON.parse(decodeURIComponent(notesData));
                     
                     if(notes.length === 0) {
-                        notesContainer.innerHTML = '<div class="text-center text-muted small py-3">No history available.</div>';
+                        notesContainer.innerHTML = '<div class="note-card text-center text-muted border-0 bg-transparent">No notes added yet.</div>';
                     } else {
-                        notes.slice().reverse().forEach(n => {
+                        // Render notes exactly like the image
+                        notes.slice().reverse().forEach((n, index) => {
                             const d = new Date(n.createdAt);
+                            const title = index === 0 ? "Call Log" : "Admin Note"; // Just a visual flair
+                            
                             notesContainer.innerHTML += \`
-                                <div class="bg-white border rounded p-3 mb-2 shadow-sm">
-                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
-                                        <span class="text-muted small fw-bold">Admin Note</span>
-                                        <small class="text-muted" style="font-size:0.75rem;">\${d.toLocaleDateString()} • \${d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small>
+                                <div class="note-card">
+                                    <div class="note-header">
+                                        <span>\${title}</span>
+                                        <span>\${d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })} • \${d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
                                     </div>
-                                    <p style="font-size:0.85rem; color: #444; margin:0; white-space: pre-wrap;">\${n.text}</p>
+                                    <p class="note-text">\${n.text}</p>
                                 </div>
                             \`;
                         });
