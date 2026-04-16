@@ -44,7 +44,7 @@ mongoose.connect(process.env.MONGO_URI)
 .catch(err => console.log("❌ MongoDB Error:", err));
 
 ////////////////////////////////////////////////////
-// SCHEMA (CRM FIELDS)
+// SCHEMA
 ////////////////////////////////////////////////////
 const contactSchema = new mongoose.Schema({
     name: String, email: String, phone: String, country: String,
@@ -130,7 +130,7 @@ app.get('/admin', isAdmin, async (req, res) => {
 
         let rows = "";
         contacts.forEach(c => {
-            const submittedDate = new Date(c.createdAt).toLocaleDateString();
+            const submittedDate = new Date(c.createdAt).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
             const submittedTime = new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             
             const cleanPhone = c.phone.replace(/[^0-9]/g, ''); 
@@ -140,62 +140,74 @@ app.get('/admin', isAdmin, async (req, res) => {
             const safeNotes = encodeURIComponent(JSON.stringify(c.notes));
             const safeConcern = c.message ? c.message.replace(/'/g, "\\'") : 'NA';
 
-            let stageBadge = "bg-secondary";
-            if(c.leadStage === "New Lead") stageBadge = "bg-primary";
-            if(c.leadStage === "Follow-up Pending") stageBadge = "bg-warning text-dark";
-            if(c.leadStage === "Converted / Closed") stageBadge = "bg-success";
+            // PREMIUM SOFT BADGES
+            let statusBadge = '';
+            if(c.status === "Approved") statusBadge = `<span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 fw-semibold"><i class="bi bi-check-circle-fill me-1"></i>Approved</span>`;
+            else if(c.status === "Rejected") statusBadge = `<span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-2 fw-semibold"><i class="bi bi-x-circle-fill me-1"></i>Rejected</span>`;
+            else statusBadge = `<span class="badge rounded-pill bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-3 py-2 fw-semibold"><i class="bi bi-clock-fill me-1"></i>Pending</span>`;
 
-            let followUpDisplay = '<span class="text-muted small">Not scheduled</span>';
+            let stageBadge = `<span class="badge rounded-pill bg-light text-secondary border px-3 py-2 fw-medium mt-2 d-inline-block"><i class="bi bi-funnel me-1"></i>${c.leadStage}</span>`;
+            if(c.leadStage === "New Lead") stageBadge = `<span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 fw-medium mt-2 d-inline-block"><i class="bi bi-funnel me-1"></i>${c.leadStage}</span>`;
+            if(c.leadStage === "Follow-up Pending") stageBadge = `<span class="badge rounded-pill bg-info bg-opacity-10 text-info border border-info border-opacity-25 px-3 py-2 fw-medium mt-2 d-inline-block"><i class="bi bi-funnel me-1"></i>${c.leadStage}</span>`;
+            if(c.leadStage === "Converted / Closed") stageBadge = `<span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 fw-medium mt-2 d-inline-block"><i class="bi bi-funnel me-1"></i>${c.leadStage}</span>`;
+
+            let followUpDisplay = '<span class="text-muted small fw-medium"><i class="bi bi-calendar-x me-1"></i>Not scheduled</span>';
             if (c.followUpDate) {
-                followUpDisplay = `<span class="text-primary fw-bold">📅 ${c.followUpDate}</span><br><span class="text-danger small">⏰ ${c.followUpTime || 'Time not set'}</span>`;
+                followUpDisplay = `<div class="d-flex align-items-center gap-2"><div class="bg-primary bg-opacity-10 text-primary p-2 rounded"><i class="bi bi-calendar-event"></i></div><div><span class="text-dark fw-bold d-block" style="font-size:0.85rem;">${c.followUpDate}</span><span class="text-danger fw-bold" style="font-size:0.75rem;">${c.followUpTime || 'Time not set'}</span></div></div>`;
             }
 
             let latestNotePreview = "";
             if (c.notes && c.notes.length > 0) {
                 const lastNote = c.notes[c.notes.length - 1].text;
                 const shortNote = lastNote.length > 35 ? lastNote.substring(0, 35) + '...' : lastNote;
-                latestNotePreview = `<br><div class="mt-1 p-2 bg-light border rounded small text-muted d-inline-block" style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${lastNote}">📝 ${shortNote}</div>`;
+                latestNotePreview = `<div class="mt-2 p-2 bg-light border rounded text-muted" style="max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.75rem;" title="${lastNote}"><i class="bi bi-chat-left-text me-1"></i>${shortNote}</div>`;
             }
 
             const initial = c.name ? c.name.charAt(0).toUpperCase() : '?';
 
-            // ADDED THE TIME TO THE TABLE ROWS HERE!
             rows += `
-            <tr class="align-middle">
-                <td>
+            <tr class="align-middle table-row-hover">
+                <td class="ps-4 py-3">
                     <div class="d-flex align-items-center">
                         <div class="patient-avatar shadow-sm me-3">${initial}</div>
                         <div>
-                            <a href="#" class="text-primary text-decoration-none fs-6 fw-bold" onclick="openCRMModal('${c._id}', '${c.name}', '${c.phone}', '${c.email}', '${c.status}', '${c.date}', '${c.time}', '${safeConcern}', '${c.leadStage}', '${c.followUpDate || ''}', '${c.followUpTime || ''}', '${safeNotes}', '${waLink}')">
+                            <a href="#" class="text-dark text-decoration-none fs-6 fw-bold crm-link" onclick="openCRMModal('${c._id}', '${c.name}', '${c.phone}', '${c.email}', '${c.status}', '${c.date}', '${c.time}', '${safeConcern}', '${c.leadStage}', '${c.followUpDate || ''}', '${c.followUpTime || ''}', '${safeNotes}', '${waLink}')">
                                 ${c.name}
                             </a>
-                            <br><small class="text-muted">${c.email || '-'}</small>
+                            <br><span class="text-muted" style="font-size:0.8rem;">${c.email || 'No email provided'}</span>
                         </div>
                     </div>
                 </td>
-                <td><span class="fw-medium text-dark">${c.phone}</span><br><small class="text-muted">${c.country}</small></td>
-                <td><strong class="text-dark">${c.department}</strong><br><small class="text-muted text-truncate d-inline-block" style="max-width: 150px;">${c.message || 'No details'}</small></td>
-                <td>
-                    <small class="text-muted d-block mb-1">Submit: ${submittedDate} <span class="fw-bold">${submittedTime}</span></small>
-                    <small class="text-dark d-block">Appt: <strong>${c.date || 'N/A'}</strong> <span class="fw-bold text-primary">${c.time || ''}</span></small>
+                <td class="py-3">
+                    <span class="fw-semibold text-dark" style="font-size:0.9rem;">${c.phone}</span><br>
+                    <span class="text-muted" style="font-size:0.8rem;">${c.country}</span>
                 </td>
-                <td>
-                    <span class="badge bg-${c.status === "Approved" ? "success" : c.status === "Rejected" ? "danger" : "warning text-dark"} mb-1 px-2 py-1">${c.status}</span><br>
-                    <span class="badge ${stageBadge} px-2 py-1"><i class="bi bi-funnel me-1"></i>${c.leadStage}</span>
+                <td class="py-3">
+                    <span class="fw-semibold text-dark" style="font-size:0.9rem;">${c.department}</span><br>
+                    <span class="text-muted text-truncate d-inline-block" style="max-width: 160px; font-size:0.8rem;" title="${c.message || 'No details'}">${c.message || 'No concern details provided'}</span>
                 </td>
-                <td>
+                <td class="py-3">
+                    <div class="d-flex flex-column gap-1">
+                        <span style="font-size:0.8rem;" class="text-muted">Inquiry: <span class="fw-semibold text-dark">${submittedDate}</span> <span class="text-muted">${submittedTime}</span></span>
+                        <span style="font-size:0.8rem;" class="text-muted">Appt: <span class="fw-bold text-primary">${c.date || 'N/A'}</span> <span class="text-primary fw-semibold">${c.time || ''}</span></span>
+                    </div>
+                </td>
+                <td class="py-3">
+                    ${statusBadge}<br>${stageBadge}
+                </td>
+                <td class="py-3">
                     ${followUpDisplay}
                     ${latestNotePreview}
                 </td>
-                <td>
-                    <div class="d-flex flex-wrap gap-1" style="max-width: 140px;">
-                        <a href="${waLink}" target="_blank" class="btn btn-sm btn-success w-100 text-start fw-bold shadow-sm" style="background-color: #25D366; border: none; font-size: 0.75rem;"><i class="bi bi-whatsapp"></i> Chat</a>
-                        <div class="d-flex gap-1 w-100">
-                            <a href="/approve/${c._id}" class="btn btn-sm btn-light border text-success flex-grow-1 shadow-sm" style="font-size: 0.75rem;" title="Approve"><i class="bi bi-check-lg fw-bold"></i></a>
-                            <a href="/reject/${c._id}" class="btn btn-sm btn-light border text-warning flex-grow-1 shadow-sm" style="font-size: 0.75rem;" title="Reject"><i class="bi bi-x-lg fw-bold"></i></a>
-                            <a href="/delete/${c._id}" class="btn btn-sm btn-light border text-danger flex-grow-1 shadow-sm" style="font-size: 0.75rem;" title="Delete" onclick="return confirm('Are you sure you want to delete this lead?');"><i class="bi bi-trash"></i></a>
+                <td class="pe-4 py-3 text-end">
+                    <div class="d-flex flex-column gap-2 align-items-end w-100" style="max-width: 140px; margin-left: auto;">
+                        <a href="${waLink}" target="_blank" class="btn btn-action-main w-100 text-start shadow-sm"><i class="bi bi-whatsapp"></i> Chat</a>
+                        <div class="d-flex gap-2 w-100">
+                            <a href="/approve/${c._id}" class="btn btn-action-icon text-success flex-grow-1 shadow-sm" title="Approve"><i class="bi bi-check-lg"></i></a>
+                            <a href="/reject/${c._id}" class="btn btn-action-icon text-warning flex-grow-1 shadow-sm" title="Reject"><i class="bi bi-x-lg"></i></a>
+                            <a href="/delete/${c._id}" class="btn btn-action-icon text-danger flex-grow-1 shadow-sm" title="Delete" onclick="return confirm('Delete this lead permanently?');"><i class="bi bi-trash3"></i></a>
                         </div>
-                        ${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-sm btn-outline-primary w-100 mt-1 shadow-sm" style="font-size: 0.75rem;"><i class="bi bi-file-earmark-medical"></i> View Report</a>` : ''}
+                        ${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-action-secondary w-100 mt-1 shadow-sm"><i class="bi bi-file-earmark-medical"></i> View Report</a>` : ''}
                     </div>
                 </td>
             </tr>`;
@@ -203,39 +215,77 @@ app.get('/admin', isAdmin, async (req, res) => {
 
         res.send(`
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
         <head>
-            <title>Surgical Route Admin Dashboard</title>
+            <meta charset="UTF-8">
+            <title>Surgical Route | Lead Management</title>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <style>
-                body { background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #334155;}
+                /* MODERN SAAS UI DESIGN */
+                :root {
+                    --bg-main: #f8fafc;
+                    --bg-card: #ffffff;
+                    --text-main: #0f172a;
+                    --text-muted: #64748b;
+                    --border-color: #e2e8f0;
+                    --primary: #2563eb;
+                    --primary-hover: #1d4ed8;
+                }
+                body { background-color: var(--bg-main); font-family: 'Inter', sans-serif; color: var(--text-main); -webkit-font-smoothing: antialiased; }
                 
-                .admin-header { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 50px 20px 70px 20px; text-align: center; position: relative; border-bottom: 4px solid #f59e0b; }
-                .admin-header h1 { color: white; font-weight: 800; font-size: 2.5rem; margin-bottom: 5px; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);}
-                .admin-header p { color: #e0e7ff; font-size: 1.05rem; margin: 0; font-weight: 500;}
-                .admin-header .logout-btn { position: absolute; right: 30px; top: 30px; background: rgba(255,255,255,0.2); border-radius: 8px; font-weight: 600; padding: 8px 24px; color: white; text-decoration: none; transition: 0.2s; backdrop-filter: blur(5px);}
-                .admin-header .logout-btn:hover { background-color: white; color: #1e3a8a; }
+                /* TOP NAVBAR */
+                .saas-navbar { background-color: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);}
+                .brand { font-weight: 800; font-size: 1.25rem; color: var(--text-main); display: flex; align-items: center; gap: 8px;}
+                .logout-btn { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: 0.2s;}
+                .logout-btn:hover { background-color: #f1f5f9; color: var(--text-main); }
 
-                .stats-container { margin-top: -40px; position: relative; z-index: 10; }
-                .stat-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); text-align: left; height: 100%; border-left: 5px solid transparent; }
-                .stat-primary { border-left-color: #3b82f6; }
-                .stat-warning { border-left-color: #f59e0b; }
-                .stat-success { border-left-color: #10b981; }
-                .stat-danger { border-left-color: #ef4444; }
-                .stat-title { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;}
-                .stat-value { font-size: 2rem; font-weight: 800; color: #0f172a; line-height: 1;}
+                /* PAGE HEADER */
+                .page-header { padding: 32px; display: flex; justify-content: space-between; align-items: flex-end; }
+                .page-title h1 { font-weight: 800; font-size: 1.8rem; margin: 0; color: var(--text-main); letter-spacing: -0.5px;}
+                .page-title p { color: var(--text-muted); margin: 4px 0 0 0; font-size: 0.95rem; }
 
-                .control-panel { background: white; border-radius: 12px; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 20px; }
-                .table-container { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e2e8f0; }
+                /* STAT CARDS */
+                .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: 0.2s; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);}
+                .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06); }
+                .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+                .icon-primary { background: #eff6ff; color: #3b82f6; }
+                .icon-warning { background: #fffbeb; color: #f59e0b; }
+                .icon-success { background: #ecfdf5; color: #10b981; }
+                .icon-danger { background: #fef2f2; color: #ef4444; }
+                .stat-info h3 { font-size: 1.5rem; font-weight: 800; margin: 0; line-height: 1.2; color: var(--text-main);}
+                .stat-info p { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 0;}
+
+                /* TABLE CONTAINER & CONTROLS */
+                .table-wrapper { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); margin: 0 32px 32px 32px; overflow: hidden; }
+                .table-toolbar { padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background-color: #ffffff;}
+                
+                .search-box { position: relative; width: 300px; }
+                .search-box input { padding: 8px 16px 8px 36px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; font-size: 0.9rem; outline: none; transition: 0.2s;}
+                .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+                .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+                /* THE PREMIUM TABLE */
                 .table { margin-bottom: 0; }
-                .table thead th { font-size: 0.75rem; text-transform: uppercase; color: #64748b; background-color: #f8fafc; font-weight: 700; padding: 15px; border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;}
-                .table tbody td { padding: 15px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
-                .table tbody tr:hover { background-color: #f8fafc; }
+                .table thead th { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); background-color: #f8fafc; padding: 12px 16px; border-bottom: 1px solid var(--border-color); letter-spacing: 0.5px;}
+                .table tbody td { border-bottom: 1px solid var(--border-color); }
+                .table-row-hover:hover { background-color: #f8fafc; transition: 0.2s;}
                 
-                .patient-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #1d4ed8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; border: 2px solid #bfdbfe; }
+                .patient-avatar { width: 40px; height: 40px; border-radius: 50%; background: #eff6ff; color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; border: 1px solid #bfdbfe; }
+                .crm-link { transition: color 0.2s; }
+                .crm-link:hover { color: var(--primary) !important; text-decoration: underline !important; }
 
-                .modal-content { border-radius: 16px; border: none; overflow: hidden; }
+                /* TABLE BUTTONS */
+                .btn-action-main { background-color: #25D366; color: white; border-radius: 6px; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: 0.2s; display: inline-block;}
+                .btn-action-main:hover { background-color: #128C7E; color: white; }
+                .btn-action-secondary { background-color: #f1f5f9; color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: 0.2s; text-align: center;}
+                .btn-action-secondary:hover { background-color: #e2e8f0; }
+                .btn-action-icon { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; width: 100%; height: 28px; display: flex; align-items: center; justify-content: center; transition: 0.2s; text-decoration:none;}
+                .btn-action-icon:hover { background-color: #f8fafc; }
+
+                /* MODAL STYLING (KEPT CLEAN AND CONSISTENT) */
+                .modal-content { border-radius: 16px; border: none; overflow: hidden; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
                 .crm-section-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; }
                 .crm-sub-title { font-size: 0.8rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1.5rem; margin-bottom: 1rem; }
                 .info-box { background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; padding: 12px 16px; height: 100%; }
@@ -253,103 +303,121 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .dbl-click-hint { font-size: 0.6rem; color: #94a3b8; position: absolute; bottom: 6px; right: 12px; opacity: 0; transition: 0.2s; }
                 .note-card:hover .dbl-click-hint { opacity: 1; }
                 .btn-action { white-space: nowrap; font-size: 0.85rem; padding: 12px 8px; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; text-decoration: none;}
-                .btn-blue { background-color: #1e40af; color: white; border: none; border-radius: 10px; transition: 0.2s; }
-                .btn-blue:hover { background-color: #1e3a8a; color: white; }
+                .btn-blue { background-color: #2563eb; color: white; border: none; border-radius: 10px; transition: 0.2s; }
+                .btn-blue:hover { background-color: #1d4ed8; color: white; }
                 .btn-green { background-color: #16a34a; color: white; border: none; border-radius: 10px; transition: 0.2s; }
                 .btn-green:hover { background-color: #15803d; color: white; }
-                .btn-gray { background-color: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; border-radius: 10px; transition: 0.2s; }
-                .btn-gray:hover { background-color: #e2e8f0; color: #0f172a;}
+                .btn-gray { background-color: #ffffff; color: #334155; border: 1px solid #e2e8f0; border-radius: 10px; transition: 0.2s; }
+                .btn-gray:hover { background-color: #f8fafc; color: #0f172a;}
                 #notesContainer::-webkit-scrollbar { width: 6px; }
                 #notesContainer::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
                 #notesContainer::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-                .dashed-activity { border-top: 1px dashed #cbd5e1; margin-top: auto; padding-top: 16px; }
             </style>
         </head>
         <body>
-            <div class="admin-header">
-                <h1>Surgical Route CRM</h1>
-                <p>Manage patient leads, appointments, and follow-ups beautifully.</p>
-                <a href="/logout" class="logout-btn"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+            <nav class="saas-navbar">
+                <div class="brand">
+                    <i class="bi bi-heart-pulse-fill text-primary fs-4"></i>
+                    Surgical Route CRM
+                </div>
+                <a href="/logout" class="logout-btn"><i class="bi bi-box-arrow-right me-2"></i>Log out</a>
+            </nav>
+
+            <div class="page-header px-4 px-md-5">
+                <div class="page-title">
+                    <h1>Lead Management</h1>
+                    <p>Track patient inquiries, update CRM stages, and schedule follow-ups.</p>
+                </div>
+                <div>
+                    <a href="/export" class="btn btn-outline-secondary fw-bold bg-white shadow-sm"><i class="bi bi-download me-2"></i>Export Excel</a>
+                </div>
             </div>
 
-            <div class="container-fluid px-4 px-md-5 pb-5">
-                
-                <div class="row g-3 stats-container mb-4">
+            <div class="px-4 px-md-5 mb-4">
+                <div class="row g-4">
                     <div class="col-md-3">
-                        <div class="stat-card stat-primary">
-                            <div class="stat-title">Total Inquiries</div>
-                            <div class="stat-value text-primary">${total}</div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-primary"><i class="bi bi-people-fill"></i></div>
+                            <div class="stat-info">
+                                <p>Total Leads</p>
+                                <h3>${total}</h3>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="stat-card stat-warning">
-                            <div class="stat-title">Pending Review</div>
-                            <div class="stat-value text-warning">${pending}</div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-warning"><i class="bi bi-hourglass-split"></i></div>
+                            <div class="stat-info">
+                                <p>Pending Review</p>
+                                <h3>${pending}</h3>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="stat-card stat-success">
-                            <div class="stat-title">Approved Leads</div>
-                            <div class="stat-value text-success">${approved}</div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-success"><i class="bi bi-check-circle-fill"></i></div>
+                            <div class="stat-info">
+                                <p>Approved</p>
+                                <h3>${approved}</h3>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="stat-card stat-danger">
-                            <div class="stat-title">Rejected</div>
-                            <div class="stat-value text-danger">${rejected}</div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-danger"><i class="bi bi-x-circle-fill"></i></div>
+                            <div class="stat-info">
+                                <p>Rejected</p>
+                                <h3>${rejected}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="control-panel d-flex flex-wrap gap-3 align-items-center justify-content-between">
-                    <form method="GET" class="d-flex gap-2 flex-grow-1 align-items-center" style="max-width: 600px;">
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
-                            <input name="search" value="${search}" class="form-control border-start-0 bg-light" placeholder="Search by patient name...">
+            </div>
+
+            <div class="table-wrapper">
+                <div class="table-toolbar">
+                    <form method="GET" class="d-flex gap-3 m-0 w-100">
+                        <div class="search-box flex-grow-1" style="max-width: 400px;">
+                            <i class="bi bi-search"></i>
+                            <input type="text" name="search" value="${search}" placeholder="Search patient name..." onchange="this.form.submit()">
                         </div>
-                        <button type="submit" class="btn btn-primary fw-bold px-4">Search</button>
+                        <div class="d-flex gap-2">
+                            <a href="/admin?filter=followup" class="btn btn-light border fw-semibold text-dark shadow-sm"><i class="bi bi-calendar-check me-2 text-warning"></i>Scheduled Calls</a>
+                            <a href="/admin" class="btn btn-light border fw-semibold text-muted">Clear</a>
+                        </div>
                     </form>
-                    
-                    <div class="d-flex gap-2 align-items-center">
-                        <div class="pe-3 border-end d-flex gap-2">
-                            <a href="/admin?filter=followup" class="btn btn-warning fw-bold text-dark shadow-sm"><i class="bi bi-calendar-check me-1"></i>Scheduled Follow-ups</a>
-                            <a href="/admin" class="btn btn-light border fw-bold text-muted">Clear</a>
-                        </div>
-                        <a href="/export" class="btn btn-success fw-bold shadow-sm"><i class="bi bi-file-earmark-excel me-1"></i>Export Data</a>
-                    </div>
                 </div>
 
-                <div class="table-container">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Patient Profile</th>
-                                    <th>Contact Info</th>
-                                    <th>Department</th>
-                                    <th>Timeline</th>
-                                    <th>Pipeline Stage</th>
-                                    <th>CRM Activity</th>
-                                    <th class="text-center">Quick Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted"><h4><i class="bi bi-inbox fs-1 d-block mb-3 text-light"></i></h4>No patients found in the database.</td></tr>'}</tbody>
-                        </table>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">Patient Profile</th>
+                                <th>Contact Info</th>
+                                <th>Department</th>
+                                <th>Timeline</th>
+                                <th>Pipeline Stage</th>
+                                <th>CRM Activity</th>
+                                <th class="pe-4 text-end">Quick Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted"><div class="py-5"><i class="bi bi-inbox text-secondary opacity-25" style="font-size: 4rem;"></i><h5 class="mt-3 text-dark fw-bold">No leads found</h5><p>There are no patients matching your criteria.</p></div></td></tr>'}</tbody>
+                    </table>
                 </div>
                 
-                <div class="mt-4 d-flex justify-content-between align-items-center bg-white p-3 rounded border shadow-sm">
-                    <span class="text-muted fw-bold small">Showing Page ${page}</span>
-                    <div class="btn-group shadow-sm">
-                        <a href="/admin?page=${page - 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-light border text-primary fw-bold px-3 ${page <= 1 ? 'disabled' : ''}">Previous</a>
-                        <a href="/admin?page=${page + 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-light border text-primary fw-bold px-3">Next</a>
+                <div class="px-4 py-3 border-top bg-light d-flex justify-content-between align-items-center">
+                    <span class="text-muted fw-medium" style="font-size: 0.85rem;">Showing Page ${page}</span>
+                    <div class="btn-group shadow-sm border rounded bg-white">
+                        <a href="/admin?page=${page - 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-light border-0 text-dark fw-semibold px-3 py-2 ${page <= 1 ? 'disabled' : ''}">Previous</a>
+                        <div class="border-start"></div>
+                        <a href="/admin?page=${page + 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-light border-0 text-dark fw-semibold px-3 py-2">Next</a>
                     </div>
                 </div>
             </div>
 
             <div class="modal fade" id="crmModal" tabindex="-1">
                 <div class="modal-dialog modal-xl">
-                    <div class="modal-content shadow-lg">
+                    <div class="modal-content">
                         
                         <div class="modal-header border-0 pb-0 pt-3 px-4">
                             <div class="ms-auto d-flex gap-2 pe-3">
@@ -407,9 +475,9 @@ app.get('/admin', isAdmin, async (req, res) => {
                                         </div>
                                         
                                         <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-blue fw-bold btn-action">Save Follow-up</button>
-                                            <a href="#" id="m_approveBtn" class="btn btn-green fw-bold btn-action">Update Status</a>
-                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-gray fw-bold btn-action">Open WhatsApp</a>
+                                            <button type="submit" class="btn btn-blue fw-bold btn-action shadow-sm">Save Follow-up</button>
+                                            <a href="#" id="m_approveBtn" class="btn btn-green fw-bold btn-action shadow-sm">Update Status</a>
+                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-gray fw-bold btn-action shadow-sm">Open WhatsApp</a>
                                         </div>
                                     </form>
                                 </div>
@@ -424,8 +492,8 @@ app.get('/admin', isAdmin, async (req, res) => {
                                         </div>
                                         
                                         <div class="d-flex gap-2 mb-4">
-                                            <button type="submit" class="btn btn-blue fw-bold btn-action">Save Note</button>
-                                            <button type="button" id="toggleHistoryBtn" class="btn btn-gray fw-bold btn-action" onclick="toggleHistory()">View History</button>
+                                            <button type="submit" class="btn btn-blue fw-bold btn-action shadow-sm">Save Note</button>
+                                            <button type="button" id="toggleHistoryBtn" class="btn btn-gray fw-bold btn-action shadow-sm" onclick="toggleHistory()">View History</button>
                                         </div>
                                     </form>
 
@@ -435,7 +503,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                                         </div>
                                     </div>
                                     
-                                    <div class="dashed-activity mt-auto">
+                                    <div class="dashed-activity mt-auto pt-3" style="border-top: 1px dashed var(--border-color);">
                                         <p class="mb-0 text-center text-muted" style="font-size: 0.75rem;"><strong>Activity:</strong> inquiry received &rarr; contacted &rarr; note added &rarr; follow-up scheduled</p>
                                     </div>
                                     
@@ -455,7 +523,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                         </div>
                         <div class="modal-body p-4">
                             <div class="bg-white p-4 rounded border shadow-sm">
-                                <p id="fullNoteContent" style="white-space: pre-wrap; word-break: break-word; color: #1e293b; font-size: 1rem; line-height: 1.7; margin: 0;"></p>
+                                <p id="fullNoteContent" style="white-space: pre-wrap; word-break: break-word; color: #1e293b; font-size: 0.95rem; line-height: 1.7; margin: 0;"></p>
                             </div>
                         </div>
                         <div class="modal-footer border-top-0 pt-0">
