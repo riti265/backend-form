@@ -193,9 +193,16 @@ app.get('/admin', isAdmin, async (req, res) => {
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <style>
-                body { background-color: #f4f6f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+                body { background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
                 .table th { font-size: 0.85rem; text-transform: uppercase; color: #6c757d; background-color: #e9ecef; }
                 
+                /* BIG BLUE BANNER HEADER */
+                .admin-header { background-color: #1a56db; padding: 45px 20px; text-align: center; position: relative; }
+                .admin-header h1 { color: white; font-weight: 800; font-size: 2.8rem; margin-bottom: 8px; letter-spacing: -0.5px; }
+                .admin-header p { color: #e0e7ff; font-size: 1.1rem; margin: 0; }
+                .admin-header .logout-btn { position: absolute; right: 30px; top: 50%; transform: translateY(-50%); border-radius: 8px; font-weight: 600; padding: 8px 24px; border: 1px solid white; color: white; text-decoration: none; transition: 0.2s;}
+                .admin-header .logout-btn:hover { background-color: white; color: #1a56db; }
+
                 /* Modal Styling */
                 .modal-content { border-radius: 16px; border: none; overflow: hidden; }
                 .crm-section-title { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; }
@@ -214,11 +221,11 @@ app.get('/admin', isAdmin, async (req, res) => {
                 .note-textarea { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; width: 100%; resize: none; outline: none; font-size: 0.95rem; color: #334155; transition: 0.2s;}
                 .note-textarea:focus { border-color: #94a3b8; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);}
                 
-                /* UPDATED NOTE CARD - Prevent overflow & enable clicking */
+                /* UPDATED NOTE CARD */
                 .note-card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,0.02); cursor: pointer; transition: 0.2s; position: relative;}
                 .note-card:hover { background-color: #f8fafc; border-color: #cbd5e1; }
                 .note-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;}
-                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.6; word-break: break-word; overflow-wrap: break-word; /* FIXES THE OVERFLOW */ }
+                .note-text { font-size: 0.9rem; color: #334155; margin: 0; line-height: 1.6; word-break: break-word; overflow-wrap: break-word; }
                 .dbl-click-hint { font-size: 0.6rem; color: #94a3b8; position: absolute; bottom: 6px; right: 12px; opacity: 0; transition: 0.2s; }
                 .note-card:hover .dbl-click-hint { opacity: 1; }
                 
@@ -239,48 +246,59 @@ app.get('/admin', isAdmin, async (req, res) => {
             </style>
         </head>
         <body class="p-4">
-            <div class="container-fluid bg-white rounded shadow-sm p-4 border-top border-primary border-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="fw-bold m-0"><i class="bi bi-heart-pulse text-primary me-2"></i>Surgical Route CRM</h3>
-                    <a href="/logout" class="btn btn-outline-danger btn-sm">Logout</a>
-                </div>
+            <div class="container-fluid bg-white rounded shadow-sm p-0 overflow-hidden border-0">
                 
-                <form method="GET" class="d-flex gap-2 mb-4 align-items-center bg-light p-3 rounded border">
-                    <input name="search" value="${search}" class="form-control w-25 border-secondary" placeholder="Search patient name...">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                    
-                    <div class="ms-3 border-start ps-3 d-flex gap-2">
-                        <a href="/admin?filter=followup" class="btn btn-warning fw-bold text-dark"><i class="bi bi-calendar-check me-1"></i>Scheduled Follow-ups</a>
-                        <a href="/admin" class="btn btn-outline-secondary">Clear Filter</a>
-                    </div>
-                    <a href="/export" class="btn btn-success ms-auto"><i class="bi bi-file-earmark-excel me-1"></i>Export Data</a>
-                </form>
+                <div class="admin-header">
+                    <h1>Surgical Route Admin Panel</h1>
+                    <p>Click any lead to open notes, follow-up, and CRM details</p>
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
 
-                <div class="table-responsive border rounded">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>Patient Name</th>
-                                <th>Contact Details</th>
-                                <th>Dept & Concern</th>
-                                <th>Dates</th>
-                                <th>Status & Stage</th>
-                                <th>Next Follow-up & Note</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted">No patients found.</td></tr>'}</tbody>
-                    </table>
-                </div>
-                
-                <div class="mt-4 d-flex justify-content-between align-items-center">
-                    <span class="text-muted small">Showing page ${page}</span>
-                    <div class="btn-group">
-                        <a href="/admin?page=${page - 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-outline-primary ${page <= 1 ? 'disabled' : ''}">Previous</a>
-                        <a href="/admin?page=${page + 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-outline-primary">Next</a>
+                <div class="p-4 p-md-5">
+                    
+                    <div class="row g-3 mb-4 text-center">
+                        <div class="col-md-3"><div class="p-3 bg-primary bg-opacity-10 text-primary border border-primary rounded fw-bold">Total Inquiries: ${total}</div></div>
+                        <div class="col-md-3"><div class="p-3 bg-warning bg-opacity-10 text-warning border border-warning rounded fw-bold">Pending Review: ${pending}</div></div>
+                        <div class="col-md-3"><div class="p-3 bg-success bg-opacity-10 text-success border border-success rounded fw-bold">Approved: ${approved}</div></div>
+                        <div class="col-md-3"><div class="p-3 bg-danger bg-opacity-10 text-danger border border-danger rounded fw-bold">Rejected: ${rejected}</div></div>
                     </div>
-                </div>
-            </div>
+                    
+                    <form method="GET" class="d-flex gap-2 mb-4 align-items-center bg-light p-3 rounded border">
+                        <input name="search" value="${search}" class="form-control w-25 border-secondary" placeholder="Search patient name...">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        
+                        <div class="ms-3 border-start ps-3 d-flex gap-2">
+                            <a href="/admin?filter=followup" class="btn btn-warning fw-bold text-dark"><i class="bi bi-calendar-check me-1"></i>Scheduled Follow-ups</a>
+                            <a href="/admin" class="btn btn-outline-secondary">Clear Filter</a>
+                        </div>
+                        <a href="/export" class="btn btn-success ms-auto"><i class="bi bi-file-earmark-excel me-1"></i>Export Data</a>
+                    </form>
+
+                    <div class="table-responsive border rounded">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Contact Details</th>
+                                    <th>Dept & Concern</th>
+                                    <th>Dates</th>
+                                    <th>Status & Stage</th>
+                                    <th>Next Follow-up & Note</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted">No patients found.</td></tr>'}</tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between align-items-center">
+                        <span class="text-muted small">Showing page ${page}</span>
+                        <div class="btn-group">
+                            <a href="/admin?page=${page - 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-outline-primary ${page <= 1 ? 'disabled' : ''}">Previous</a>
+                            <a href="/admin?page=${page + 1}${filter ? '&filter='+filter : ''}" class="btn btn-sm btn-outline-primary">Next</a>
+                        </div>
+                    </div>
+                </div> </div>
 
             <div class="modal fade" id="crmModal" tabindex="-1">
                 <div class="modal-dialog modal-xl">
