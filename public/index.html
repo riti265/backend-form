@@ -128,7 +128,14 @@ p,
     line-height:30px !important;
     color: rgba(33,37,41,0.74);
 }
+.step-card h5 {
+    color: #0056b3 !important; 
+}
 
+/* 2. Step Numbers (1, 2, 3...) ko Black karne ke liye */
+.step-number {
+    background: #000000 !important;
+}
 
 
   
@@ -300,9 +307,9 @@ p,
             transition: transform 0.3s;
         }
         .stats-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .stats-number { font-size: 2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; line-height: 1; }
-        .stats-label { color: var(--text-grey); font-size: 0.9rem; font-weight: 500; }
-        .stats-icon { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: var(--primary-blue); opacity: 0.15; }
+        .stats-number { font-size: 2rem; font-weight: 800; color: #000000 !important; margin-bottom: 5px; line-height: 1; }
+        .stats-label { color: #333333 !important; font-size: 0.9rem; font-weight: 500; }
+        .stats-icon { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: #0056b3 !important; opacity: 0.4; }
 
         /* Treatments */
         .treatment-card {
@@ -326,6 +333,12 @@ p,
             border-radius: 10px;
             transition: background 0.3s;
         }
+        .bg-light-blue h3.fw-bold {
+    color: #000000 !important;
+}
+h3.text-center.mb-5.fw-bold {
+    color: #000000 !important;
+}
         .feature-box:hover { background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .feature-box-icon {
             min-width: 45px;
@@ -366,8 +379,8 @@ p,
             transform: translateY(20px); transition: transform 0.4s;
         }
         .gallery-item:hover .gallery-overlay { transform: translateY(0); }
-        .gallery-location { font-size: 1.3rem; font-weight: 700; display: block; }
-        .gallery-desc { font-size: 0.85rem; opacity: 0; transition: opacity 0.4s ease 0.1s; margin-top: 5px; }
+        .gallery-location { font-size: 1.3rem; font-weight: 700; display: block;color: #000000 !important; }
+        .gallery-desc { font-size: 0.85rem; opacity: 0; transition: opacity 0.4s ease 0.1s;color: #000000 !important; margin-top: 5px; }
         .gallery-item:hover .gallery-desc { opacity: 1; }
 
         /* Testimonials */
