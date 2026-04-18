@@ -422,9 +422,10 @@ app.get('/admin', isAdmin, async (req, res) => {
                                         <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold">Update CRM</button>
                                         
                                         <div class="d-flex gap-2 mt-2">
-                                            <a href="#" id="m_approveBtn" class="btn btn-success btn-sm w-50 fw-bold">Approve Lead</a>
-                                            <a href="#" id="m_waBtn" target="_blank" class="btn btn-success btn-sm w-50 fw-bold" style="background:#25D366; border:none;"><i class="bi bi-whatsapp"></i> WhatsApp</a>
-                                        </div>
+    <a href="#" id="m_approveBtn" class="btn btn-success btn-sm w-100 fw-bold">Approve</a>
+    <a href="#" id="m_rejectBtn" class="btn btn-danger btn-sm w-100 fw-bold">Reject</a>
+    <a href="#" id="m_waBtn" target="_blank" class="btn btn-success btn-sm w-100 fw-bold" style="background:#25D366; border:none;"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+</div>
                                     </form>
                                 </div>
                                 
@@ -460,6 +461,7 @@ app.get('/admin', isAdmin, async (req, res) => {
                     document.getElementById('crmForm').action = '/admin/crm/' + id;
                     document.getElementById('noteForm').action = '/admin/note/' + id;
                     document.getElementById('m_approveBtn').href = '/approve/' + id;
+                    document.getElementById('m_rejectBtn').href = '/reject/' + id;
 
                     const notesContainer = document.getElementById('notesContainer');
                     notesContainer.innerHTML = '';
