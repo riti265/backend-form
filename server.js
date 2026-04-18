@@ -162,6 +162,11 @@ app.get('/admin', isAdmin, async (req, res) => {
                 latestNotePreview = `<div class="mt-2 p-2 bg-light border rounded text-muted" style="max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.75rem;" title="${lastNote}"><i class="bi bi-chat-left-text me-1"></i>${shortNote}</div>`;
             }
 
+            // ADDED: Logic to display Report file or "No File"
+            const reportDisplay = c.report 
+                ? `<a target="_blank" href="/uploads/${c.report}" class="text-info fw-bold text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.85rem;"><i class="bi bi-file-earmark-medical-fill fs-5"></i> View File</a>` 
+                : `<span class="text-muted small">No File</span>`;
+
             const initial = c.name ? c.name.charAt(0).toUpperCase() : '?';
 
             rows += `
@@ -192,6 +197,9 @@ app.get('/admin', isAdmin, async (req, res) => {
                     </div>
                 </td>
                 <td class="py-3">
+                    ${reportDisplay}
+                </td>
+                <td class="py-3">
                     ${statusBadge}<br>${stageBadge}
                 </td>
                 <td class="py-3">
@@ -206,7 +214,6 @@ app.get('/admin', isAdmin, async (req, res) => {
                             <a href="/reject/${c._id}" class="btn btn-action-icon text-warning flex-grow-1 shadow-sm" title="Reject"><i class="bi bi-x-lg"></i></a>
                             <a href="/delete/${c._id}" class="btn btn-action-icon text-danger flex-grow-1 shadow-sm" title="Delete" onclick="return confirm('Delete this lead permanently?');"><i class="bi bi-trash3"></i></a>
                         </div>
-                        ${c.report ? `<a target="_blank" href="/uploads/${c.report}" class="btn btn-action-secondary w-100 mt-1 shadow-sm"><i class="bi bi-file-earmark-medical"></i> View Report</a>` : ''}
                     </div>
                 </td>
             </tr>`;
@@ -390,12 +397,13 @@ app.get('/admin', isAdmin, async (req, res) => {
                                 <th>Contact Info</th>
                                 <th>Department</th>
                                 <th>Timeline</th>
+                                <th>Report</th>
                                 <th>Pipeline Stage</th>
                                 <th>CRM Activity</th>
                                 <th class="pe-4 text-end">Quick Actions</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="7" class="text-center py-5 text-muted"><div class="py-5"><i class="bi bi-inbox text-secondary opacity-25" style="font-size: 4rem;"></i><h5 class="mt-3 text-dark fw-bold">No leads found</h5><p>There are no patients matching your criteria.</p></div></td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="8" class="text-center py-5 text-muted"><div class="py-5"><i class="bi bi-inbox text-secondary opacity-25" style="font-size: 4rem;"></i><h5 class="mt-3 text-dark fw-bold">No leads found</h5><p>There are no patients matching your criteria.</p></div></td></tr>'}</tbody>
                     </table>
                 </div>
                 
@@ -687,6 +695,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
+// ADDED: Report column to Excel Export
 app.get('/export', isAdmin, async (req, res) => {
     const contacts = await Contact.find().sort({ createdAt: -1 });
     const workbook = new ExcelJS.Workbook();
@@ -696,7 +705,7 @@ app.get('/export', isAdmin, async (req, res) => {
         { header: 'Phone', key: 'phone' }, { header: 'Country', key: 'country' },
         { header: 'Dept', key: 'department' }, { header: 'Date', key: 'date' },
         { header: 'Time', key: 'time' }, { header: 'Status', key: 'status' },
-        { header: 'Stage', key: 'leadStage' }
+        { header: 'Stage', key: 'leadStage' }, { header: 'Report File', key: 'report' } // <--- Added Report File Here
     ];
     contacts.forEach(c => worksheet.addRow(c));
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
