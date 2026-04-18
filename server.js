@@ -62,9 +62,17 @@ const contactSchema = new mongoose.Schema({
 
 const Contact = mongoose.model('Contact', contactSchema);
 
+
 ////////////////////////////////////////////////////
 // FILE UPLOAD (MULTER)
 ////////////////////////////////////////////////////
+const fs = require('fs');
+
+// Check if uploads folder exists, if not, create it automatically
+if (!fs.existsSync('./uploads')) {
+    fs.mkdirSync('./uploads');
+}
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
