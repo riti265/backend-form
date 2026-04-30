@@ -11,16 +11,19 @@ const helmet = require('helmet');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-////////////////////////////////////////////////////
+////////////////////////////////////////////////
 // MIDDLEWARE
-////////////////////////////////////////////////////
-app.set('trust proxy', 1); 
+////////////////////////////////////////////////
+app.set('trust proxy', 1);
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Static Folders
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/image', express.static(path.join(__dirname, 'image')));
 
 app.use(session({
     secret: process.env.SESSION_SECRET || 'fallbackSecret123',
